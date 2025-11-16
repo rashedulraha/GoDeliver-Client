@@ -37,7 +37,9 @@ const Navbar = () => {
                 {MenuLink}
               </ul>
             </div>
-            <a className="font-bold text-xl flex gap-1 justify-center items-center ">
+            <a
+              href="/"
+              className="font-bold text-xl flex gap-1 justify-center items-center ">
               <span className="hidden sm:flex">
                 <TbTruckDelivery size={30} />
               </span>{" "}
