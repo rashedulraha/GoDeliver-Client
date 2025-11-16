@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+
+  /* ! Primary: Energetic Yellow-Orange (Speed & Urgency)  */
+  --color-primary: #f59e0b; /* Main CTA, Buttons */
+  --color-primary-focus: #d97706;
+
+  /*! Secondary: Soft Peach (Background, Cards) */
+  --color-secondary: #fff8f1; /*? Light warm background */
+  --color-secondary-focus: #fde68a;
+
+  /*! Accent: Red for "Live", "Urgent", "Track Now" */
+  --color-accent: #ef4444;
+  --color-accent-focus: #dc2626;
+
+  /*! Success: Delivery Complete */
+  --color-success: #10b981;
+  --color-success-focus: #059669;
+
+  /*! Text & Dark Elements */
+  --color-neutral: #1f2937; /*? Dark Text, Icons */
+  --color-neutral-focus: #111827;
+
+  /*! Backgrounds */
+  --color-base-100: #ffffff; /* Card, Modal */
+  --color-base-200: #f9fafb; /* Hover */
+  --color-base-300: #f3f4f6; /* Border */
+
+  /* !Info (Rider Online, Map Pin) */
+  --color-info: #3b82f6;
+}
