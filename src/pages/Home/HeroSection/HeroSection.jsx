@@ -3,23 +3,21 @@ import Container from "../../Responsive/Container";
 
 const HeroSection = () => {
   return (
-    <div className="bg-base-200 ">
-      <Container>
-        <div className="hero   min-h-screen ">
-          <div className="hero-content text-center">
-            <div className="max-w-md">
-              <h1 className="text-5xl font-bold">Hello there</h1>
-              <p className="py-6">
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                assumenda excepturi exercitationem quasi. In deleniti eaque aut
-                repudiandae et a id nisi.
-              </p>
-              <button className="btn btn-primary">Get Started</button>
-            </div>
+    <Container>
+      <div className="hero  min-h-screen ">
+        <div className="hero-content text-center">
+          <div className="max-w-md">
+            <h1 className="text-5xl font-bold">Go Deliver</h1>
+            <p className="py-6">
+              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.
+            </p>
+            <button className="btn ">Get Started</button>
           </div>
         </div>
-      </Container>
-    </div>
+      </div>
+    </Container>
   );
 };
 

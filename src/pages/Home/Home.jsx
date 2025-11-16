@@ -3,6 +3,8 @@ import HeroSection from "./HeroSection/HeroSection";
 import HowItWorks from "../Shared/HowItWorks/HowItWorks";
 import OurServices from "../Shared/OurServices/OurServices";
 import Marque from "../Shared/Marque/Marque";
+import Features from "../Shared/Features/Features";
+import FrequentlyAsked from "../Shared/FrequentlyAsked/FrequentlyAsked";
 
 const Home = () => {
   return (
@@ -11,6 +13,8 @@ const Home = () => {
       <HowItWorks />
       <OurServices />
       <Marque />
+      <Features />
+      <FrequentlyAsked />
     </div>
   );
 };
