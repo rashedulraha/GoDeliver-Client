@@ -8,36 +8,42 @@
 @import "tailwindcss";
 @plugin "daisyui";
 @plugin "daisyui/theme" {
-  name: "light";
-  default: true;
+  themes: light --default;
 
-  /* ! Primary: Energetic Yellow-Orange (Speed & Urgency)  */
-  --color-primary: #f59e0b; /* Main CTA, Buttons */
-  --color-primary-focus: #d97706;
+  /* Primary: Vivid Orange (Speed & Urgency) */
+  --color-primary: #ff6b35; /* Main CTA, Buttons */
+  --color-primary-focus: #e55a2b; /* Hover / focus */
 
-  /*! Secondary: Soft Peach (Background, Cards) */
-  --color-secondary: #fff8f1; /*? Light warm background */
-  --color-secondary-focus: #fde68a;
+  /* Secondary: Fresh Teal (Trust & Info) */
+  --color-secondary: #20c4b8; /* Background accents, cards */
+  --color-secondary-focus: #1baa9e; /* Hover / focus */
 
-  /*! Accent: Red for "Live", "Urgent", "Track Now" */
-  --color-accent: #ef4444;
-  --color-accent-focus: #dc2626;
+  /* Accent: Amber (Live, Urgent, Track Now) */
+  --color-accent: #fbbf24;
+  --color-accent-focus: #f59e0b;
 
-  /*! Success: Delivery Complete */
-  --color-success: #10b981;
-  --color-success-focus: #059669;
+  /* Success: Lime Green (Delivered) */
+  --color-success: #4ade80;
+  --color-success-focus: #22c55e;
 
-  /*! Text & Dark Elements */
-  --color-neutral: #1f2937; /*? Dark Text, Icons */
-  --color-neutral-focus: #111827;
+  /* Error / Warning (Failed, Pending) */
+  --color-error: #ef4444; /* Crimson */
+  --color-error-focus: #dc2626;
+  --color-warning: #fbbf24;
+  --color-warning-focus: #f59e0b;
 
-  /*! Backgrounds */
-  --color-base-100: #ffffff; /* Card, Modal */
-  --color-base-200: #f9fafb; /* Hover */
-  --color-base-300: #f3f4f6; /* Border */
+  /* Text & Dark Elements */
+  --color-neutral: #1f2937; /* Dark Slate – primary text */
+  --color-neutral-focus: #111827; /* Slightly darker on hover */
 
-  /* !Info (Rider Online, Map Pin) */
-  --color-info: #3b82f6;
+  /* Backgrounds */
+  --color-base-100: #ffffff; /* Pure white – cards, modals */
+  --color-base-200: #f9fafb; /* Light gray – page bg, hover */
+  --color-base-300: #f3f4f6; /* Subtle borders */
+
+  /* Info (Rider online, map pins, etc.) */
+  --color-info: #20c4b8; /* Same as secondary for consistency */
+  --color-info-focus: #1baa9e;
 }
 
 body {
