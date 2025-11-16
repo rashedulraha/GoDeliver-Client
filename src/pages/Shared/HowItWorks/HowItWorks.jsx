@@ -29,7 +29,7 @@ export default function HowItWorks() {
   return (
     <section className="py-16">
       <Container>
-        <h2 className="text-3xl md:text-4xl font-bold text-left mb-12 text-primary">
+        <h2 className="text-3xl md:text-4xl font-bold text-left mb-12 ">
           How It Works
         </h2>
 
@@ -39,21 +39,16 @@ export default function HowItWorks() {
             return (
               <div
                 key={idx}
-                className="card text-neutral transition-shadow duration-300 rounded-md p-6 flex flex-col items-center text-center">
-                {/* Icon */}
+                className="card  cursor-pointer p-6 flex flex-col items-center text-center border rounded-md">
                 <div className="mb-5">
-                  <Icon className="h-12 w-12 text-primary" />
+                  <Icon className="h-12 w-12 " />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-semibold text-primary mb-3">
-                  {step.title}
-                </h3>
+                <h3 className="text-lg font-semibold  mb-3">{step.title}</h3>
 
                 {/* Description */}
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  {step.desc}
-                </p>
+                <p className="text-sm  leading-relaxed">{step.desc}</p>
               </div>
             );
           })}
