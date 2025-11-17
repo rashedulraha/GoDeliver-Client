@@ -1,55 +1,57 @@
-/* ! google font name: inter  */
+/* ! Google font name : Montserrat */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* !Google font Name : Inter   */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
-/*!  google font name: poppins  */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/*! Google font Name : Baloo 2  */
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap");
+
+/*! DaisyUI Custom Theme */
 
 @import "tailwindcss";
 @plugin "daisyui";
+
 @plugin "daisyui/theme" {
-  themes: light --default;
+  name: "light";
+  default: true;
 
-  /* Primary: Vivid Orange (Speed & Urgency) */
-  --color-primary: #ff6b35; /* Main CTA, Buttons */
-  --color-primary-focus: #e55a2b; /* Hover / focus */
+  --color-primary: #1e3a8a; /* Indigo-800 */
+  --color-accent: #14b8a6; /* Teal-500 */
+  --color-error: #ef4444; /* Red-500 */
 
-  /* Secondary: Fresh Teal (Trust & Info) */
-  --color-secondary: #20c4b8; /* Background accents, cards */
-  --color-secondary-focus: #1baa9e; /* Hover / focus */
+  --color-base-100: #f8fafc; /* Slate-50 */
+  --color-base-200: #e2e8f0; /* Slate-200 */
+  --color-base-content: #334155; /* Slate-700 */
+}
 
-  /* Accent: Amber (Live, Urgent, Track Now) */
-  --color-accent: #fbbf24;
-  --color-accent-focus: #f59e0b;
+@plugin "daisyui/theme" {
+  name: "light";
+  --prefersdark: true;
 
-  /* Success: Lime Green (Delivered) */
-  --color-success: #4ade80;
-  --color-success-focus: #22c55e;
+  --color-primary: #f8fafc;
+  --color-accent: #14b8a6;
+  --color-error: #f87171;
 
-  /* Error / Warning (Failed, Pending) */
-  --color-error: #ef4444; /* Crimson */
-  --color-error-focus: #dc2626;
-  --color-warning: #fbbf24;
-  --color-warning-focus: #f59e0b;
+  --color-base-100: #0f172a;
+  --color-base-200: #1e293b;
+  --color-base-content: #cbd5e1;
+}
 
-  /* Text & Dark Elements */
-  --color-neutral: #1f2937; /* Dark Slate – primary text */
-  --color-neutral-focus: #111827; /* Slightly darker on hover */
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
 
-  /* Backgrounds */
-  --color-base-100: #ffffff; /* Pure white – cards, modals */
-  --color-base-200: #f9fafb; /* Light gray – page bg, hover */
-  --color-base-300: #f3f4f6; /* Subtle borders */
+  --color-primary: #0f172a;
+  --color-accent: #14b8a6;
+  --color-error: #ef4444;
 
-  /* Info (Rider online, map pins, etc.) */
-  --color-info: #20c4b8; /* Same as secondary for consistency */
-  --color-info-focus: #1baa9e;
+  --color-base-100: #f8fafc;
+  --color-base-200: #e2e8f0;
+  --color-base-content: #334155;
 }
 
 body {
   font-family: "Inter", sans-serif;
-}
-
-p {
-  font-family: "Poppins", sans-serif;
 }

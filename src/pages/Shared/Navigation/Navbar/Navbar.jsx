@@ -7,61 +7,73 @@ import { FaBars } from "react-icons/fa";
 
 const MenuLink = (
   <>
-    <div className="flex flex-col  lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium capitalize text-base ">
-      <NavLink to={"/service"}>service</NavLink>
-      <NavLink to={"/coverage"}>Coverage</NavLink>
-      <NavLink to={"/about"}>about</NavLink>
-      <NavLink to={"/service"}>pricing</NavLink>
-      <NavLink to={"/blog"}>blog</NavLink>
-      <NavLink to={"/contact"}>contact</NavLink>
+    <div className="flex flex-col lg:flex-row gap-6 items-center justify-center font-medium text-base text-base-100">
+      <NavLink to="/service" className="hover:text-accent transition-colors">
+        Service
+      </NavLink>
+      <NavLink to="/coverage" className="hover:text-accent transition-colors">
+        Coverage
+      </NavLink>
+      <NavLink to="/about" className="hover:text-accent transition-colors">
+        About
+      </NavLink>
+      <NavLink to="/pricing" className="hover:text-accent transition-colors">
+        Pricing
+      </NavLink>
+      <NavLink to="/blog" className="hover:text-accent transition-colors">
+        Blog
+      </NavLink>
+      <NavLink to="/contact" className="hover:text-accent transition-colors">
+        Contact
+      </NavLink>
     </div>
   </>
 );
 
 const Navbar = () => {
   return (
-    <div className="bg-base-100 shadow-sm">
+    <div className="bg-primary text-base-100 sticky top-0 z-50 shadow-md">
       <Container>
-        <div className="navbar ">
+        <div className="navbar py-4">
+          {/* Logo */}
           <div className="navbar-start">
             <div className="dropdown">
-              <div
+              <label
                 tabIndex={0}
-                role="button"
-                className="btn btn-ghost lg:hidden">
-                <FaBars size={20} />
-              </div>
-              <ul
-                tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                className="btn btn-ghost lg:hidden text-white">
+                <FaBars size={22} />
+              </label>
+              <ul className="menu menu-sm dropdown-content bg-primary rounded-box z-10 mt-3 w-52 p-4 shadow-lg border border-base-200">
                 {MenuLink}
               </ul>
             </div>
-            <a
-              href="/"
-              className="font-bold text-xl flex gap-1 justify-center items-center ">
-              <span className="hidden sm:flex">
-                <TbTruckDelivery size={30} />
-              </span>{" "}
-              Go Deliver
-            </a>
+
+            <Link to="/" className="flex items-center gap-2 font-bold text-2xl">
+              <TbTruckDelivery size={34} />
+              <span className="hidden sm:inline">Go Deliver</span>
+            </Link>
           </div>
+
+          {/* Desktop Menu */}
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1">{MenuLink}</ul>
+            <ul className="menu menu-horizontal px-1 text-white/90">
+              {MenuLink}
+            </ul>
           </div>
-          <div className="navbar-end ">
-            <div className="flex items-center space-x-10">
-              <div>
-                <ThemeToggle />
-              </div>
-              <div className="space-x-3 hidden md:flex">
-                <Link to={"/login"} className="btn">
-                  Signin
-                </Link>
-                <Link to={"/be-a-order"} className="btn">
-                  Be a rider
-                </Link>
-              </div>
+
+          {/* Right Side */}
+          <div className="navbar-end gap-4">
+            <ThemeToggle />
+
+            <div className="hidden md:flex gap-3">
+              <Link
+                to="/login"
+                className="btn btn-outline btn-sm text-white border-white hover:bg-accent hover:border-accent">
+                Sign In
+              </Link>
+              <Link to="/be-a-rider" className="btn btn-accent btn-sm">
+                Be a Rider
+              </Link>
             </div>
           </div>
         </div>
