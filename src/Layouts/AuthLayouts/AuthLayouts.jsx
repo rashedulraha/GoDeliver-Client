@@ -34,7 +34,7 @@ const AuthLayouts = () => {
             </div>
 
             {/* Right Side Icon */}
-            <div className="w-full flex items-center justify-center">
+            <div className="w-full items-center justify-center hidden md:flex">
               <GrDeliver size={400} />
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const {
@@ -17,7 +18,8 @@ const Register = () => {
         <div className="card-body">
           <h2 className="card-title text-2xl font-bold text-center mb-6">
             Register
-          </h2>{" "}
+          </h2>
+
           {/* Name field */}
           <label className="label">
             <span className="label-text">Name</span>
@@ -25,7 +27,7 @@ const Register = () => {
           <input
             type="text"
             {...register("name", { required: true })}
-            className={`input  input-sm w-full bg-primary text-base-100 border-base-200 ${
+            className={`input input-sm w-full bg-primary text-base-100 border-base-200 ${
               errors.name ? "input-error" : ""
             }`}
             placeholder="Your name"
@@ -33,7 +35,8 @@ const Register = () => {
           {errors.name?.type === "required" && (
             <p className="text-error text-sm mt-1">Name is required</p>
           )}
-          {/* Photo Image field */}
+
+          {/* Photo Image */}
           <label className="label">
             <span className="label-text">Profile Image</span>
           </label>
@@ -47,6 +50,7 @@ const Register = () => {
           {errors.image?.type === "required" && (
             <p className="text-error text-sm mt-1">Photo is required</p>
           )}
+
           {/* Email field */}
           <label className="label">
             <span className="label-text">Email</span>
@@ -57,25 +61,25 @@ const Register = () => {
               required: true,
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
-            className={`input input-sm w-full bg-primary text-base-100 border-base-200  ${
+            className={`input input-sm w-full bg-primary text-base-100 border-base-200 ${
               errors.email ? "input-error" : ""
             }`}
             placeholder="Email"
           />
-          {errors.email?.type === "required" && (
-            <p className="text-error text-sm mt-1">Email is required</p>
-          )}
-          {errors.email?.type === "pattern" && (
+          {errors.email && (
             <p className="text-error text-sm mt-1">
-              Please enter a valid email
+              {errors.email.type === "required"
+                ? "Email is required"
+                : "Please enter a valid email"}
             </p>
           )}
+
           {/* Password field */}
           <label className="label">
             <span className="label-text">Password</span>
           </label>
           <input
-            className={`input bg-primary text-base-100 border-base-200 input-sm        w-full ${
+            className={`input bg-primary text-base-100 border-base-200 input-sm w-full ${
               errors.password ? "input-error" : ""
             }`}
             type="password"
@@ -86,34 +90,41 @@ const Register = () => {
             })}
             placeholder="Password"
           />
-          {errors.password?.type === "required" && (
-            <p className="text-error text-sm mt-1">Password is required</p>
-          )}
-          {errors.password?.type === "minLength" && (
+          {errors.password && (
             <p className="text-error text-sm mt-1">
-              Password must be 6 characters or longer
+              {errors.password.type === "required"
+                ? "Password is required"
+                : errors.password.type === "minLength"
+                ? "Password must be 6 characters or longer"
+                : "Password must include upper, lower & number"}
             </p>
           )}
-          {errors.password?.type === "pattern" && (
-            <p className="text-error text-sm mt-1">
-              Password must include uppercase and lowercase letters and one
-              number
-            </p>
-          )}
+
+          {/* Forgot Password */}
           <div className="flex justify-between items-center mt-4">
             <label className="label">
-              <a href="#" className="label-text-alt link link-hover">
+              <Link to="/login" className="link text-info link-hover">
+                Login
+              </Link>
+            </label>
+            <label className="label">
+              <Link to="/forgot" className=" text-info link link-hover">
                 Forgot password?
-              </a>
+              </Link>
             </label>
           </div>
-          <button className="btn btn-accent text-base-100 mt-4 btn-sm shadow-none ">
+
+          {/* Register Button */}
+          <button className="btn btn-accent text-base-100 mt-4 btn-sm shadow-none">
             Register
           </button>
+
           <div className="divider">OR</div>
-          <button className="btn btn-outline btn-sm btn-accent">
+
+          {/* Already have account */}
+          <Link to="/login" className="btn btn-outline btn-sm btn-accent">
             Login with existing account
-          </button>
+          </Link>
         </div>
       </div>
     </form>

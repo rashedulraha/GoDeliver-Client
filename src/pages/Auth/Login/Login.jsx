@@ -1,10 +1,93 @@
-import React from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleLogin = (data) => {
+    console.log("Login data:", data);
+  };
+
   return (
-    <div>
-      <h1>login</h1>
-    </div>
+    <form onSubmit={handleSubmit(handleLogin)}>
+      <div className="card bg-primary text-base-100 w-full max-w-md mx-auto">
+        <div className="card-body">
+          <h2 className="card-title text-2xl font-bold text-center mb-6">
+            Login
+          </h2>
+
+          {/* Email */}
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input
+            type="email"
+            {...register("email", {
+              required: true,
+              pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            })}
+            className={`input input-sm w-full bg-primary text-base-100 border-base-200 ${
+              errors.email ? "input-error" : ""
+            }`}
+            placeholder="Email"
+          />
+          {errors.email && (
+            <p className="text-error text-sm mt-1">
+              {errors.email.type === "required"
+                ? "Email is required"
+                : "Enter a valid email"}
+            </p>
+          )}
+
+          {/* Password */}
+          <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <input
+            type="password"
+            {...register("password", { required: true, minLength: 6 })}
+            className={`input input-sm w-full bg-primary text-base-100 border-base-200 ${
+              errors.password ? "input-error" : ""
+            }`}
+            placeholder="Password"
+          />
+          {errors.password && (
+            <p className="text-error text-sm mt-1">
+              {errors.password.type === "required"
+                ? "Password is required"
+                : "Password must be at least 6 characters"}
+            </p>
+          )}
+
+          {/* Forgot + Register */}
+          <div className="flex justify-between items-center mt-4">
+            <Link to="/register" className="link text-info link-hover">
+              Create account
+            </Link>
+
+            <Link to="/forgot" className="link text-info link-hover">
+              Forgot password?
+            </Link>
+          </div>
+
+          {/* Login Button */}
+          <button className="btn btn-accent text-base-100 mt-4 btn-sm shadow-none">
+            Login
+          </button>
+
+          <div className="divider">OR</div>
+
+          {/* Go To Register */}
+          <Link to="/register" className="btn btn-outline btn-sm btn-accent">
+            Register a new account
+          </Link>
+        </div>
+      </div>
+    </form>
   );
 };
 
