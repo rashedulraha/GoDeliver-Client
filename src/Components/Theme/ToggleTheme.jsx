@@ -23,13 +23,13 @@ const ThemeToggle = () => {
   if (!theme) return null;
 
   return (
-    <label className="toggle text-base-content">
+    <label className="toggle border-accent ">
       <input
         onChange={handleToggle}
         checked={theme === "dark"}
         type="checkbox"
         value="synthwave"
-        className="theme-controller"
+        className="theme-controller shadow-none "
       />
 
       <svg

@@ -1,6 +1,3 @@
-/* ! Google font name : Montserrat */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-
 /* !Google font Name : Inter   */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
@@ -12,25 +9,12 @@
 
 @import "tailwindcss";
 @plugin "daisyui";
-
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-
-  --color-primary: #1e3a8a; /* Indigo-800 */
-  --color-accent: #14b8a6; /* Teal-500 */
-  --color-error: #ef4444; /* Red-500 */
-
-  --color-base-100: #f8fafc; /* Slate-50 */
-  --color-base-200: #e2e8f0; /* Slate-200 */
-  --color-base-content: #334155; /* Slate-700 */
-}
-
 @plugin "daisyui/theme" {
   name: "light";
   --prefersdark: true;
 
   --color-primary: #f8fafc;
+  --color-footer: #0f172a;
   --color-accent: #14b8a6;
   --color-error: #f87171;
 
@@ -44,6 +28,7 @@
   default: true;
 
   --color-primary: #0f172a;
+  --color-footer: #0f172a;
   --color-accent: #14b8a6;
   --color-error: #ef4444;
 
@@ -54,4 +39,8 @@
 
 body {
   font-family: "Inter", sans-serif;
+}
+
+.active {
+  @apply text-accent;
 }

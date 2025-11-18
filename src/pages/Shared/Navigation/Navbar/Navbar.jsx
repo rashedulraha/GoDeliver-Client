@@ -4,28 +4,17 @@ import ThemeToggle from "../../../../Components/Theme/ToggleTheme";
 
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaBars } from "react-icons/fa";
+import CustomNavLink from "./CustomNavLink";
 
 const MenuLink = (
   <>
-    <div className="flex flex-col lg:flex-row gap-6 items-center justify-center font-medium text-base text-base-100">
-      <NavLink to="/service" className="hover:text-accent transition-colors">
-        Service
-      </NavLink>
-      <NavLink to="/coverage" className="hover:text-accent transition-colors">
-        Coverage
-      </NavLink>
-      <NavLink to="/about" className="hover:text-accent transition-colors">
-        About
-      </NavLink>
-      <NavLink to="/pricing" className="hover:text-accent transition-colors">
-        Pricing
-      </NavLink>
-      <NavLink to="/blog" className="hover:text-accent transition-colors">
-        Blog
-      </NavLink>
-      <NavLink to="/contact" className="hover:text-accent transition-colors">
-        Contact
-      </NavLink>
+    <div className="flex flex-col lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium text-base text-base-100">
+      <CustomNavLink to={"service"} value={"Service"} />
+      <CustomNavLink to={"coverage"} value={"Coverage"} />
+      <CustomNavLink to={"about"} value={"About"} />
+      <CustomNavLink to={"pricing"} value={"Pricing"} />
+      <CustomNavLink to={"blog"} value={"Blog"} />
+      <CustomNavLink to={"contact"} value={"Contact"} />
     </div>
   </>
 );
@@ -40,16 +29,16 @@ const Navbar = () => {
             <div className="dropdown">
               <label
                 tabIndex={0}
-                className="btn btn-ghost lg:hidden text-white">
+                className="btn btn-ghost lg:hidden text-base-100 ">
                 <FaBars size={22} />
               </label>
-              <ul className="menu menu-sm dropdown-content bg-primary rounded-box z-10 mt-3 w-52 p-4 shadow-lg border border-base-200">
+              <ul className="menu menu-sm dropdown-content bg-primary rounded-box z-10 mt-3 w-52 p-4   border-base-200">
                 {MenuLink}
               </ul>
             </div>
 
             <Link to="/" className="flex items-center gap-2 font-bold text-2xl">
-              <TbTruckDelivery size={34} />
+              <TbTruckDelivery size={34} color="#14b8a6" />
               <span className="hidden sm:inline">Go Deliver</span>
             </Link>
           </div>
@@ -68,10 +57,12 @@ const Navbar = () => {
             <div className="hidden md:flex gap-3">
               <Link
                 to="/login"
-                className="btn btn-outline btn-sm text-white border-white hover:bg-accent hover:border-accent">
+                className="btn btn-outline btn-sm bg-base-100 text-primary shadow-none border-none ">
                 Sign In
               </Link>
-              <Link to="/be-a-rider" className="btn btn-accent btn-sm">
+              <Link
+                to="/be-a-rider"
+                className="btn bg-accent text-primary border-none shadow-none  btn-sm">
                 Be a Rider
               </Link>
             </div>
