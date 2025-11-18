@@ -6,6 +6,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { FaBars } from "react-icons/fa";
 import CustomNavLink from "./Shared/CustomNavLink";
 import ActionButton from "./Shared/ActionButton";
+// import useAuth from "../../../../Hooks/useAuth";
 
 const MenuLink = (
   <>
@@ -21,6 +22,8 @@ const MenuLink = (
 );
 
 const Navbar = () => {
+  // const name = useAuth();
+
   return (
     <div className="bg-primary text-base-100 sticky top-0 z-50 shadow-md">
       <Container>

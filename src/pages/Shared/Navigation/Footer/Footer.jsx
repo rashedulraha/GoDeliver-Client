@@ -93,7 +93,7 @@ const Footer = () => {
             </form>
 
             {/* App Download Buttons */}
-            <div className="mt-6 flex gap-4">
+            <div className="mt-6 flex gap-2">
               <AppDownload
                 to={"https://play.google.com/store/games?hl=en"}
                 value={" Google Play"}
