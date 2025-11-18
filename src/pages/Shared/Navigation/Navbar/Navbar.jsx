@@ -10,7 +10,7 @@ import ActionButton from "./Shared/ActionButton";
 
 const MenuLink = (
   <>
-    <div className="flex flex-col lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium text-base text-base-100">
+    <div className="flex flex-col lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium text-base text-base-100 ">
       <CustomNavLink to={"service"} value={"Service"} />
       <CustomNavLink to={"coverage"} value={"Coverage"} />
       <CustomNavLink to={"about"} value={"About"} />

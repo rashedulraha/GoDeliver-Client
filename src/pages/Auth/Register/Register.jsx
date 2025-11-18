@@ -12,13 +12,12 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleSubmitData)} className="max-w-md">
-      <div className="card bg-base-100 w-full">
+    <form onSubmit={handleSubmit(handleSubmitData)}>
+      <div className="card bg-primary text-base-100 w-full max-w-md mx-auto">
         <div className="card-body">
           <h2 className="card-title text-2xl font-bold text-center mb-6">
             Register
-          </h2>
-
+          </h2>{" "}
           {/* Name field */}
           <label className="label">
             <span className="label-text">Name</span>
@@ -26,7 +25,7 @@ const Register = () => {
           <input
             type="text"
             {...register("name", { required: true })}
-            className={`input input-bordered input-sm w-full ${
+            className={`input  input-sm w-full bg-primary text-base-100 border-base-200 ${
               errors.name ? "input-error" : ""
             }`}
             placeholder="Your name"
@@ -34,7 +33,6 @@ const Register = () => {
           {errors.name?.type === "required" && (
             <p className="text-error text-sm mt-1">Name is required</p>
           )}
-
           {/* Photo Image field */}
           <label className="label">
             <span className="label-text">Profile Image</span>
@@ -42,14 +40,13 @@ const Register = () => {
           <input
             type="file"
             {...register("image", { required: true })}
-            className={`file-input file-input-bordered input-sm w-full ${
+            className={`file-input bg-primary text-base-100 border-base-200 input-sm w-full ${
               errors.image ? "file-input-error" : ""
             }`}
           />
           {errors.image?.type === "required" && (
             <p className="text-error text-sm mt-1">Photo is required</p>
           )}
-
           {/* Email field */}
           <label className="label">
             <span className="label-text">Email</span>
@@ -60,7 +57,7 @@ const Register = () => {
               required: true,
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
-            className={`input input-bordered input-sm w-full ${
+            className={`input input-sm w-full bg-primary text-base-100 border-base-200  ${
               errors.email ? "input-error" : ""
             }`}
             placeholder="Email"
@@ -73,13 +70,12 @@ const Register = () => {
               Please enter a valid email
             </p>
           )}
-
           {/* Password field */}
           <label className="label">
             <span className="label-text">Password</span>
           </label>
           <input
-            className={`input input-bordered input-sm w-full ${
+            className={`input bg-primary text-base-100 border-base-200 input-sm        w-full ${
               errors.password ? "input-error" : ""
             }`}
             type="password"
@@ -104,7 +100,6 @@ const Register = () => {
               number
             </p>
           )}
-
           <div className="flex justify-between items-center mt-4">
             <label className="label">
               <a href="#" className="label-text-alt link link-hover">
@@ -112,13 +107,10 @@ const Register = () => {
               </a>
             </label>
           </div>
-
-          <button className="btn btn-primary mt-4 btn-sm shadow-none ">
+          <button className="btn btn-accent text-base-100 mt-4 btn-sm shadow-none ">
             Register
           </button>
-
           <div className="divider">OR</div>
-
           <button className="btn btn-outline btn-sm btn-accent">
             Login with existing account
           </button>

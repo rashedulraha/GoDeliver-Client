@@ -3,7 +3,7 @@ import Container from "../../Responsive/Container";
 
 const FrequentlyAsked = () => {
   return (
-    <div className="my-10">
+    <div>
       <h1 className="text-3xl font-bold text-center mb-9">
         Frequently Asked Question (FAQ)
       </h1>

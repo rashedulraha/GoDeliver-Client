@@ -8,7 +8,7 @@ import FrequentlyAsked from "../Shared/FrequentlyAsked/FrequentlyAsked";
 
 const Home = () => {
   return (
-    <div>
+    <div className="bg-primary text-base-100 pb-10">
       <HeroSection />
       <HowItWorks />
       <OurServices />
