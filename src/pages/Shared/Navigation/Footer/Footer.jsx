@@ -11,6 +11,9 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 
+import AppDownload from "./Shared/AppDownload";
+import TramsAndCondition from "./Shared/TramsAndCondition";
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -91,16 +94,14 @@ const Footer = () => {
 
             {/* App Download Buttons */}
             <div className="mt-6 flex gap-4">
-              <a
-                href="#"
-                className="bg-base-100 text-primary btn shadow-none btn-sm text-sm font-semibold hover:bg-base-100/90 transition-colors">
-                Google Play
-              </a>
-              <a
-                href="#"
-                className="bg-base-100 text-primary btn shadow-none btn-sm text-sm font-semibold hover:bg-base-100/90 transition-colors">
-                App Store
-              </a>
+              <AppDownload
+                to={"https://play.google.com/store/games?hl=en"}
+                value={" Google Play"}
+              />
+              <AppDownload
+                to={"https://www.apple.com/lae/app-store/"}
+                value={"Apple Store"}
+              />
             </div>
           </div>
 
@@ -132,16 +133,8 @@ const Footer = () => {
             © {currentYear} Go Deliver. All rights reserved.
           </p>
           <div className="flex gap-4 mt-4 md:mt-0">
-            <Link
-              to="/privacy"
-              className="text-base-100/80 hover:text-accent transition-colors text-sm">
-              Privacy Policy
-            </Link>
-            <Link
-              to="/terms"
-              className="text-base-100/80 hover:text-accent transition-colors text-sm">
-              Terms of Service
-            </Link>
+            <TramsAndCondition to={"privacy"} value={"Privacy Policy"} />
+            <TramsAndCondition to={"terms"} value={" Terms of Service"} />
           </div>
         </div>
       </Container>

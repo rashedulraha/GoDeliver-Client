@@ -4,7 +4,8 @@ import ThemeToggle from "../../../../Components/Theme/ToggleTheme";
 
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaBars } from "react-icons/fa";
-import CustomNavLink from "./CustomNavLink";
+import CustomNavLink from "./Shared/CustomNavLink";
+import ActionButton from "./Shared/ActionButton";
 
 const MenuLink = (
   <>
@@ -55,16 +56,16 @@ const Navbar = () => {
             <ThemeToggle />
 
             <div className="hidden md:flex gap-3">
-              <Link
-                to="/login"
-                className="btn btn-outline btn-sm bg-base-100 text-primary shadow-none border-none ">
-                Sign In
-              </Link>
-              <Link
-                to="/be-a-rider"
-                className="btn bg-accent text-primary border-none shadow-none  btn-sm">
-                Be a Rider
-              </Link>
+              <ActionButton
+                to={"login"}
+                value={"Signin"}
+                className={"btn-outline bg-base-200 text-primary"}
+              />
+              <ActionButton
+                to={"be-a-rider"}
+                value={"Be a Rider"}
+                className={"bg-accent"}
+              />
             </div>
           </div>
         </div>
