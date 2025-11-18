@@ -6,13 +6,13 @@ import AuthLayouts from "../Layouts/AuthLayouts/AuthLayouts";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
 import Forgot from "../pages/Auth/Forgot/Forgot";
-import EmailVerify from "../pages/Auth/EmailVerify/EmailVerify";
 import Service from "../pages/Service/Service";
 import Coverage from "../pages/Coverage/Coverage";
 import About from "../pages/About/About";
 import Pricing from "../pages/Pricing/Pricing";
 import Blog from "../pages/Blog/Blog";
 import Contact from "../pages/Contact/Contact";
+import Profile from "../pages/Profile/Profile";
 
 const Routes = createBrowserRouter([
   {
@@ -26,6 +26,7 @@ const Routes = createBrowserRouter([
       { path: "/pricing", Component: Pricing },
       { path: "/blog", Component: Blog },
       { path: "/contact", Component: Contact },
+      { path: "/profile", Component: Profile },
     ],
   },
   {
@@ -35,7 +36,6 @@ const Routes = createBrowserRouter([
       { path: "login", Component: Login },
       { path: "register", Component: Register },
       { path: "forgot", Component: Forgot },
-      { path: "email-verify", Component: EmailVerify },
     ],
   },
 ]);
