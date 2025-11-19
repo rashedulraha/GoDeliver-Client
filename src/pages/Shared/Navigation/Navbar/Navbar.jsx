@@ -1,45 +1,32 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Container from "../../../Responsive/Container";
 import ThemeToggle from "../../../../Components/Theme/ToggleTheme";
-
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaBars, FaListUl, FaUser } from "react-icons/fa";
 import CustomNavLink from "./Shared/CustomNavLink";
 import ActionButton from "./Shared/ActionButton";
 import useAuth from "../../../../Hooks/useAuth";
-import { IoIosAddCircle } from "react-icons/io";
+import { IoIosAddCircle, IoMdArrowDropdown } from "react-icons/io";
 import LoginNavLink from "./Shared/LoginNavLink";
 import { MdDashboard, MdOutlineTrackChanges } from "react-icons/md";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
-const MenuLink = (
-  <>
-    <div className="flex flex-col lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium text-base-100 ">
-      <CustomNavLink to={""} label={"Home"} />
-      <CustomNavLink
-        label={"Service"}
-        dropdown={[
-          { to: "grocery-delivery", label: "Grocery Delivery" },
-          { to: "parcel-delivery", label: "Parcel Delivery" },
-          { to: "ride-sharing", label: "Ride Sharing" },
-          { to: "courier-service", label: "Courier Service" },
-          { to: "home-services", label: "Home Services" },
-        ]}
-      />
-      <CustomNavLink to={"coverage"} label={"Coverage"} />
-      <CustomNavLink to={"about"} label={"About"} />
-      <CustomNavLink to={"pricing"} label={"Pricing"} />
-      <CustomNavLink to={"blog"} label={"Blog"} />
-      <CustomNavLink to={"contact"} label={"Contact"} />
-    </div>
-  </>
-);
+const dropdown = [
+  { to: "grocery-delivery", label: "Grocery Delivery" },
+  { to: "parcel-delivery", label: "Parcel Delivery" },
+  { to: "ride-sharing", label: "Ride Sharing" },
+  { to: "courier-service", label: "Courier Service" },
+  { to: "home-services", label: "Home Services" },
+];
 
 //! login user
 
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
+  const [open, setOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -67,6 +54,57 @@ const Navbar = () => {
     });
   };
 
+  //!  handle open submenuBar
+  const handleEnter = () => {
+    setOpen(true);
+  };
+  const handleLeave = () => {
+    setOpen(false);
+  };
+
+  //!  Menu link
+
+  const MenuLink = (
+    <>
+      <div className="flex flex-col lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium text-base-100 ">
+        <CustomNavLink to={""} label={"Home"} />
+        <CustomNavLink to={"coverage"} label={"Coverage"} />
+        <CustomNavLink to={"about"} label={"About"} />
+        <CustomNavLink to={"pricing"} label={"Pricing"} />
+        <CustomNavLink to={"blog"} label={"Blog"} />
+        <CustomNavLink to={"contact"} label={"Contact"} />
+
+        <div className="relative inline-block ">
+          <div
+            className="cursor-pointer"
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}>
+            <span className="flex items-center justify-center gap-1">
+              Service <IoMdArrowDropdown size={20} />
+            </span>
+
+            {open && (
+              <div className="absolute w-64 z-50">
+                <div className="pt-5">
+                  <div className=" bg-accent/10 backdrop-blur-xl rounded-b-md">
+                    {dropdown.map((item, index) => (
+                      <Link
+                        key={index}
+                        to={`/${item.to}`}
+                        className="block px-4 py-2 hover:bg-accent/20 transition-all  last:rounded-b-md">
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+
   const displayName = user?.displayName;
   const photoURL = user?.photoURL;
 
@@ -88,7 +126,7 @@ const Navbar = () => {
         </div>
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content bg-accent/10 p-0  z-9999 mt-6 md:mt-4 w-64 border border-base-300 py-4 rounded-sm backdrop-blur-2xl">
+          className="menu menu-sm dropdown-content bg-accent/10  z-9999 mt-5 md:mt-[13px] w-64 border border-base-300 px-0  rounded-sm backdrop-blur-2xl">
           <LoginNavLink to="dashboard" label="Dashboard" Icon={MdDashboard} />
           <LoginNavLink to="Profile" label="Profile" Icon={FaUser} />
           <LoginNavLink to="my-parcels" label="My Parcels" Icon={FaListUl} />
