@@ -23,7 +23,7 @@ const CustomNavLink = ({ to, label, dropdown }) => {
       {/* Dropdown Menu */}
 
       {dropdown && open && (
-        <div className="absolute left-0 pt-5 pb-2 w-64 bg-accent/10 text-base-100  rounded-sm  z-20 space-y-3 backdrop-blur-2xl">
+        <div className="absolute  top-8  md:top-11 left-0 pt-5 pb-2 w-64 bg-accent/10 text-base-100  rounded-sm  z-20 space-y-3 backdrop-blur-3xl">
           {dropdown.map((item, index) => (
             <Link
               key={index}

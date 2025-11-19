@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Container from "../../../Responsive/Container";
 import ThemeToggle from "../../../../Components/Theme/ToggleTheme";
 
@@ -10,6 +10,8 @@ import useAuth from "../../../../Hooks/useAuth";
 import { IoIosAddCircle } from "react-icons/io";
 import LoginNavLink from "./Shared/LoginNavLink";
 import { MdDashboard, MdOutlineTrackChanges } from "react-icons/md";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const MenuLink = (
   <>
@@ -37,7 +39,33 @@ const MenuLink = (
 //! login user
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, logoutUser } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      background: "#1e293b",
+      color: "white",
+      showCancelButton: true,
+      confirmButtonColor: "#14b8a6",
+      cancelButtonColor: "#f87171",
+      confirmButtonText: "Yes, me logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logoutUser()
+          .then(() => {
+            navigate("/login");
+            toast.success("Successfully Logout");
+          })
+          .catch(() => {
+            toast.error("Network error please try again");
+          });
+      }
+    });
+  };
 
   const displayName = user?.displayName;
   const photoURL = user?.photoURL;
@@ -75,7 +103,9 @@ const Navbar = () => {
             Icon={MdOutlineTrackChanges}
           />
 
-          <button className="btn btn-primary rounded-full bg-base-100 text-primary shadow-none cursor-pointer  mx-3 ">
+          <button
+            onClick={handleSignOut}
+            className="btn btn-primary rounded-full bg-base-100 text-primary shadow-none cursor-pointer  mx-3 ">
             Logout
           </button>
         </ul>
@@ -86,7 +116,7 @@ const Navbar = () => {
   return (
     <div className="bg-primary text-base-100 sticky top-0 z-50 shadow-md border-b border-base-200">
       <Container>
-        <div className="navbar py-4">
+        <div className="navbar">
           {/* Logo */}
           <div className="navbar-start">
             <div className="dropdown">

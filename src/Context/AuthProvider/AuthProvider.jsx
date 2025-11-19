@@ -42,9 +42,9 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout User
+  //! Logout User
   const logoutUser = () => {
-    signOut();
+    return signOut(auth);
   };
 
   //!  with google login

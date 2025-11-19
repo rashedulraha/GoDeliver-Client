@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Profile = () => {
-  const user = {
-    name: "Rashedul",
-    email: "rashed@gamil.com",
-    photo:
-      "https://img.freepik.com/free-photo/baby-with-stuffed-animal_52683-124509.jpg?semt=ais_hybrid&w=740&q=80",
-  };
-
+  const { user } = useAuth();
+  const displayName = user?.displayName;
+  const photoURL = user?.photoURL;
+  const email = user?.email;
   return (
     <div className="card bg-primary text-base-100 w-full max-w-md mx-auto my-5">
       <div className="card-body items-center text-center">
@@ -16,15 +14,15 @@ const Profile = () => {
         {/* Profile Image */}
         <div className="avatar">
           <div className="w-28 rounded-full ring ring-accent ring-offset-base-100 ring-offset-2">
-            <img src={user.photo} alt="User Profile" />
+            <img src={photoURL} alt="User Profile" />
           </div>
         </div>
 
         {/* Name */}
-        <h3 className="text-xl font-semibold mt-4">{user.name}</h3>
+        <h3 className="text-xl font-semibold mt-4">{displayName}</h3>
 
         {/* Email */}
-        <p className="text-base-200 text-sm">{user.email}</p>
+        <p className="text-base-200 text-sm">{email}</p>
 
         <div className="divider"></div>
 
@@ -41,10 +39,6 @@ const Profile = () => {
             className="btn btn-outline shadow-none btn-sm btn-accent">
             Change Password
           </Link>
-
-          <button className="btn btn-error btn-sm shadow-none text-base-100">
-            Logout
-          </button>
         </div>
       </div>
     </div>
