@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import ButtonLoading from "../../Shared/Loading/ButtonLoading";
+import GoogleLogin from "../../Shared/GoogleLogin/GoogleLogin";
 
 const Login = () => {
   const { loading } = useAuth();
@@ -84,10 +85,8 @@ const Login = () => {
 
           <div className="divider">OR</div>
 
-          {/* Go To Register */}
-          <Link to="/register" className="btn btn-outline btn-sm btn-accent">
-            Register a new account
-          </Link>
+          {/* Google login  */}
+          <GoogleLogin />
         </div>
       </div>
     </form>
