@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
+import ButtonLoading from "../../Shared/Loading/ButtonLoading";
 
 const Login = () => {
+  const { loading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -76,7 +79,7 @@ const Login = () => {
 
           {/* Login Button */}
           <button className="btn btn-accent text-base-100 mt-4 btn-sm shadow-none">
-            Login
+            {loading ? <ButtonLoading /> : "Login"}
           </button>
 
           <div className="divider">OR</div>

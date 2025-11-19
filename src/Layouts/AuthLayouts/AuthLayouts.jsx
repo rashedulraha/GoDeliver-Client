@@ -1,9 +1,10 @@
 import React from "react";
 import Container from "../../pages/Responsive/Container";
 import { TbTruckDelivery } from "react-icons/tb";
-import { GrDeliver } from "react-icons/gr";
+
 import ThemeToggle from "../../Components/Theme/ToggleTheme";
 import { Outlet } from "react-router-dom";
+import { CiDeliveryTruck } from "react-icons/ci";
 
 const AuthLayouts = () => {
   return (
@@ -41,7 +42,7 @@ const AuthLayouts = () => {
             {/* Right Side - Illustration */}
             <div className="hidden lg:flex justify-center items-center">
               <div className="relative">
-                <GrDeliver
+                <CiDeliveryTruck
                   size={420}
                   className="text-accent drop-shadow-2xl animate-pulse-slow"
                 />

@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
+import ButtonLoading from "../../Shared/Loading/ButtonLoading";
 
 const Forgot = () => {
+  const { loading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -50,7 +53,7 @@ const Forgot = () => {
 
           {/* Reset Button */}
           <button className="btn btn-accent text-base-100 mt-4 btn-sm shadow-none w-full">
-            Send Reset Link
+            {loading ? <ButtonLoading /> : "Send Reset Link"}
           </button>
 
           <div className="divider">OR</div>
@@ -58,7 +61,7 @@ const Forgot = () => {
           {/* Back to login */}
           <Link
             to="/login"
-            className="btn btn-outline btn-sm btn-accent w-full">
+            className="btn btn-outline btn-sm btn-accent w-full shadow-none">
             Back to Login
           </Link>
         </div>
