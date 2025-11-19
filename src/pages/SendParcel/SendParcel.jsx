@@ -1,6 +1,6 @@
+import useFetchCounters from "../../Hooks/useFetchCounters";
 import Container from "../Responsive/Container";
 import { useForm } from "react-hook-form";
-import useFetchCounters from "../../Hooks/useFetchCounters";
 
 const SendParcel = () => {
   const {
@@ -9,17 +9,14 @@ const SendParcel = () => {
     formState: { error },
   } = useForm();
 
-  const { dataFetch } = useFetchCounters("/ServiceCounters.json");
+  const { fetchData } = useFetchCounters("/ServiceCounters.json");
 
-  console.log(dataFetch);
+  const filteringRegion = fetchData?.map((region) => region.region);
+  const removeDuplicate = [...new Set(filteringRegion)];
 
   const handleFormSubmit = (data) => {
     console.log(data);
   };
-
-  // const regionDuplicate = fetchData?.map((r) => r.regions);
-  // const regions = [...new Set(regionDuplicate)];
-  // console.log(regions);
 
   return (
     <Container>
@@ -98,16 +95,15 @@ const SendParcel = () => {
                 <select
                   defaultValue="Small"
                   className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200 ">
-                  <option disabled={true}>Small</option>
-                  <option className="hover:bg-accent/10 rounded-none">
-                    Small Apple
-                  </option>
-                  <option className="hover:bg-accent/10 rounded-none">
-                    Small Orange
-                  </option>
-                  <option className="hover:bg-accent/10 rounded-none">
-                    Small Tomato
-                  </option>
+                  <option disabled={true}>Select region</option>
+
+                  {removeDuplicate?.map((region) => (
+                    <option
+                      value={region}
+                      className="hover:bg-accent/10 rounded-none">
+                      {region}
+                    </option>
+                  ))}
                 </select>
 
                 <textarea

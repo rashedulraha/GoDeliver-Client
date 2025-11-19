@@ -85,7 +85,7 @@ const Navbar = () => {
 
             {open && (
               <div className="absolute w-64 z-50">
-                <div className="pt-5">
+                <div className="pt-[22px]">
                   <div className=" bg-accent/10 backdrop-blur-xl rounded-b-md">
                     {dropdown.map((item, index) => (
                       <Link

@@ -12,7 +12,6 @@ const useFetchCounters = (url) => {
         setLoading(true);
         const res = await axios(url);
         setFetchData(res.data);
-        console.log(res.data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -23,9 +22,7 @@ const useFetchCounters = (url) => {
     loadData();
   }, [url]);
 
-  {
-    return { fetchData, error, loading };
-  }
+  return { fetchData, error, loading };
 };
 
 export default useFetchCounters;
