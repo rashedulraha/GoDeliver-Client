@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import ButtonLoading from "../Loading/ButtonLoading";
+import { useNavigate } from "react-router-dom";
 
 const GoogleLogin = () => {
+  const navigate = useNavigate();
   const { withGoogleLogin } = useAuth();
   const [googleLoading, setGoogleLoading] = useState(false);
   const handleWithGoogleLogin = () => {
@@ -11,6 +13,7 @@ const GoogleLogin = () => {
     withGoogleLogin()
       .then(() => {
         setGoogleLoading(false);
+        navigate("/");
         toast.success("sing in successfully");
       })
       .catch(() => {

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import ButtonLoading from "../../Shared/Loading/ButtonLoading";
@@ -7,6 +7,7 @@ import GoogleLogin from "../../Shared/GoogleLogin/GoogleLogin";
 
 const Register = () => {
   const { registerUser, loading } = useAuth();
+  const navigate = useNavigate();
 
   console.log(registerUser);
 
@@ -19,6 +20,7 @@ const Register = () => {
   const handleSubmitData = (data) => {
     registerUser(data.email, data.password)
       .then(() => {
+        navigate("/");
         toast.success("Signup successfully");
       })
       .catch(() => {

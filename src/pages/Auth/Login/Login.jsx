@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import ButtonLoading from "../../Shared/Loading/ButtonLoading";
 import GoogleLogin from "../../Shared/GoogleLogin/GoogleLogin";
@@ -11,8 +11,14 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { signinUser } = useAuth();
+
+  const navigate = useNavigate();
 
   const handleLogin = (data) => {
+    signinUser().then(() => {
+      navigate("/");
+    });
     console.log("Login data:", data);
   };
 
