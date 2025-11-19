@@ -1,5 +1,6 @@
 import Container from "../Responsive/Container";
 import { useForm } from "react-hook-form";
+import useFetchCounters from "../../Hooks/useFetchCounters";
 
 const SendParcel = () => {
   const {
@@ -8,9 +9,18 @@ const SendParcel = () => {
     formState: { error },
   } = useForm();
 
+  const { dataFetch } = useFetchCounters("/ServiceCounters.json");
+
+  console.log(dataFetch);
+
   const handleFormSubmit = (data) => {
     console.log(data);
   };
+
+  // const regionDuplicate = fetchData?.map((r) => r.regions);
+  // const regions = [...new Set(regionDuplicate)];
+  // console.log(regions);
+
   return (
     <Container>
       <div className="rounded-md  my-10 bg-primary text-base-100 max-w-6xl mx-auto">
@@ -84,7 +94,7 @@ const SendParcel = () => {
                   className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
                   placeholder="Sender Phone No"
                 />
-                <babel>Your District</babel>
+                <label>Your District</label>
                 <select
                   defaultValue="Small"
                   className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200 ">
@@ -126,7 +136,7 @@ const SendParcel = () => {
                   placeholder="Receiver Contact No"
                 />
 
-                <babel>Receiver District</babel>
+                <label>Receiver District</label>
                 <select
                   defaultValue="Small"
                   className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200 ">

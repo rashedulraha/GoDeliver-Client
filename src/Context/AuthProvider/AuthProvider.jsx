@@ -71,8 +71,6 @@ const AuthProvider = ({ children }) => {
     user,
   };
 
-  console.log(user);
-
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };
 

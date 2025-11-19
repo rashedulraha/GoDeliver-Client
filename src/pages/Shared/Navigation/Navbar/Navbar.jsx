@@ -16,6 +16,7 @@ import Swal from "sweetalert2";
 const MenuLink = (
   <>
     <div className="flex flex-col lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium text-base-100 ">
+      <CustomNavLink to={""} label={"Home"} />
       <CustomNavLink
         label={"Service"}
         dropdown={[
@@ -26,7 +27,6 @@ const MenuLink = (
           { to: "home-services", label: "Home Services" },
         ]}
       />
-
       <CustomNavLink to={"coverage"} label={"Coverage"} />
       <CustomNavLink to={"about"} label={"About"} />
       <CustomNavLink to={"pricing"} label={"Pricing"} />
