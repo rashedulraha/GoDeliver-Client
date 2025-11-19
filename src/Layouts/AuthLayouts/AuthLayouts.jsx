@@ -1,43 +1,60 @@
 import React from "react";
 import Container from "../../pages/Responsive/Container";
 import { TbTruckDelivery } from "react-icons/tb";
+import { GrDeliver } from "react-icons/gr";
 import ThemeToggle from "../../Components/Theme/ToggleTheme";
 import { Outlet } from "react-router-dom";
-import { GrDeliver } from "react-icons/gr";
 
 const AuthLayouts = () => {
   return (
-    <div className="overflow-hidden bg-primary text-base-100 min-h-screen">
+    <div className="min-h-screen bg-primary text-base-100 overflow-hidden flex flex-col">
       {/* Navbar */}
-      <div className="navbar justify-between shadow-md bg-primary text-base-100">
+      <div className="navbar bg-primary shadow-lg border-b border-base-200">
         <Container>
-          <div className="flex items-center justify-between">
-            <a href="/" className="font-bold text-xl flex gap-1 items-center">
-              <span className="hidden sm:flex">
-                <TbTruckDelivery size={30} />
-              </span>
-              Go Deliver
+          <div className="flex w-full justify-between items-center py-2">
+            {/* Logo */}
+            <a
+              href="/"
+              className="flex items-center gap-2 font-black text-2xl tracking-tight hover:opacity-90 transition">
+              <TbTruckDelivery size={36} className="text-accent" />
+              <span className="hidden sm:inline">Go Deliver</span>
+              <span className="sm:hidden">GD</span>
             </a>
 
+            {/* Theme Toggle */}
             <ThemeToggle />
           </div>
         </Container>
       </div>
 
-      {/* Main Content */}
-      <div className="w-full h-full">
+      {/* Main Content Area */}
+      <div className="flex-1 flex items-center justify-center py-8 px-4">
         <Container>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-10 py-5 md:py-10">
-            {/* Outlet Content */}
-            <div className="w-full">
-              <Outlet />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center max-w-7xl mx-auto">
+            {/* Left Side - Form (Outlet) */}
+            <div className="w-full flex justify-center lg:justify-end">
+              <div className="w-full max-w-md">
+                <Outlet />
+              </div>
             </div>
 
-            {/* Right Side Icon */}
-            <div className="w-full items-center justify-center hidden md:flex">
-              <GrDeliver size={400} />
+            {/* Right Side - Illustration */}
+            <div className="hidden lg:flex justify-center items-center">
+              <div className="relative">
+                <GrDeliver
+                  size={420}
+                  className="text-accent drop-shadow-2xl animate-pulse-slow"
+                />
+              </div>
             </div>
           </div>
+        </Container>
+      </div>
+
+      {/* Optional Footer */}
+      <div className="py-6 text-center text-sm opacity-70 border-t border-base-200">
+        <Container>
+          © 2025 Go Deliver • Fastest Parcel Delivery in Bangladesh
         </Container>
       </div>
     </div>

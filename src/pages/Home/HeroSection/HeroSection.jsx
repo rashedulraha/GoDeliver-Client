@@ -13,7 +13,7 @@ const HeroSection = () => {
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
               et a id nisi.
             </p>
-            <button className="btn ">Get Started</button>
+            <button className="btn shadow-none ">Get Started</button>
           </div>
         </div>
       </div>

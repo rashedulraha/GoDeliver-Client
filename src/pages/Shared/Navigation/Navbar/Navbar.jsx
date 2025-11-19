@@ -25,7 +25,7 @@ const Navbar = () => {
   // const name = useAuth();
 
   return (
-    <div className="bg-primary text-base-100 sticky top-0 z-50 shadow-md">
+    <div className="bg-primary text-base-100 sticky top-0 z-50 shadow-md border-b border-base-200">
       <Container>
         <div className="navbar py-4">
           {/* Logo */}
