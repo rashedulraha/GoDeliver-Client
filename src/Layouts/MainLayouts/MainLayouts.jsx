@@ -5,7 +5,7 @@ import Footer from "../../pages/Shared/Navigation/Footer/Footer";
 
 const MainLayouts = () => {
   return (
-    <div className="flex flex-col h-screen bg-primary">
+    <div className="flex flex-col bg-primary min-h-screen">
       <Navbar />
       <div className="flex-1">
         <Outlet />

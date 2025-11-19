@@ -16,14 +16,16 @@ const CustomNavLink = ({ to, label, dropdown }) => {
       className="relative"
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}>
-      <NavLink to={`/${to}`} className="hover:text-accent transition-colors">
-        {label}
+      <NavLink
+        to={to && `/${to}`}
+        className="hover:text-accent transition-colors">
+        {label && label}
       </NavLink>
 
       {/* Dropdown Menu */}
 
       {dropdown && open && (
-        <div className="absolute  top-8  md:top-11 left-0 pt-5 pb-2 w-64 bg-accent/10 text-base-100  rounded-sm  z-20 space-y-3 backdrop-blur-3xl">
+        <div className="absolute top-8  md:top-11 left-0 pt-5 pb-2 w-64 bg-accent/10 text-base-100  rounded-sm  z-20 space-y-3 backdrop-blur-2xl">
           {dropdown.map((item, index) => (
             <Link
               key={index}

@@ -13,6 +13,7 @@ import Pricing from "../pages/Pricing/Pricing";
 import Blog from "../pages/Blog/Blog";
 import Contact from "../pages/Contact/Contact";
 import Profile from "../pages/Profile/Profile";
+import SendParcel from "../pages/SendParcel/SendParcel";
 
 const Routes = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const Routes = createBrowserRouter([
       { path: "/blog", Component: Blog },
       { path: "/contact", Component: Contact },
       { path: "/profile", Component: Profile },
+      { path: "/send-parcel", Component: SendParcel },
     ],
   },
   {
