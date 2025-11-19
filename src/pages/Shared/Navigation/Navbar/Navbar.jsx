@@ -3,23 +3,33 @@ import Container from "../../../Responsive/Container";
 import ThemeToggle from "../../../../Components/Theme/ToggleTheme";
 
 import { TbTruckDelivery } from "react-icons/tb";
-import { FaBars, FaHandsHelping, FaListUl, FaUser } from "react-icons/fa";
+import { FaBars, FaListUl, FaUser } from "react-icons/fa";
 import CustomNavLink from "./Shared/CustomNavLink";
 import ActionButton from "./Shared/ActionButton";
 import useAuth from "../../../../Hooks/useAuth";
 import { IoIosAddCircle } from "react-icons/io";
 import LoginNavLink from "./Shared/LoginNavLink";
+import { MdDashboard, MdOutlineTrackChanges } from "react-icons/md";
 
 const MenuLink = (
   <>
-    <div className="flex flex-col lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium text-base text-base-100 ">
-      <CustomNavLink to={"service"} value={"Service"} />
-      <CustomNavLink to={"coverage"} value={"Coverage"} />
-      <CustomNavLink to={"about"} value={"About"} />
-      <CustomNavLink to={"pricing"} value={"Pricing"} />
-      <CustomNavLink to={"blog"} value={"Blog"} />
-      <CustomNavLink to={"contact"} value={"Contact"} />
-      <CustomNavLink to={"track-parcel"} value={"Track Parcel"} />
+    <div className="flex flex-col lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium text-base-100 ">
+      <CustomNavLink
+        to={"service"}
+        label={"Service"}
+        dropdown={[
+          { to: "grocery-delivery", label: "Grocery Delivery" },
+          { to: "parcel-delivery", label: "Parcel Delivery" },
+          { to: "ride-sharing", label: "Ride Sharing" },
+          { to: "courier-service", label: "Courier Service" },
+          { to: "home-services", label: "Home Services" },
+        ]}
+      />
+      <CustomNavLink to={"coverage"} label={"Coverage"} />
+      <CustomNavLink to={"about"} label={"About"} />
+      <CustomNavLink to={"pricing"} label={"Pricing"} />
+      <CustomNavLink to={"blog"} label={"Blog"} />
+      <CustomNavLink to={"contact"} label={"Contact"} />
     </div>
   </>
 );
@@ -29,6 +39,9 @@ const MenuLink = (
 const Navbar = () => {
   const { user } = useAuth();
 
+  const displayName = user?.displayName;
+  const photoURL = user?.photoURL;
+
   const loginUser = (
     <>
       <div className="dropdown dropdown-end">
@@ -36,11 +49,10 @@ const Navbar = () => {
           {user && (
             <div
               className="md:tooltip md:tooltip-bottom flex items-center justify-center"
-              // data-tip={`${displayName}`}
-            >
+              data-tip={`${displayName}`}>
               <img
                 className="-full border hover:bg-primary hover:text-white transition-all w-8 md:w-10 h-8 md:h-10 cursor-pointer rounded-full"
-                // src={photoURL}
+                src={photoURL}
                 alt="user Image"
               />
             </div>
@@ -48,17 +60,22 @@ const Navbar = () => {
         </div>
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content bg-primary rounded-box z-[9999] mt-5 md:mt-4 w-60 p-3 border border-base-300 space-y-3">
-          <LoginNavLink to="profile" value="Profile" Icon={FaUser} />
-          <LoginNavLink to="my-request" value="Profile" Icon={FaHandsHelping} />
-          <LoginNavLink to="my-listings" value="My Listings" Icon={FaListUl} />
+          className="menu menu-sm dropdown-content bg-accent/10 p-0  z-9999 mt-6 md:mt-4 w-64 border border-base-300 space-y-3 py-3 rounded-sm backdrop-blur-2xl">
+          <LoginNavLink to="dashboard" label="Dashboard" Icon={MdDashboard} />
+          <LoginNavLink to="Profile" label="Profile" Icon={FaUser} />
+          <LoginNavLink to="my-parcels" label="My Parcels" Icon={FaListUl} />
           <LoginNavLink
-            to="payment-history"
-            value="Payment History"
+            to="send-parcel"
+            label="Send Parcel"
             Icon={IoIosAddCircle}
           />
+          <LoginNavLink
+            to="track-parcel"
+            label="Track Parcel"
+            Icon={MdOutlineTrackChanges}
+          />
 
-          <button className="btn btn-primary rounded-full bg-base-100 text-primary shadow-none cursor-pointer">
+          <button className="btn btn-primary rounded-full bg-base-100 text-primary shadow-none cursor-pointer  mx-3 ">
             Logout
           </button>
         </ul>
@@ -97,10 +114,10 @@ const Navbar = () => {
           </div>
 
           {/* Right Side */}
-          <div className="navbar-end gap-4">
+          <div className="navbar-end gap-4 flex items-center">
             <ThemeToggle />
 
-            <div className="hidden items-center md:flex gap-3">
+            <div className=" flex justify-center items-center md:flex gap-3">
               {user ? (
                 loginUser
               ) : (
@@ -110,11 +127,14 @@ const Navbar = () => {
                   className={"btn-outline bg-base-200 text-primary"}
                 />
               )}
-              <ActionButton
-                to={"be-a-rider"}
-                value={"Be a Rider"}
-                className={"bg-accent"}
-              />
+
+              <div className="hidden md:flex">
+                <ActionButton
+                  to={"be-a-rider"}
+                  value={"Be a Rider"}
+                  className={"bg-accent"}
+                />
+              </div>
             </div>
           </div>
         </div>

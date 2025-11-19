@@ -84,10 +84,10 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="px-4 py-2 rounded-sm text-primary outline-none w-full sm:w-auto flex-1 bg-base-100"
+                className="px-4 py-2 rounded-sm text-primary outline-none w-full sm:w-auto flex-1 bg-base-100 input-sm"
               />
 
-              <button className="bg-accent text-base-100 px-4 py-2 rounded-sm hover:bg-accent/90 transition-colors cursor-pointer">
+              <button className="bg-accent text-base-100 btn btn-sm shadow-none border-none rounded-sm hover:bg-accent/90 transition-colors cursor-pointer">
                 Subscribe
               </button>
             </form>
