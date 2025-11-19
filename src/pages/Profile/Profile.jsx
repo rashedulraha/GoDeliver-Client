@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import LoadingSpinner from "../Shared/Loading/LoadingSpinner";
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const displayName = user?.displayName;
   const photoURL = user?.photoURL;
   const email = user?.email;
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div className="card bg-primary text-base-100 w-full max-w-md mx-auto my-5">
       <div className="card-body items-center text-center">

@@ -47,6 +47,7 @@ const SendParcel = () => {
             <div>
               <label className="text-sm font-medium">Parcel Name</label>
               <input
+                {...register("parcelName")}
                 type="text"
                 className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
                 placeholder="Parcel Name"
@@ -56,6 +57,7 @@ const SendParcel = () => {
             <div>
               <label className="text-sm font-medium">Parcel Weight (KG)</label>
               <input
+                {...register("parcelWeight")}
                 type="number"
                 className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
                 placeholder="Parcel Weight (KG)"
@@ -82,16 +84,24 @@ const SendParcel = () => {
                   className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
                   placeholder="Sender Phone No"
                 />
-
-                <select className="p-3 border rounded-md bg-primary text-base-100">
-                  <option>Select your District</option>
-                  <option>Dhaka</option>
-                  <option>Chittagong</option>
-                  <option>Khulna</option>
+                <babel>Your District</babel>
+                <select
+                  defaultValue="Small"
+                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200 ">
+                  <option disabled={true}>Small</option>
+                  <option className="hover:bg-accent/10 rounded-none">
+                    Small Apple
+                  </option>
+                  <option className="hover:bg-accent/10 rounded-none">
+                    Small Orange
+                  </option>
+                  <option className="hover:bg-accent/10 rounded-none">
+                    Small Tomato
+                  </option>
                 </select>
 
                 <textarea
-                  className="p-3 border rounded-md"
+                  className="p-2 border rounded-md text-sm"
                   placeholder="Pickup Instruction"
                   rows="3"
                 />
@@ -116,15 +126,24 @@ const SendParcel = () => {
                   placeholder="Receiver Contact No"
                 />
 
-                <select className="p-3 border rounded-md bg-primary text-base-100">
-                  <option>Select your District</option>
-                  <option>Dhaka</option>
-                  <option>Chittagong</option>
-                  <option>Khulna</option>
+                <babel>Receiver District</babel>
+                <select
+                  defaultValue="Small"
+                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200 ">
+                  <option disabled={true}>Small</option>
+                  <option className="hover:bg-accent/10 rounded-none">
+                    Small Apple
+                  </option>
+                  <option className="hover:bg-accent/10 rounded-none">
+                    Small Orange
+                  </option>
+                  <option className="hover:bg-accent/10 rounded-none">
+                    Small Tomato
+                  </option>
                 </select>
 
                 <textarea
-                  className="p-3 border rounded-md"
+                  className="p-2 text-sm border rounded-md"
                   placeholder="Delivery Instruction"
                   rows="3"
                 />

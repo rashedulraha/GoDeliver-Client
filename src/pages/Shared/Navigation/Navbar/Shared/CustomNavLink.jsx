@@ -18,22 +18,24 @@ const CustomNavLink = ({ to, label, dropdown }) => {
       onMouseLeave={handleLeave}>
       <NavLink
         to={to && `/${to}`}
-        className="hover:text-accent transition-colors">
+        className="hover:text-accent transition-all  py-4">
         {label && label}
       </NavLink>
 
       {/* Dropdown Menu */}
 
       {dropdown && open && (
-        <div className="absolute top-8  md:top-11 left-0 pt-5 pb-2 w-64 bg-accent/10 text-base-100  rounded-sm  z-20 space-y-3 backdrop-blur-2xl">
-          {dropdown.map((item, index) => (
-            <Link
-              key={index}
-              to={`/${item.to}`}
-              className="block px-3 p-1  hover:bg-accent/20 transition-all ">
-              {item.label}
-            </Link>
-          ))}
+        <div className="absolute left-0 w-64 pt-5 z-50 ">
+          <div className="bg-accent/10 backdrop-blur-xl">
+            {dropdown.map((item, index) => (
+              <Link
+                key={index}
+                to={`/${item.to}`}
+                className="block px-3 py-2  hover:bg-accent/20 transition-all ">
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </div>

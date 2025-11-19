@@ -17,7 +17,6 @@ const MenuLink = (
   <>
     <div className="flex flex-col lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium text-base-100 ">
       <CustomNavLink
-        to={"service"}
         label={"Service"}
         dropdown={[
           { to: "grocery-delivery", label: "Grocery Delivery" },
@@ -27,6 +26,7 @@ const MenuLink = (
           { to: "home-services", label: "Home Services" },
         ]}
       />
+
       <CustomNavLink to={"coverage"} label={"Coverage"} />
       <CustomNavLink to={"about"} label={"About"} />
       <CustomNavLink to={"pricing"} label={"Pricing"} />
@@ -88,7 +88,7 @@ const Navbar = () => {
         </div>
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content bg-accent/10 p-0  z-9999 mt-6 md:mt-4 w-64 border border-base-300 space-y-3 py-3 rounded-sm backdrop-blur-2xl">
+          className="menu menu-sm dropdown-content bg-accent/10 p-0  z-9999 mt-6 md:mt-4 w-64 border border-base-300 py-4 rounded-sm backdrop-blur-2xl">
           <LoginNavLink to="dashboard" label="Dashboard" Icon={MdDashboard} />
           <LoginNavLink to="Profile" label="Profile" Icon={FaUser} />
           <LoginNavLink to="my-parcels" label="My Parcels" Icon={FaListUl} />
@@ -105,7 +105,7 @@ const Navbar = () => {
 
           <button
             onClick={handleSignOut}
-            className="btn btn-primary rounded-full bg-base-100 text-primary shadow-none cursor-pointer  mx-3 ">
+            className="btn btn-primary rounded-full bg-base-100 text-primary shadow-none cursor-pointer mt-3  mx-3 ">
             Logout
           </button>
         </ul>
