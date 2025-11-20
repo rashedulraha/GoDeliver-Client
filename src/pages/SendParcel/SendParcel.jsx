@@ -1,22 +1,41 @@
+import useAuth from "../../Hooks/useAuth";
 import useFetchCounters from "../../Hooks/useFetchCounters";
 import Container from "../Responsive/Container";
 import { useForm } from "react-hook-form";
+import LoadingSpinner from "../Shared/Loading/LoadingSpinner";
 
 const SendParcel = () => {
   const {
     register,
     handleSubmit,
-    formState: { error },
+    watch,
+    // formState: { error },
   } = useForm();
+  const { loading } = useAuth();
 
   const { fetchData } = useFetchCounters("/ServiceCounters.json");
 
   const filteringRegion = fetchData?.map((region) => region.region);
   const removeDuplicate = [...new Set(filteringRegion)];
 
+  const senderRegion = watch("senderRegion");
+
+  const districtsByRegion = (region) => {
+    const regionDistricts = fetchData?.filter((data) => data.region === region);
+    const districts = regionDistricts?.map((district) => district.district);
+    return districts;
+  };
+
+  districtsByRegion("dhaka");
+
   const handleFormSubmit = (data) => {
     console.log(data);
   };
+
+  //! Page loading spinner
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <Container>
@@ -80,6 +99,7 @@ const SendParcel = () => {
 
               <div className="flex flex-col gap-4">
                 <input
+                  {...register("senderName")}
                   className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
                   placeholder="Sender Name"
                 />
@@ -88,17 +108,36 @@ const SendParcel = () => {
                   placeholder="Address"
                 />
                 <input
+                  {...register("senderPhoneNumber")}
                   className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
                   placeholder="Sender Phone No"
                 />
-                <label>Your District</label>
+                <label>Your Region</label>
                 <select
-                  defaultValue="Small"
-                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200 ">
-                  <option disabled={true}>Select region</option>
+                  {...register("senderRegion")}
+                  defaultValue="Pick a region"
+                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200  ">
+                  <option disabled={true}>Pick a region</option>
 
                   {removeDuplicate?.map((region) => (
                     <option
+                      key={region}
+                      value={region}
+                      className="hover:bg-accent/10 rounded-none">
+                      {region}
+                    </option>
+                  ))}
+                </select>
+                <label>Your District</label>
+                <select
+                  {...register("senderDistrict")}
+                  defaultValue="Pick a Districts"
+                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200 ">
+                  <option disabled={true}>Pick a District</option>
+
+                  {districtsByRegion(senderRegion)?.map((region) => (
+                    <option
+                      key={region}
                       value={region}
                       className="hover:bg-accent/10 rounded-none">
                       {region}
@@ -120,6 +159,7 @@ const SendParcel = () => {
 
               <div className="flex flex-col gap-4">
                 <input
+                  {...register("receiverName")}
                   className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
                   placeholder="Receiver Name"
                 />
@@ -128,6 +168,7 @@ const SendParcel = () => {
                   placeholder="Receiver Address"
                 />
                 <input
+                  {...register("receiverPhoneNumber")}
                   className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
                   placeholder="Receiver Contact No"
                 />

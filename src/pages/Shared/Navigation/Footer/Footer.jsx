@@ -57,7 +57,6 @@ const Footer = () => {
               </a>
             </div>
           </div>
-
           {/* Quick Links */}
           <div>
             <h3 className="font-bold text-lg mb-4">Quick Links</h3>
@@ -104,7 +103,6 @@ const Footer = () => {
               />
             </div>
           </div>
-
           {/* Contact Info */}
           <div>
             <h3 className="font-bold text-lg mb-4">Contact Us</h3>
