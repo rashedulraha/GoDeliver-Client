@@ -15,7 +15,7 @@ import { useState } from "react";
 
 const dropdown = [
   { to: "grocery-delivery", label: "Grocery Delivery" },
-  { to: "parcel-delivery", label: "Parcel Delivery" },
+  { to: "send-parcel", label: "Parcel Delivery" },
   { to: "ride-sharing", label: "Ride Sharing" },
   { to: "courier-service", label: "Courier Service" },
   { to: "home-services", label: "Home Services" },
