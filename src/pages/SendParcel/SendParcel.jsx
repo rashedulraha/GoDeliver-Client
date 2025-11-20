@@ -1,16 +1,11 @@
 import useAuth from "../../Hooks/useAuth";
 import useFetchCounters from "../../Hooks/useFetchCounters";
 import Container from "../Responsive/Container";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import LoadingSpinner from "../Shared/Loading/LoadingSpinner";
 
 const SendParcel = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    // formState: { error },
-  } = useForm();
+  const { register, handleSubmit, control } = useForm();
   const { loading } = useAuth();
 
   const { fetchData } = useFetchCounters("/ServiceCounters.json");
@@ -18,7 +13,8 @@ const SendParcel = () => {
   const filteringRegion = fetchData?.map((region) => region.region);
   const removeDuplicate = [...new Set(filteringRegion)];
 
-  const senderRegion = watch("senderRegion");
+  const senderRegion = useWatch({ control, name: "senderRegion" });
+  const receiverRegion = useWatch({ control, name: "receiverRegion" });
 
   const districtsByRegion = (region) => {
     const regionDistricts = fetchData?.filter((data) => data.region === region);
@@ -26,67 +22,79 @@ const SendParcel = () => {
     return districts;
   };
 
-  districtsByRegion("dhaka");
-
   const handleFormSubmit = (data) => {
     console.log(data);
   };
 
-  //! Page loading spinner
   if (loading) {
     return <LoadingSpinner />;
   }
 
   return (
     <Container>
-      <div className="rounded-md  my-10 bg-primary text-base-100 max-w-6xl mx-auto">
+      <div className="rounded-md my-10 bg-primary text-base-100 max-w-6xl mx-auto p-8">
         <h1 className="text-3xl font-bold mb-6">Send A Parcel</h1>
-        <p className="text-lg font-medium mb-4">Enter your parcel details</p>
+        <p className="text-lg font-medium mb-8">Enter your parcel details</p>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
           {/* Parcel Type */}
-          <div className="flex items-center gap-6 mb-6">
-            <label className="label">
-              <input
-                type="radio"
-                {...register("parcelType")}
-                value="document"
-                className="radio radio-sm text-accent"
-                defaultChecked
-              />
-              Document
+          <div>
+            <label className="text-lg font-medium mb-4 block">
+              Parcel Type
             </label>
+            <div className="flex items-center gap-10">
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="radio"
+                  {...register("parcelType")}
+                  value="document"
+                  className="radio radio-sm text-accent"
+                  defaultChecked
+                />
+                <span>Document</span>
+              </label>
 
-            <label className="label">
-              <input
-                type="radio"
-                value="non-document"
-                {...register("parcelType")}
-                className="radio radio-sm text-accent"
-              />
-              Non-Document
-            </label>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="radio"
+                  value="non-document"
+                  {...register("parcelType")}
+                  className="radio radio-sm text-accent"
+                />
+                <span>Non-Document</span>
+              </label>
+            </div>
           </div>
 
           {/* Parcel Details */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="text-sm font-medium">Parcel Name</label>
+              <label
+                htmlFor="parcelName"
+                className="block text-sm font-medium mb-2">
+                Parcel Name
+              </label>
               <input
+                id="parcelName"
                 {...register("parcelName")}
                 type="text"
-                className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
-                placeholder="Parcel Name"
+                className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                placeholder="Enter parcel name"
               />
             </div>
 
             <div>
-              <label className="text-sm font-medium">Parcel Weight (KG)</label>
+              <label
+                htmlFor="parcelWeight"
+                className="block text-sm font-medium mb-2">
+                Parcel Weight (KG)
+              </label>
               <input
+                id="parcelWeight"
                 {...register("parcelWeight")}
                 type="number"
-                className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
-                placeholder="Parcel Weight (KG)"
+                className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                placeholder="Enter weight in KG"
               />
             </div>
           </div>
@@ -94,113 +102,229 @@ const SendParcel = () => {
           {/* Sender + Receiver Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {/* Sender */}
-            <div>
-              <h2 className="font-semibold text-lg mb-4">Sender Details</h2>
+            <div className="space-y-5">
+              <h2 className="font-semibold text-xl">Sender Details</h2>
 
-              <div className="flex flex-col gap-4">
+              <div>
+                <label
+                  htmlFor="senderName"
+                  className="block text-sm font-medium mb-2">
+                  Sender Name
+                </label>
                 <input
+                  id="senderName"
                   {...register("senderName")}
-                  className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
-                  placeholder="Sender Name"
+                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  placeholder="Full name of sender"
                 />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="senderAddress"
+                  className="block text-sm font-medium mb-2">
+                  Sender Address
+                </label>
                 <input
-                  className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
-                  placeholder="Address"
+                  id="senderAddress"
+                  {...register("senderAddress")}
+                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  placeholder="Full address"
                 />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="senderPhoneNumber"
+                  className="block text-sm font-medium mb-2">
+                  Sender Phone Number
+                </label>
                 <input
+                  id="senderPhoneNumber"
                   {...register("senderPhoneNumber")}
-                  className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
-                  placeholder="Sender Phone No"
+                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  placeholder="01xxxxxxxxx"
                 />
-                <label>Your Region</label>
+              </div>
+
+              {/* Sender Region */}
+              <div>
+                <label
+                  htmlFor="senderRegion"
+                  className="block text-sm font-medium mb-2">
+                  Sender Region
+                </label>
                 <select
+                  id="senderRegion"
                   {...register("senderRegion")}
-                  defaultValue="Pick a region"
-                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200  ">
-                  <option disabled={true}>Pick a region</option>
-
+                  defaultValue=""
+                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200">
+                  <option value="" disabled>
+                    Pick a region
+                  </option>
                   {removeDuplicate?.map((region) => (
-                    <option
-                      key={region}
-                      value={region}
-                      className="hover:bg-accent/10 rounded-none">
+                    <option key={region} value={region}>
                       {region}
                     </option>
                   ))}
                 </select>
-                <label>Your District</label>
+              </div>
+
+              {/* Sender District */}
+              <div>
+                <label
+                  htmlFor="senderDistrict"
+                  className="block text-sm font-medium mb-2">
+                  Sender District
+                </label>
                 <select
+                  id="senderDistrict"
                   {...register("senderDistrict")}
-                  defaultValue="Pick a Districts"
-                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200 ">
-                  <option disabled={true}>Pick a District</option>
-
-                  {districtsByRegion(senderRegion)?.map((region) => (
-                    <option
-                      key={region}
-                      value={region}
-                      className="hover:bg-accent/10 rounded-none">
-                      {region}
+                  defaultValue=""
+                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200"
+                  disabled={!senderRegion}>
+                  <option value="" disabled>
+                    {senderRegion ? "Pick a district" : "First select region"}
+                  </option>
+                  {districtsByRegion(senderRegion)?.map((district) => (
+                    <option key={district} value={district}>
+                      {district}
                     </option>
                   ))}
                 </select>
+              </div>
 
+              <div>
+                <label
+                  htmlFor="pickupInstruction"
+                  className="block text-sm font-medium mb-2">
+                  Pickup Instruction (Optional)
+                </label>
                 <textarea
-                  className="p-2 border rounded-md text-sm"
-                  placeholder="Pickup Instruction"
+                  id="pickupInstruction"
+                  {...register("pickupInstruction")}
+                  className="w-full p-3 border rounded-md text-sm bg-primary text-base-100 border-base-200 resize-none"
+                  placeholder="Any special instruction for pickup?"
                   rows="3"
                 />
               </div>
             </div>
 
             {/* Receiver */}
-            <div>
-              <h2 className="font-semibold text-lg mb-4">Receiver Details</h2>
+            <div className="space-y-5">
+              <h2 className="font-semibold text-xl">Receiver Details</h2>
 
-              <div className="flex flex-col gap-4">
+              <div>
+                <label
+                  htmlFor="receiverName"
+                  className="block text-sm font-medium mb-2">
+                  Receiver Name
+                </label>
                 <input
+                  id="receiverName"
                   {...register("receiverName")}
-                  className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
-                  placeholder="Receiver Name"
+                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  placeholder="Full name of receiver"
                 />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="receiverAddress"
+                  className="block text-sm font-medium mb-2">
+                  Receiver Address
+                </label>
                 <input
-                  className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
-                  placeholder="Receiver Address"
+                  id="receiverAddress"
+                  {...register("receiverAddress")}
+                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  placeholder="Full delivery address"
                 />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="receiverPhoneNumber"
+                  className="block text-sm font-medium mb-2">
+                  Receiver Phone Number
+                </label>
                 <input
+                  id="receiverPhoneNumber"
                   {...register("receiverPhoneNumber")}
-                  className="w-full mt-2 input input-sm rounded-sm border  bg-primary shadow-none border-base-200"
-                  placeholder="Receiver Contact No"
+                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  placeholder="01xxxxxxxxx"
                 />
+              </div>
 
-                <label>Receiver District</label>
+              {/* Receiver Region */}
+              <div>
+                <label
+                  htmlFor="receiverRegion"
+                  className="block text-sm font-medium mb-2">
+                  Receiver Region
+                </label>
                 <select
-                  defaultValue="Small"
-                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200 ">
-                  <option disabled={true}>Small</option>
-                  <option className="hover:bg-accent/10 rounded-none">
-                    Small Apple
+                  id="receiverRegion"
+                  {...register("receiverRegion")}
+                  defaultValue=""
+                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200">
+                  <option value="" disabled>
+                    Pick a region
                   </option>
-                  <option className="hover:bg-accent/10 rounded-none">
-                    Small Orange
-                  </option>
-                  <option className="hover:bg-accent/10 rounded-none">
-                    Small Tomato
-                  </option>
+                  {removeDuplicate?.map((region) => (
+                    <option key={region} value={region}>
+                      {region}
+                    </option>
+                  ))}
                 </select>
+              </div>
 
+              {/* Receiver District */}
+              <div>
+                <label
+                  htmlFor="receiverDistrict"
+                  className="block text-sm font-medium mb-2">
+                  Receiver District
+                </label>
+                <select
+                  id="receiverDistrict"
+                  {...register("receiverDistrict")}
+                  defaultValue=""
+                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200"
+                  disabled={!receiverRegion}>
+                  <option value="" disabled>
+                    {receiverRegion ? "Pick a district" : "First select region"}
+                  </option>
+                  {districtsByRegion(receiverRegion)?.map((district) => (
+                    <option key={district} value={district}>
+                      {district}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="deliveryInstruction"
+                  className="block text-sm font-medium mb-2">
+                  Delivery Instruction (Optional)
+                </label>
                 <textarea
-                  className="p-2 text-sm border rounded-md"
-                  placeholder="Delivery Instruction"
+                  id="deliveryInstruction"
+                  {...register("deliveryInstruction")}
+                  className="w-full p-3 border rounded-md text-sm bg-primary text-base-100 border-base-200 resize-none"
+                  placeholder="Any special instruction for delivery?"
                   rows="3"
                 />
               </div>
             </div>
           </div>
 
-          <button className="mt-6 btn btn-md shadow-none  bg-accent/90 text-base-100 border-none font-medium rounded-md hover:bg-accent transition">
-            Proceed to Confirm Booking
-          </button>
+          <div className="text-center mt-10">
+            <button className="btn btn-md shadow-none bg-accent/90 text-base-100 border-none font-medium rounded-md hover:bg-accent transition px-10">
+              Proceed to Confirm Booking
+            </button>
+          </div>
         </form>
       </div>
     </Container>
