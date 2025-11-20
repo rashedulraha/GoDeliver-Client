@@ -3,6 +3,7 @@ import useFetchCounters from "../../Hooks/useFetchCounters";
 import Container from "../Responsive/Container";
 import { useForm, useWatch } from "react-hook-form";
 import LoadingSpinner from "../Shared/Loading/LoadingSpinner";
+import Swal from "sweetalert2";
 
 const SendParcel = () => {
   const { register, handleSubmit, control } = useForm();
@@ -45,6 +46,28 @@ const SendParcel = () => {
         cost = minCharge + extraCharge;
       }
     }
+
+    Swal.fire({
+      title: "Do you agree with the cost?",
+      text: "Please confirm if you accept this price.",
+      icon: "warning",
+      showCancelButton: true,
+      background: "#0f172a",
+      color: "white",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, I agree",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Thank you!",
+          background: "#0f172a",
+          color: "white",
+          text: "Your confirmation has been received.",
+          icon: "success",
+        });
+      }
+    });
 
     console.log("cost :", cost);
   };
