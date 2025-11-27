@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import LoadingSpinner from "../Shared/Loading/LoadingSpinner";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const Profile = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, deleteAccount } = useAuth();
+  const navigate = useNavigate();
   const displayName = user?.displayName;
   const photoURL = user?.photoURL;
   const email = user?.email;
@@ -11,6 +14,31 @@ const Profile = () => {
   if (loading) {
     return <LoadingSpinner />;
   }
+
+  const handleDeleteAccount = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      background: "#1e293b",
+      color: "white",
+      showCancelButton: true,
+      confirmButtonColor: " #f87171",
+      cancelButtonColor: "#14b8a6",
+      confirmButtonText: "Yes, delete account!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteAccount()
+          .then(() => {
+            navigate("/register");
+            toast.success("Successfully delete your account");
+          })
+          .catch(() => {
+            toast.error("Network error please try again");
+          });
+      }
+    });
+  };
 
   return (
     <div className="card bg-base-200 text-base-content w-full max-w-md mx-auto my-5">
@@ -37,18 +65,23 @@ const Profile = () => {
         <div className="divider"></div>
 
         {/* Buttons */}
-        <div className="flex flex-col gap-3 w-full">
+        <div className="flex flex-col md:flex-row gap-3 w-full items-center justify-center">
+          <Link
+            to="/edit-profile"
+            className="btn btn-accent shadow-none  btn-sm text-base-content">
+            Edit Profile
+          </Link>
           <Link
             to="/edit-profile"
             className="btn btn-accent shadow-none  btn-sm text-base-content">
             Edit Profile
           </Link>
 
-          <Link
-            to="/change-password"
-            className="btn btn-outline shadow-none btn-sm btn-accent">
-            Change Password
-          </Link>
+          <button
+            onClick={handleDeleteAccount}
+            className="btn btn-outline shadow-none btn-sm btn-error">
+            Delete Account
+          </button>
         </div>
       </div>
     </div>

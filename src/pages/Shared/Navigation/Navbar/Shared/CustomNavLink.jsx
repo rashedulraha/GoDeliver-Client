@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const CustomNavLink = ({ to, label, color }) => {
-  const [open, setOpen] = useState(false);
+  const [, setOpen] = useState(false);
 
   const handleEnter = () => {
     setOpen(true);
