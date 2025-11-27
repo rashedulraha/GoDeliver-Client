@@ -3,10 +3,23 @@ import useAuth from "../../Hooks/useAuth";
 import LoadingSpinner from "../Shared/Loading/LoadingSpinner";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { CiCircleRemove } from "react-icons/ci";
+import axios from "axios";
 
 const Profile = () => {
-  const { user, loading, deleteAccount } = useAuth();
+  const { user, loading, deleteAccount, updateUserProfile } = useAuth();
+  const [updatePLoading, setUpdatePLoading] = useState(false);
   const navigate = useNavigate();
+  const openModalRef = useRef();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const displayName = user?.displayName;
   const photoURL = user?.photoURL;
   const email = user?.email;
@@ -15,6 +28,43 @@ const Profile = () => {
     return <LoadingSpinner />;
   }
 
+  const handleOpenModalToForm = () => {
+    openModalRef.current.showModal();
+  };
+
+  const handleUpdateProfileWithModal = (data) => {
+    setUpdatePLoading(true);
+    const profileImage = data.image[0];
+    const formData = new FormData();
+    formData.append("image", profileImage);
+
+    const image_Api_Url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMAGE_HOST_KEY
+    }`;
+
+    axios.post(image_Api_Url, formData).then((res) => {
+      // update profile here
+
+      const userProfile = {
+        displayName: data.name,
+        photoURL: res.data.data.url,
+      };
+
+      updateUserProfile(userProfile)
+        .then(() => {
+          toast.success("Your profile has ben updated");
+          openModalRef.current.close();
+          setUpdatePLoading(false);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    });
+  };
+
+  const handleCloseModal = () => {
+    openModalRef.current.close();
+  };
   const handleDeleteAccount = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -71,11 +121,11 @@ const Profile = () => {
             className="btn btn-accent shadow-none  btn-sm text-base-content">
             Edit Profile
           </Link>
-          <Link
-            to="/edit-profile"
+          <button
+            onClick={handleOpenModalToForm}
             className="btn btn-accent shadow-none  btn-sm text-base-content">
             Edit Profile
-          </Link>
+          </button>
 
           <button
             onClick={handleDeleteAccount}
@@ -84,6 +134,68 @@ const Profile = () => {
           </button>
         </div>
       </div>
+
+      {/*  update profile using modal form  */}
+
+      <dialog
+        ref={openModalRef}
+        className="modal modal-bottom sm:modal-middle relative">
+        <div className="modal-box relative">
+          <button
+            onClick={handleCloseModal}
+            className=" absolute top-3 right-3 rounded-full hover:bg-primary  cursor-pointer">
+            <CiCircleRemove size={30} />
+          </button>
+          <h3 className="font-bold text-lg">Update profile</h3>
+          <p className="py-4">
+            Please enter your valid information and update your profile
+          </p>
+          <div className="modal-action">
+            <form
+              method="dialog"
+              onSubmit={handleSubmit(handleUpdateProfileWithModal)}>
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                {...register("name", { required: true })}
+                className={`input input-sm w-full bg-base-200 text-base-content outline-none  shadow-none ${
+                  errors.name ? "input-error" : ""
+                }`}
+                placeholder="Your name"
+              />
+              {errors.name?.type === "required" && (
+                <p className="text-error text-sm mt-1">Name is required</p>
+              )}
+
+              {/* Photo Image */}
+              <label className="label">
+                <span className="label-text">Profile Image</span>
+              </label>
+              <input
+                type="file"
+                {...register("image", { required: true })}
+                className={`file-input bg-base-200 text-base-content outline-none  shadow-none input-sm w-full ${
+                  errors.image ? "file-input-error" : ""
+                }`}
+              />
+              {errors.image?.type === "required" && (
+                <p className="text-error text-sm mt-1">Photo is required</p>
+              )}
+              <button
+                type="submit"
+                className="btn shadow-md-none bg-primary outline-none text-base-content  mt-5 border-none w-full">
+                {updatePLoading ? (
+                  <span className="loading loading-infinity loading-md text-white"></span>
+                ) : (
+                  "Update Profile"
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
