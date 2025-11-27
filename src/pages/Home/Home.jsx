@@ -18,11 +18,11 @@ const Home = () => {
   return (
     <div className="bg-base-200 text-base-content pb-10">
       <HeroSection />
-      <HowItWorks />
+      {/* <HowItWorks />
       <OurServices />
       <Marque />
       <Features />
-      <FrequentlyAsked />
+      <FrequentlyAsked /> */}
     </div>
   );
 };

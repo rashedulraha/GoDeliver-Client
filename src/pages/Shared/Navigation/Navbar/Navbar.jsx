@@ -86,12 +86,12 @@ const Navbar = () => {
             {open && (
               <div className="absolute w-64 z-50">
                 <div className="pt-[22px]">
-                  <div className=" bg-accent/10 backdrop-blur-xl rounded-b-md">
+                  <div className="bg-base-300/50  backdrop-blur-xl rounded-b-md">
                     {dropdown.map((item, index) => (
                       <Link
                         key={index}
                         to={`/${item.to}`}
-                        className="block px-4 py-2 hover:bg-accent/20 transition-all  last:rounded-b-md">
+                        className="block px-4 py-2 hover:bg-primary/20 transition-all  last:rounded-b-md">
                         {item.label}
                       </Link>
                     ))}
