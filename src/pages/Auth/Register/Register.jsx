@@ -18,10 +18,14 @@ const Register = () => {
   } = useForm();
 
   const handleSubmitData = (data) => {
+    console.log(data.image);
+
     registerUser(data.email, data.password)
       .then(() => {
         navigate("/");
         toast.success("Signup successfully");
+
+        console.log(data);
       })
       .catch(() => {
         toast.error("Network error please try again");
