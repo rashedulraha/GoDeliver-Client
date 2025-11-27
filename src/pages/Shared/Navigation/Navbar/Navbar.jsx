@@ -86,7 +86,7 @@ const Navbar = () => {
             {open && (
               <div className="absolute w-64 z-50">
                 <div className="pt-[22px]">
-                  <div className="bg-base-200/50 border border-base-100  backdrop-blur-xl rounded-b-md">
+                  <div className="bg-base-200 border border-base-100  backdrop-blur-xl rounded-b-md">
                     {dropdown.map((item, index) => (
                       <Link
                         key={index}
@@ -117,7 +117,7 @@ const Navbar = () => {
               className="md:tooltip md:tooltip-bottom flex items-center justify-center"
               data-tip={`${displayName}`}>
               <img
-                className="-full border hover:bg-base-200 hover:text-white transition-all w-8 md:w-10 h-8 md:h-10 cursor-pointer rounded-full"
+                className="-full border hover:bg-base-200 hover:text-white transition-all w-8 md:w-10 h-8 md:h-10 cursor-pointer rounded-full object-cover"
                 src={photoURL}
                 alt="user Image"
               />
@@ -126,7 +126,7 @@ const Navbar = () => {
         </div>
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content bg-base-200/10  z-9999 mt-5 md:mt-[13px] w-64 border border-base-300 px-0  rounded-sm backdrop-blur-2xl">
+          className="menu menu-sm dropdown-content bg-base-200  z-9999 mt-5 md:mt-[13px] w-64 border border-base-300 px-0  rounded-sm backdrop-blur-2xl">
           <LoginNavLink to="dashboard" label="Dashboard" Icon={MdDashboard} />
           <LoginNavLink to="Profile" label="Profile" Icon={FaUser} />
           <LoginNavLink to="my-parcels" label="My Parcels" Icon={FaListUl} />

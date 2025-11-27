@@ -19,8 +19,12 @@ const Profile = () => {
 
         {/* Profile Image */}
         <div className="avatar">
-          <div className="w-28 rounded-full ring ring-accent ring-offset-base-100 ring-offset-2">
-            <img src={photoURL} alt="User Profile" />
+          <div className="w-28 rounded-full ring ring-accent ring-offset-base-100 ring-offset-2 ">
+            <img
+              src={photoURL}
+              alt="User Profile"
+              className=" w-full h-full object-cover"
+            />
           </div>
         </div>
 

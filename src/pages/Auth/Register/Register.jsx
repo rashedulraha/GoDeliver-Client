@@ -4,12 +4,13 @@ import useAuth from "../../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import ButtonLoading from "../../Shared/Loading/ButtonLoading";
 import GoogleLogin from "../../Shared/GoogleLogin/GoogleLogin";
+import axios from "axios";
 
 const Register = () => {
-  const { registerUser, loading } = useAuth();
+  const { registerUser, loading, updateUserProfile } = useAuth();
   const navigate = useNavigate();
 
-  console.log(registerUser);
+  // console.log(registerUser);
 
   const {
     register,
@@ -18,14 +19,40 @@ const Register = () => {
   } = useForm();
 
   const handleSubmitData = (data) => {
-    console.log(data.image);
+    // console.log(data.image);
+
+    const profileImage = data.image[0];
 
     registerUser(data.email, data.password)
       .then(() => {
         navigate("/");
         toast.success("Signup successfully");
 
-        console.log(data);
+        //? store the image and get the photo url
+
+        const formData = new FormData();
+        formData.append("image", profileImage);
+
+        const image_Api_Url = `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_IMAGE_HOST_KEY
+        }`;
+
+        axios.post(image_Api_Url, formData).then((res) => {
+          console.log("after image uploaded");
+
+          // update profile here
+
+          const userProfile = {
+            displayName: data.name,
+            photoURL: res.data.data.url,
+          };
+
+          updateUserProfile(userProfile)
+            .then()
+            .catch((error) => {
+              console.log(error.message);
+            });
+        });
       })
       .catch(() => {
         toast.error("Network error please try again");
