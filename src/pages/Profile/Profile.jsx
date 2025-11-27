@@ -7,10 +7,13 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CiCircleRemove } from "react-icons/ci";
 import axios from "axios";
+import { FaEdit, FaSave } from "react-icons/fa";
 
 const Profile = () => {
-  const { user, loading, deleteAccount, updateUserProfile } = useAuth();
+  const { user, loading, deleteAccount, updateUserProfile, updateUserEmail } =
+    useAuth();
   const [updatePLoading, setUpdatePLoading] = useState(false);
+  const [emailField, setEmailField] = useState(false);
   const navigate = useNavigate();
   const openModalRef = useRef();
 
@@ -65,6 +68,25 @@ const Profile = () => {
   const handleCloseModal = () => {
     openModalRef.current.close();
   };
+
+  //! handle edit email
+  const handleEditEmail = () => {
+    setEmailField(true);
+  };
+  //! handle save email
+  const handleSaveEmail = (data) => {
+    const email = data.email;
+
+    updateUserEmail(email)
+      .then(() => {
+        setEmailField(false);
+        toast.success("successfully email updated");
+      })
+      .catch((error) => {
+        toast("Network Error");
+      });
+  };
+
   const handleDeleteAccount = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -94,7 +116,6 @@ const Profile = () => {
     <div className="card bg-base-200 text-base-content w-full max-w-md mx-auto my-5">
       <div className="card-body items-center text-center">
         <h2 className="card-title text-2xl font-bold mb-4">My Profile</h2>
-
         {/* Profile Image */}
         <div className="avatar">
           <div className="w-28 rounded-full ring ring-accent ring-offset-base-100 ring-offset-2 ">
@@ -105,21 +126,63 @@ const Profile = () => {
             />
           </div>
         </div>
-
         {/* Name */}
         <h3 className="text-xl font-semibold mt-4">{displayName}</h3>
 
         {/* Email */}
-        <p className="text-base-200 text-sm">{email}</p>
+        <div className="flex items-center gap-3">
+          {/* Email field */}
+          {emailField ? (
+            <>
+              <form
+                onSubmit={handleSubmit(handleSaveEmail)}
+                className="flex items-center  gap-2">
+                <label className="label">
+                  <span className="label-text">Email :</span>
+                </label>
 
+                <input
+                  type="email"
+                  {...register("email", {
+                    required: true,
+                    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  })}
+                  className={`input input-sm w-full bg-base-200 text-base-content outline-none shadow-none ${
+                    errors.email ? "input-error" : ""
+                  }`}
+                  placeholder="Email"
+                />
+
+                {errors.email && (
+                  <p className="text-error text-sm mt-1">
+                    {errors.email.type === "required"
+                      ? "Email is required"
+                      : "Please enter a valid email"}
+                  </p>
+                )}
+              </form>
+            </>
+          ) : (
+            <label>{email}</label>
+          )}
+
+          {emailField ? (
+            <span className="cursor-pointer" onClick={handleSaveEmail}>
+              <FaSave size={18} />
+            </span>
+          ) : (
+            <span className="cursor-pointer" onClick={handleEditEmail}>
+              <FaEdit size={18} />
+            </span>
+          )}
+        </div>
         <div className="divider"></div>
-
         {/* Buttons */}
         <div className="flex flex-col md:flex-row gap-3 w-full items-center justify-center">
           <Link
-            to="/edit-profile"
-            className="btn btn-accent shadow-none  btn-sm text-base-content">
-            Edit Profile
+            to="/dashboard"
+            className="btn btn-primary shadow-none  btn-sm text-base-content">
+            Dashboard
           </Link>
           <button
             onClick={handleOpenModalToForm}
@@ -136,7 +199,6 @@ const Profile = () => {
       </div>
 
       {/*  update profile using modal form  */}
-
       <dialog
         ref={openModalRef}
         className="modal modal-bottom sm:modal-middle relative">

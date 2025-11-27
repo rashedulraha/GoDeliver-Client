@@ -8,9 +8,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateEmail,
   updateProfile,
 } from "firebase/auth";
-
 import { auth } from "../../Firebase/Firebase.init";
 
 const googleProvider = new GoogleAuthProvider();
@@ -57,9 +57,14 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
-  // update user Profile
+  //! update user Profile
   const updateUserProfile = (photo) => {
     return updateProfile(auth.currentUser, photo);
+  };
+  // ! update user  email
+  const updateUserEmail = (email) => {
+    const user = auth.currentUser;
+    return updateEmail(user, email);
   };
 
   //! on auth observe state change
@@ -87,6 +92,7 @@ const AuthProvider = ({ children }) => {
     user,
     updateUserProfile,
     deleteAccount,
+    updateUserEmail,
   };
 
   return <AuthContext value={authInfo}>{children}</AuthContext>;
