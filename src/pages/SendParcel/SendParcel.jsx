@@ -49,7 +49,9 @@ const SendParcel = () => {
 
     Swal.fire({
       title: "Do you agree with the cost?",
-      text: "Please confirm if you accept this price.",
+      text: `Please confirm if you accept this price. You will be charge 
+        ${cost} BD`,
+
       icon: "warning",
       showCancelButton: true,
       background: "#0f172a",
@@ -78,7 +80,7 @@ const SendParcel = () => {
 
   return (
     <Container>
-      <div className="rounded-md my-10 bg-primary text-base-100 max-w-6xl mx-auto p-8">
+      <div className="rounded-md my-10 bg-base-200 text-base-content max-w-6xl mx-auto p-8">
         <h1 className="text-3xl font-bold mb-6">Send A Parcel</h1>
         <p className="text-lg font-medium mb-8">Enter your parcel details</p>
 
@@ -124,7 +126,7 @@ const SendParcel = () => {
                 id="parcelName"
                 {...register("parcelName")}
                 type="text"
-                className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                className="w-full input input-sm rounded-sm border bg-base-200 shadow-none border-base-200"
                 placeholder="Enter parcel name"
               />
             </div>
@@ -139,7 +141,7 @@ const SendParcel = () => {
                 id="parcelWeight"
                 {...register("parcelWeight")}
                 type="number"
-                className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                className="w-full input input-sm rounded-sm border bg-base-200 shadow-none border-base-200"
                 placeholder="Enter weight in KG"
               />
             </div>
@@ -160,7 +162,7 @@ const SendParcel = () => {
                 <input
                   id="senderName"
                   {...register("senderName")}
-                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  className="w-full input input-sm rounded-sm border bg-base-200 shadow-none border-base-200"
                   placeholder="Full name of sender"
                 />
               </div>
@@ -174,7 +176,7 @@ const SendParcel = () => {
                 <input
                   id="senderAddress"
                   {...register("senderAddress")}
-                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  className="w-full input input-sm rounded-sm border bg-base-200 shadow-none border-base-200"
                   placeholder="Full address"
                 />
               </div>
@@ -188,7 +190,7 @@ const SendParcel = () => {
                 <input
                   id="senderPhoneNumber"
                   {...register("senderPhoneNumber")}
-                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  className="w-full input input-sm rounded-sm border bg-base-200 shadow-none border-base-200"
                   placeholder="01xxxxxxxxx"
                 />
               </div>
@@ -204,7 +206,7 @@ const SendParcel = () => {
                   id="senderRegion"
                   {...register("senderRegion")}
                   defaultValue=""
-                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200">
+                  className="select select-sm bg-base-200 text-base-content w-full shadow-none border border-base-200">
                   <option value="" disabled>
                     Pick a region
                   </option>
@@ -227,7 +229,7 @@ const SendParcel = () => {
                   id="senderDistrict"
                   {...register("senderDistrict")}
                   defaultValue=""
-                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200"
+                  className="select select-sm bg-base-200 text-base-content w-full shadow-none border border-base-200"
                   disabled={!senderRegion}>
                   <option value="" disabled>
                     {senderRegion ? "Pick a district" : "First select region"}
@@ -249,7 +251,7 @@ const SendParcel = () => {
                 <textarea
                   id="pickupInstruction"
                   {...register("pickupInstruction")}
-                  className="w-full p-3 border rounded-md text-sm bg-primary text-base-100 border-base-200 resize-none"
+                  className="w-full p-3 border rounded-md text-sm bg-base-200 text-base-content border-base-200 resize-none"
                   placeholder="Any special instruction for pickup?"
                   rows="3"
                 />
@@ -269,7 +271,7 @@ const SendParcel = () => {
                 <input
                   id="receiverName"
                   {...register("receiverName")}
-                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  className="w-full input input-sm rounded-sm border bg-base-200 shadow-none border-base-200"
                   placeholder="Full name of receiver"
                 />
               </div>
@@ -283,7 +285,7 @@ const SendParcel = () => {
                 <input
                   id="receiverAddress"
                   {...register("receiverAddress")}
-                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  className="w-full input input-sm rounded-sm border bg-base-200 shadow-none border-base-200"
                   placeholder="Full delivery address"
                 />
               </div>
@@ -297,7 +299,7 @@ const SendParcel = () => {
                 <input
                   id="receiverPhoneNumber"
                   {...register("receiverPhoneNumber")}
-                  className="w-full input input-sm rounded-sm border bg-primary shadow-none border-base-200"
+                  className="w-full input input-sm rounded-sm border bg-base-200 shadow-none border-base-200"
                   placeholder="01xxxxxxxxx"
                 />
               </div>
@@ -313,7 +315,7 @@ const SendParcel = () => {
                   id="receiverRegion"
                   {...register("receiverRegion")}
                   defaultValue=""
-                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200">
+                  className="select select-sm bg-base-200 text-base-content w-full shadow-none border border-base-200">
                   <option value="" disabled>
                     Pick a region
                   </option>
@@ -336,7 +338,7 @@ const SendParcel = () => {
                   id="receiverDistrict"
                   {...register("receiverDistrict")}
                   defaultValue=""
-                  className="select select-sm bg-primary text-base-100 w-full shadow-none border border-base-200"
+                  className="select select-sm bg-base-200 text-base-content w-full shadow-none border border-base-200"
                   disabled={!receiverRegion}>
                   <option value="" disabled>
                     {receiverRegion ? "Pick a district" : "First select region"}
@@ -358,7 +360,7 @@ const SendParcel = () => {
                 <textarea
                   id="deliveryInstruction"
                   {...register("deliveryInstruction")}
-                  className="w-full p-3 border rounded-md text-sm bg-primary text-base-100 border-base-200 resize-none"
+                  className="w-full p-3 border rounded-md text-sm bg-base-200 text-base-content border-base-200 resize-none"
                   placeholder="Any special instruction for delivery?"
                   rows="3"
                 />
@@ -367,7 +369,7 @@ const SendParcel = () => {
           </div>
 
           <div className="text-center mt-10">
-            <button className="btn btn-md shadow-none bg-accent/90 text-base-100 border-none font-medium rounded-md hover:bg-accent transition px-10">
+            <button className="btn btn-md shadow-none bg-accent/90 text-base-content border-none font-medium rounded-md hover:bg-accent transition px-10">
               Proceed to Confirm Booking
             </button>
           </div>

@@ -13,7 +13,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="card bg-primary text-base-100 w-full max-w-md mx-auto my-5">
+    <div className="card bg-base-200 text-base-content w-full max-w-md mx-auto my-5">
       <div className="card-body items-center text-center">
         <h2 className="card-title text-2xl font-bold mb-4">My Profile</h2>
 
@@ -36,7 +36,7 @@ const Profile = () => {
         <div className="flex flex-col gap-3 w-full">
           <Link
             to="/edit-profile"
-            className="btn btn-accent shadow-none  btn-sm text-base-100">
+            className="btn btn-accent shadow-none  btn-sm text-base-content">
             Edit Profile
           </Link>
 

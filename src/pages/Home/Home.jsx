@@ -16,7 +16,7 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-primary text-base-100 pb-10">
+    <div className="bg-base-200 text-base-content pb-10">
       <HeroSection />
       <HowItWorks />
       <OurServices />

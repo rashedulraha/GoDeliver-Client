@@ -17,7 +17,7 @@ const Forgot = () => {
 
   return (
     <form onSubmit={handleSubmit(handleForgot)}>
-      <div className="card bg-primary text-base-100 w-full max-w-md mx-auto">
+      <div className="card bg-base-200 text-base-content w-full max-w-md mx-auto">
         <div className="card-body">
           <h2 className="card-title text-2xl font-bold text-center mb-6">
             Forgot Password
@@ -37,7 +37,7 @@ const Forgot = () => {
               required: true,
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
-            className={`input input-sm w-full bg-primary text-base-100 border-base-200 ${
+            className={`input input-sm w-full bg-base-200 text-base-content outline-none shadow-none ${
               errors.email ? "input-error" : ""
             }`}
             placeholder="Enter your email"
@@ -52,7 +52,7 @@ const Forgot = () => {
           )}
 
           {/* Reset Button */}
-          <button className="btn btn-accent text-base-100 mt-4 btn-sm shadow-none w-full">
+          <button className="btn btn-primary text-base-content mt-4 btn-sm shadow-none w-full">
             {loading ? <ButtonLoading /> : "Send Reset Link"}
           </button>
 
@@ -61,7 +61,7 @@ const Forgot = () => {
           {/* Back to login */}
           <Link
             to="/login"
-            className="btn btn-outline btn-sm btn-accent w-full shadow-none">
+            className="btn btn-outline btn-sm btn-accent hover:text-white w-full shadow-none">
             Back to Login
           </Link>
         </div>

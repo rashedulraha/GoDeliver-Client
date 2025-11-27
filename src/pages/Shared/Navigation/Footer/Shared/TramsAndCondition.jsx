@@ -6,7 +6,7 @@ const TramsAndCondition = ({ to, value }) => {
     <>
       <Link
         to={`/${to}`}
-        className="text-base-100/80 hover:text-accent transition-colors text-sm">
+        className="text-base-content/80 hover:text-accent transition-colors text-sm">
         {value}
       </Link>
     </>

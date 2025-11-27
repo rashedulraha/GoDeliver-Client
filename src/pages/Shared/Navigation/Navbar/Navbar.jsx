@@ -66,7 +66,7 @@ const Navbar = () => {
 
   const MenuLink = (
     <>
-      <div className="flex flex-col lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium text-base-100 ">
+      <div className="flex flex-col lg:flex-row gap-3 md:gap-6  items-center justify-center font-medium text-base-content  ">
         <CustomNavLink to={""} label={"Home"} />
         <CustomNavLink to={"coverage"} label={"Coverage"} />
         <CustomNavLink to={"about"} label={"About"} />
@@ -79,7 +79,7 @@ const Navbar = () => {
             className="cursor-pointer"
             onMouseEnter={handleEnter}
             onMouseLeave={handleLeave}>
-            <span className="flex items-center justify-center gap-1">
+            <span className="flex items-center text-base-content/50 justify-center gap-1">
               Service <IoMdArrowDropdown size={20} />
             </span>
 
@@ -117,7 +117,7 @@ const Navbar = () => {
               className="md:tooltip md:tooltip-bottom flex items-center justify-center"
               data-tip={`${displayName}`}>
               <img
-                className="-full border hover:bg-primary hover:text-white transition-all w-8 md:w-10 h-8 md:h-10 cursor-pointer rounded-full"
+                className="-full border hover:bg-base-200 hover:text-white transition-all w-8 md:w-10 h-8 md:h-10 cursor-pointer rounded-full"
                 src={photoURL}
                 alt="user Image"
               />
@@ -143,7 +143,7 @@ const Navbar = () => {
 
           <button
             onClick={handleSignOut}
-            className="btn btn-primary rounded-full bg-base-100 text-primary shadow-none cursor-pointer mt-3  mx-3 ">
+            className="btn btn-primary bg-primary text-base-content rounded-full   shadow-none cursor-pointer mt-3  mx-3 ">
             Logout
           </button>
         </ul>
@@ -152,7 +152,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-primary text-base-100 sticky top-0 z-50 shadow-md border-b border-base-200">
+    <div className=" text-base-content sticky top-0 z-50 shadow-md  backdrop-blur-2xl">
       <Container>
         <div className="navbar">
           {/* Logo */}
@@ -160,16 +160,16 @@ const Navbar = () => {
             <div className="dropdown">
               <label
                 tabIndex={0}
-                className="btn btn-ghost lg:hidden text-base-100 ">
+                className="btn btn-ghost lg:hidden text-base-content ">
                 <FaBars size={22} />
               </label>
-              <ul className="menu menu-sm dropdown-content bg-primary rounded-box z-10 mt-3 w-52 p-4   border-base-200">
+              <ul className="menu menu-sm dropdown-content bg-base-200 rounded-box z-10 mt-3 w-52 p-4   border-base-200">
                 {MenuLink}
               </ul>
             </div>
 
             <Link to="/" className="flex items-center gap-2 font-bold text-2xl">
-              <TbTruckDelivery size={34} color="#14b8a6" />
+              <TbTruckDelivery size={34} color="#007bff" />
               <span className="hidden sm:inline">Go Deliver</span>
             </Link>
           </div>
@@ -192,7 +192,7 @@ const Navbar = () => {
                 <ActionButton
                   to={"login"}
                   value={"Signin"}
-                  className={"btn-outline bg-base-200 text-primary"}
+                  className={"btn-outline border text-primary"}
                 />
               )}
 
@@ -200,7 +200,7 @@ const Navbar = () => {
                 <ActionButton
                   to={"be-a-rider"}
                   value={"Be a Rider"}
-                  className={"bg-accent"}
+                  className={"bg-primary text-base-content"}
                 />
               </div>
             </div>

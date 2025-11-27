@@ -1,40 +1,36 @@
-/* !Google font Name : Inter   */
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-
-/*! Google font Name : Baloo 2  */
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap");
-
-/*! DaisyUI Custom Theme */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Baloo+2:wght@400..800&display=swap");
 
 @import "tailwindcss";
 @plugin "daisyui";
+
 @plugin "daisyui/theme" {
   name: "light";
   --prefersdark: true;
 
-  --color-primary: #f8fafc;
-  --color-footer: #0f172a;
-  --color-accent: #14b8a6;
-  --color-error: #f87171;
-
-  --color-base-100: #0f172a;
-  --color-base-200: #1e293b;
-  --color-base-content: #cbd5e1;
+  --color-primary: #007bff;
+  --color-footer: #343a40;
+  --color-accent: #28a745;
+  --color-error: #dc3545;
+  --color-base-100: #ffffff;
+  --color-base-200: #f8f9fa;
+  --color-offer-card: #ffffff;
+  --color-base-content: #212529;
+  --color-card-body: #f2f2f2;
 }
 
 @plugin "daisyui/theme" {
   name: "dark";
   default: true;
 
-  --color-primary: #0f172a;
-  --color-footer: #0f172a;
-  --color-accent: #14b8a6;
-  --color-error: #ef4444;
-
-  --color-base-100: #f8fafc;
-  --color-base-200: #e2e8f0;
-  --color-base-content: #334155;
+  --color-primary: #0d6efd;
+  --color-footer: #212529;
+  --color-accent: #198754;
+  --color-error: #ff6b6b;
+  --color-base-100: #1e1e1e;
+  --color-base-200: #0a0a0a;
+  --color-base-content: #ffffff;
+  --color-card-body: #343434;
+  --color-offer-card: #8c8c8c;
 }
 
 body {
@@ -42,5 +38,5 @@ body {
 }
 
 .active {
-  @apply text-accent;
+  @apply text-primary border-b pb-1;
 }

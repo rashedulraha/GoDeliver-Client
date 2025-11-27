@@ -62,7 +62,7 @@ export default function OurServices() {
             return (
               <div
                 key={idx}
-                className={`${service.bg} p-6 rounded-md border  transition-shadow flex flex-col items-center text-center space-y-4`}>
+                className={`${service.bg} p-6 rounded-md border  transition-shadow flex flex-col items-center text-center space-y-4 `}>
                 {/* Icon Circle */}
                 <div className="w-16 h-16  flex items-center justify-center">
                   <Icon className="h-8 w-8" />

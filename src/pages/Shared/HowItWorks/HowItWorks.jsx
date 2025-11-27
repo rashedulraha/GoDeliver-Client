@@ -39,7 +39,7 @@ export default function HowItWorks() {
             return (
               <div
                 key={idx}
-                className="card  cursor-pointer p-6 flex flex-col items-center text-center border rounded-md">
+                className="card  cursor-pointer p-6 flex flex-col items-center text-center border rounded-md ">
                 <div className="mb-5">
                   <Icon className="h-12 w-12 " />
                 </div>

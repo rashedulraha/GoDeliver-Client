@@ -30,7 +30,7 @@ const Register = () => {
 
   return (
     <form onSubmit={handleSubmit(handleSubmitData)}>
-      <div className="card bg-primary text-base-100 w-full max-w-md mx-auto">
+      <div className="card bg-base-200 text-base-content w-full max-w-md mx-auto">
         <div className="card-body">
           <h2 className="card-title text-2xl font-bold text-center mb-6">
             Register
@@ -43,7 +43,7 @@ const Register = () => {
           <input
             type="text"
             {...register("name", { required: true })}
-            className={`input input-sm w-full bg-primary text-base-100 border-base-200 ${
+            className={`input input-sm w-full bg-base-200 text-base-content outline-none  shadow-none ${
               errors.name ? "input-error" : ""
             }`}
             placeholder="Your name"
@@ -59,7 +59,7 @@ const Register = () => {
           <input
             type="file"
             {...register("image", { required: true })}
-            className={`file-input bg-primary text-base-100 border-base-200 input-sm w-full ${
+            className={`file-input bg-base-200 text-base-content outline-none  shadow-none input-sm w-full ${
               errors.image ? "file-input-error" : ""
             }`}
           />
@@ -77,7 +77,7 @@ const Register = () => {
               required: true,
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
-            className={`input input-sm w-full bg-primary text-base-100 border-base-200 ${
+            className={`input input-sm w-full bg-base-200 text-base-content outline-none  shadow-none ${
               errors.email ? "input-error" : ""
             }`}
             placeholder="Email"
@@ -95,7 +95,7 @@ const Register = () => {
             <span className="label-text">Password</span>
           </label>
           <input
-            className={`input bg-primary text-base-100 border-base-200 input-sm w-full ${
+            className={`input bg-base-200 text-base-content outline-none  shadow-none input-sm w-full ${
               errors.password ? "input-error" : ""
             }`}
             type="password"
@@ -131,7 +131,7 @@ const Register = () => {
           </div>
 
           {/* Register Button */}
-          <button className="btn btn-accent text-base-100 mt-4 btn-sm shadow-none">
+          <button className="btn btn-primary text-base-content mt-4 btn-sm shadow-none">
             {loading ? <ButtonLoading /> : "Register"}
           </button>
 

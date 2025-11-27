@@ -18,10 +18,10 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-primary text-base-100   border-t border-base-200 ">
+    <footer className="bg-base-200 text-base-content   border-t border-base-200 ">
       <Container>
         {/* main Footer content */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 py-10 px-0 text-base-100">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 py-10 px-0 text-base-content">
           {/* company Info */}
           <div>
             <Link
@@ -30,29 +30,29 @@ const Footer = () => {
               <TbTruckDelivery size={34} />
               <span>Go Deliver</span>
             </Link>
-            <p className="text-base-100/80 max-w-xs">
+            <p className="text-base-content/50 max-w-xs">
               Your trusted delivery partner, bringing packages to your doorstep
               with speed and reliability.
             </p>
             <div className="flex gap-4 mt-4">
               <a
                 href=""
-                className="text-base-100/80 hover:text-accent transition-colors">
+                className="text-base-content/80 hover:text-accent transition-colors">
                 <FaFacebook size={20} />
               </a>
               <a
                 href="#"
-                className="text-base-100/80 hover:text-accent transition-colors">
+                className="text-base-content/80 hover:text-accent transition-colors">
                 <FaTwitter size={20} />
               </a>
               <a
                 href="#"
-                className="text-base-100/80 hover:text-accent transition-colors">
+                className="text-base-content/80 hover:text-accent transition-colors">
                 <FaInstagram size={20} />
               </a>
               <a
                 href="#"
-                className="text-base-100/80 hover:text-accent transition-colors">
+                className="text-base-content/80 hover:text-accent transition-colors">
                 <FaLinkedin size={20} />
               </a>
             </div>
@@ -65,7 +65,7 @@ const Footer = () => {
                 <li key={link}>
                   <Link
                     to={`/${link.toLowerCase()}`}
-                    className="text-base-100/80 hover:text-accent transition-colors">
+                    className="text-base-content/50 hover:text-accent transition-colors">
                     {link}
                   </Link>
                 </li>
@@ -76,7 +76,7 @@ const Footer = () => {
           {/* Newsletter + App Download */}
           <div>
             <h3 className="font-bold text-lg mb-4">Subscribe</h3>
-            <p className="text-base-100/80 mb-4">
+            <p className="text-base-content/50 mb-4">
               Get our latest updates and offers directly in your inbox.
             </p>
             <form className="flex flex-col  gap-2">
@@ -86,7 +86,7 @@ const Footer = () => {
                 className="px-4 py-2 rounded-sm text-primary outline   w-full sm:w-auto flex-1 bg-base-100 input-sm"
               />
 
-              <button className="bg-accent text-base-100 btn btn-sm shadow-none border-none rounded-sm hover:bg-accent/90 transition-colors cursor-pointer">
+              <button className="bg-primary text-base-content btn btn-sm shadow-none border-none rounded-sm hover:bg-accent/90 transition-colors cursor-pointer">
                 Subscribe
               </button>
             </form>
@@ -106,20 +106,20 @@ const Footer = () => {
           {/* Contact Info */}
           <div>
             <h3 className="font-bold text-lg mb-4">Contact Us</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2 ">
               <li className="flex items-start gap-2">
                 <FaMapMarkerAlt className="mt-1" size={16} />
-                <span className="text-base-100/80">
+                <span className="text-base-content/50">
                   123 Naogaon Street, City, Bangladesh
                 </span>
               </li>
               <li className="flex items-center gap-2">
                 <FaPhone size={16} />
-                <span className="text-base-100/80">01992-284845</span>
+                <span className="text-base-content/50">01992-284845</span>
               </li>
               <li className="flex items-center gap-2">
                 <FaEnvelope size={16} />
-                <span className="text-base-100/80">info@godeliver.com</span>
+                <span className="text-base-content/50">info@godeliver.com</span>
               </li>
             </ul>
           </div>
@@ -127,7 +127,7 @@ const Footer = () => {
 
         {/* Bottom Footer */}
         <div className="border-t border-accent py-4 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-base-100/80 text-sm">
+          <p className="text-base-content/80 text-sm">
             © {currentYear} Go Deliver. All rights reserved.
           </p>
           <div className="flex gap-4 mt-4 md:mt-0">

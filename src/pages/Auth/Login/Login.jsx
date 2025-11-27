@@ -24,7 +24,7 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit(handleLogin)}>
-      <div className="card bg-primary text-base-100 w-full max-w-md mx-auto">
+      <div className="card text-base-content w-full max-w-md mx-auto shadow-md">
         <div className="card-body">
           <h2 className="card-title text-2xl font-bold text-center mb-6">
             Login
@@ -40,7 +40,7 @@ const Login = () => {
               required: true,
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
-            className={`input input-sm w-full bg-primary text-base-100 border-base-200 ${
+            className={`input input-sm w-full bg-base-200 text-base-content outline-none shadow-none ${
               errors.email ? "input-error" : ""
             }`}
             placeholder="Email"
@@ -60,7 +60,7 @@ const Login = () => {
           <input
             type="password"
             {...register("password", { required: true, minLength: 6 })}
-            className={`input input-sm w-full bg-primary text-base-100 border-base-200 ${
+            className={`input input-sm w-full bg-base-200 text-base-content  outline-none shadow-none ${
               errors.password ? "input-error" : ""
             }`}
             placeholder="Password"
@@ -85,7 +85,7 @@ const Login = () => {
           </div>
 
           {/* Login Button */}
-          <button className="btn btn-accent text-base-100 mt-4 btn-sm shadow-none">
+          <button className="btn btn-primary text-base-content mt-4 btn-sm shadow-none">
             {loading ? <ButtonLoading /> : "Login"}
           </button>
 
