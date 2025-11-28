@@ -5,6 +5,8 @@ import {
   deleteUser,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -28,6 +30,7 @@ const AuthProvider = ({ children }) => {
         email,
         password
       );
+      await sendEmailVerification(auth.currentUser);
 
       return registerUser;
     } catch (error) {
@@ -67,6 +70,17 @@ const AuthProvider = ({ children }) => {
     return updateEmail(user, email);
   };
 
+  //! forgot password
+
+  const forgotPassword = async (email) => {
+    try {
+      const resetPassword = await sendPasswordResetEmail(auth, email);
+      return resetPassword;
+    } catch (error) {
+      return error.message;
+    }
+  };
+
   //! on auth observe state change
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -93,6 +107,7 @@ const AuthProvider = ({ children }) => {
     updateUserProfile,
     deleteAccount,
     updateUserEmail,
+    forgotPassword,
   };
 
   return <AuthContext value={authInfo}>{children}</AuthContext>;

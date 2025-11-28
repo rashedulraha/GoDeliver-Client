@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import ButtonLoading from "../../Shared/Loading/ButtonLoading";
+import { toast } from "react-toastify";
 
 const Forgot = () => {
-  const { loading } = useAuth();
+  const { loading, forgotPassword } = useAuth();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -12,7 +14,14 @@ const Forgot = () => {
   } = useForm();
 
   const handleForgot = (data) => {
-    console.log("Reset request for:", data.email);
+    // console.log("Reset request for:", data.email);
+    forgotPassword(data.email)
+      .then(() => {
+        toast.success("please check your your  email then  set new password");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (
@@ -61,6 +70,7 @@ const Forgot = () => {
           {/* Back to login */}
           <Link
             to="/login"
+            state={location.state}
             className="btn btn-outline btn-sm btn-accent hover:text-white w-full shadow-none">
             Back to Login
           </Link>

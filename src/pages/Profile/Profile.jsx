@@ -77,6 +77,10 @@ const Profile = () => {
   const handleSaveEmail = (data) => {
     const email = data.email;
 
+    if (!email === "") {
+      return toast.error("Not change your email");
+    }
+
     updateUserEmail(email)
       .then(() => {
         setEmailField(false);
@@ -215,6 +219,7 @@ const Profile = () => {
           <div className="modal-action">
             <form
               method="dialog"
+              // eslint-disable-next-line react-hooks/refs
               onSubmit={handleSubmit(handleUpdateProfileWithModal)}>
               <label className="label">
                 <span className="label-text">Name</span>
@@ -249,7 +254,9 @@ const Profile = () => {
                 type="submit"
                 className="btn shadow-md-none bg-primary outline-none text-base-content  mt-5 border-none w-full">
                 {updatePLoading ? (
-                  <span className="loading loading-infinity loading-md text-white"></span>
+                  <span className="loading loading-infinity loading-md text-white">
+                    Updating
+                  </span>
                 ) : (
                   "Update Profile"
                 )}

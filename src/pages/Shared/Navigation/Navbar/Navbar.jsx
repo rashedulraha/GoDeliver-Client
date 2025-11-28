@@ -12,6 +12,7 @@ import { MdDashboard, MdOutlineTrackChanges } from "react-icons/md";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import BeARider from "../../Button/BeARider";
 
 const dropdown = [
   { to: "grocery-delivery", label: "Grocery Delivery" },
@@ -101,6 +102,12 @@ const Navbar = () => {
             )}
           </div>
         </div>
+
+        <BeARider
+          to={"be-a-rider"}
+          value={"Be a Rider"}
+          className={"bg-primary text-base-content w-full md:hidden"}
+        />
       </div>
     </>
   );
@@ -197,7 +204,7 @@ const Navbar = () => {
               )}
 
               <div className="hidden md:flex">
-                <ActionButton
+                <BeARider
                   to={"be-a-rider"}
                   value={"Be a Rider"}
                   className={"bg-primary text-base-content"}

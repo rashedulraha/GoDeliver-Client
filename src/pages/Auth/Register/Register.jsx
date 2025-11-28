@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import ButtonLoading from "../../Shared/Loading/ButtonLoading";
@@ -9,6 +9,7 @@ import axios from "axios";
 const Register = () => {
   const { registerUser, loading, updateUserProfile } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // console.log(registerUser);
 
@@ -25,7 +26,7 @@ const Register = () => {
 
     registerUser(data.email, data.password)
       .then(() => {
-        navigate("/");
+        navigate(location.state || "/");
         toast.success("Signup successfully");
 
         //? store the image and get the photo url
@@ -155,7 +156,10 @@ const Register = () => {
               </Link>
             </label>
             <label className="label">
-              <Link to="/forgot" className=" text-info link link-hover">
+              <Link
+                state={location.state}
+                to="/forgot"
+                className=" text-info link link-hover">
                 Forgot password?
               </Link>
             </label>

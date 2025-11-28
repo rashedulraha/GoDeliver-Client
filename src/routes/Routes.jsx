@@ -15,6 +15,9 @@ import Contact from "../pages/Contact/Contact";
 import Profile from "../pages/Profile/Profile";
 import SendParcel from "../pages/SendParcel/SendParcel";
 
+import PrivetRoute from "../pages/Shared/PrivetRoute/PrivetRoute";
+import Rider from "../pages/Rider/Rider";
+
 const Routes = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +32,14 @@ const Routes = createBrowserRouter([
       { path: "/contact", Component: Contact },
       { path: "/profile", Component: Profile },
       { path: "/send-parcel", Component: SendParcel },
+      {
+        path: "/be-a-rider",
+        element: (
+          <PrivetRoute>
+            <Rider />
+          </PrivetRoute>
+        ),
+      },
     ],
   },
   {

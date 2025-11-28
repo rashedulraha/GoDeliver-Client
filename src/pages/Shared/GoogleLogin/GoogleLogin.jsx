@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import ButtonLoading from "../Loading/ButtonLoading";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const GoogleLogin = () => {
   const navigate = useNavigate();
   const { withGoogleLogin } = useAuth();
+  const location = useLocation();
+
   const [googleLoading, setGoogleLoading] = useState(false);
   const handleWithGoogleLogin = () => {
     setGoogleLoading(true);
     withGoogleLogin()
       .then(() => {
         setGoogleLoading(false);
-        navigate("/");
+        navigate(location.state || "/");
         toast.success("sing in successfully");
       })
       .catch(() => {

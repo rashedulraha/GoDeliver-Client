@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import ButtonLoading from "../../Shared/Loading/ButtonLoading";
 import GoogleLogin from "../../Shared/GoogleLogin/GoogleLogin";
 
 const Login = () => {
   const { loading } = useAuth();
+  const location = useLocation();
+
   const {
     register,
     handleSubmit,
@@ -17,7 +19,7 @@ const Login = () => {
 
   const handleLogin = (data) => {
     signinUser().then(() => {
-      navigate("/");
+      navigate(location.state || "/");
     });
     console.log("Login data:", data);
   };
@@ -75,7 +77,10 @@ const Login = () => {
 
           {/* Forgot + Register */}
           <div className="flex justify-between items-center mt-4">
-            <Link to="/register" className="link text-info link-hover">
+            <Link
+              to="/register"
+              state={location.state}
+              className="link text-info link-hover">
               Create account
             </Link>
 
