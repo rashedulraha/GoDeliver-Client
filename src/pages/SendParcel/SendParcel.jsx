@@ -4,9 +4,11 @@ import Container from "../Responsive/Container";
 import { useForm, useWatch } from "react-hook-form";
 import LoadingSpinner from "../Shared/Loading/LoadingSpinner";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const SendParcel = () => {
   const { register, handleSubmit, control } = useForm();
+  const axiosSecure = useAxiosSecure();
   const { loading } = useAuth();
 
   const { fetchData } = useFetchCounters("/ServiceCounters.json");
@@ -61,12 +63,18 @@ const SendParcel = () => {
       confirmButtonText: "Yes, I agree",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Thank you!",
-          background: "#0f172a",
-          color: "white",
-          text: "Your confirmation has been received.",
-          icon: "success",
+        //?   save the info to the database
+
+        axiosSecure.post("/parcels", data).then((res) => {
+          console.log("after saving data: ", res.data);
+
+          Swal.fire({
+            title: "Thank you!",
+            background: "#0f172a",
+            color: "white",
+            text: "Your confirmation has been received.",
+            icon: "success",
+          });
         });
       }
     });

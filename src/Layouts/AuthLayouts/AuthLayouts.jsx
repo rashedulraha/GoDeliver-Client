@@ -43,10 +43,10 @@ const AuthLayouts = () => {
 
                 <div className="text-center lg:text-left mb-8 pb-3 border-b border-base-200">
                   <h2 className="text-3xl md:text-4xl font-bold text-base-content mb-3 text-center ">
-                    Welcome Back
+                    Welcome ! <span className="text-red-500">❤</span>
                   </h2>
                   <p className="text-base-content/70 text-lg text-center">
-                    Sign in to track and manage your parcels
+                    Send today, arrive today — delivered with confidence.
                   </p>
                 </div>
 
