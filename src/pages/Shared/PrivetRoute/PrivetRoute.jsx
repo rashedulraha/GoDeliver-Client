@@ -3,9 +3,13 @@ import useAuth from "../../../Hooks/useAuth";
 import { Navigate, useLocation } from "react-router-dom";
 
 const PrivetRoute = ({ children }) => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
   const location = useLocation();
+
+  if (loading) {
+    return;
+  }
 
   if (user) {
     return children;

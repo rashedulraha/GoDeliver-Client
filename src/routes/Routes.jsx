@@ -17,6 +17,8 @@ import SendParcel from "../pages/SendParcel/SendParcel";
 
 import PrivetRoute from "../pages/Shared/PrivetRoute/PrivetRoute";
 import Rider from "../pages/Rider/Rider";
+import Dashboard from "../Layouts/Dashboard/Dashboard";
+import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
 
 const Routes = createBrowserRouter([
   {
@@ -49,6 +51,20 @@ const Routes = createBrowserRouter([
       { path: "login", Component: Login },
       { path: "register", Component: Register },
       { path: "forgot", Component: Forgot },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivetRoute>
+        <Dashboard />
+      </PrivetRoute>
+    ),
+    children: [
+      {
+        path: "my-parcels",
+        Component: MyParcels,
+      },
     ],
   },
 ]);

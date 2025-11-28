@@ -191,6 +191,19 @@ const SendParcel = () => {
 
               <div>
                 <label
+                  htmlFor="senderEmail"
+                  className="block text-sm font-medium mb-2">
+                  Sender Email
+                </label>
+                <input
+                  id="senderPhoneNumber"
+                  {...register("senderEmail")}
+                  className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                  placeholder="your@example.com"
+                />
+              </div>
+              <div>
+                <label
                   htmlFor="senderPhoneNumber"
                   className="block text-sm font-medium mb-2">
                   Sender Phone Number
@@ -298,6 +311,19 @@ const SendParcel = () => {
                 />
               </div>
 
+              <div>
+                <label
+                  htmlFor="receiverPhoneNumber"
+                  className="block text-sm font-medium mb-2">
+                  Receiver Phone Number
+                </label>
+                <input
+                  id="receiverPhoneNumber"
+                  {...register("receiverEmail")}
+                  className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                  placeholder="receiver@examle.com"
+                />
+              </div>
               <div>
                 <label
                   htmlFor="receiverPhoneNumber"
