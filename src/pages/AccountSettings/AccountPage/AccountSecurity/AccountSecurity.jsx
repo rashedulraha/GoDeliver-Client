@@ -7,7 +7,6 @@ const AccountSecurity = () => {
         <h2 className="text-2xl font-bold mb-2">Security Setting</h2>
         <p className="text-base-content/70">Manege your account Security</p>
       </div>
-
       {/* Email Change */}
       <div className="card bg-primary/10 border border-primary shadow-sm mb-5">
         <div className="card-body">
@@ -36,6 +35,59 @@ const AccountSecurity = () => {
         </div>
       </div>
 
+      {/* password change section */}
+      <div className="card bg-base-100/20 border border-base-100 mb-5 shadow-sm ">
+        <div className="card-body">
+          <h3 className="card-title">Change Password</h3>
+          <p className="text-base-content/70">
+            Create a strong password with letters, numbers, and symbols
+          </p>
+
+          <form className="mt-4 space-y-4 ">
+            <div className="form-control flex flex-col space-y-2">
+              <label className="label">
+                <span className="label-text">Current Password</span>
+              </label>
+              <input
+                type="password"
+                className="input input-sm rounded-sm border bg-base-200 shadow-none"
+                placeholder="Enter current password"
+              />
+            </div>
+
+            <div className="form-control flex flex-col space-y-2">
+              <label className="label">
+                <span className="label-text">New Password</span>
+              </label>
+              <input
+                type="password"
+                className="input input-sm rounded-sm border bg-base-200 shadow-none"
+                placeholder="Enter new password"
+              />
+            </div>
+
+            <div className="form-control flex flex-col space-y-2">
+              <label className="label">
+                <span className="label-text">Confirm New Password</span>
+              </label>
+              <input
+                type="password"
+                className="input input-sm rounded-sm border bg-base-200 shadow-none"
+                placeholder="Confirm new password"
+              />
+            </div>
+
+            <div className="card-actions justify-end mt-4">
+              <button
+                type="submit"
+                className="btn btn-primary btn-sm  shadow-none text-base-content">
+                Update Password
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      {/*  to factor authentication */}
       <div className="card bg-accent/10 border border-accent/30 shadow-sm">
         <div className="card-body">
           <h3 className="card-title">Two-Factor Authentication</h3>
