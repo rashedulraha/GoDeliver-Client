@@ -6,7 +6,11 @@ import { FaBars, FaUser } from "react-icons/fa";
 import CustomNavLink from "./Shared/CustomNavLink";
 import ActionButton from "./Shared/ActionButton";
 import useAuth from "../../../../Hooks/useAuth";
-import { IoIosAddCircle, IoMdArrowDropdown } from "react-icons/io";
+import {
+  IoIosAddCircle,
+  IoMdArrowDropdown,
+  IoMdSettings,
+} from "react-icons/io";
 import LoginNavLink from "./Shared/LoginNavLink";
 import { MdOutlineTrackChanges } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -25,35 +29,8 @@ const dropdown = [
 //! login user
 
 const Navbar = () => {
-  const { user, logoutUser } = useAuth();
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
-
-  const navigate = useNavigate();
-
-  const handleSignOut = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      background: "#1e293b",
-      color: "white",
-      showCancelButton: true,
-      confirmButtonColor: "#14b8a6",
-      cancelButtonColor: "#f87171",
-      confirmButtonText: "Yes, me logout!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        logoutUser()
-          .then(() => {
-            navigate("/login");
-            toast.success("Successfully Logout");
-          })
-          .catch(() => {
-            toast.error("Network error please try again");
-          });
-      }
-    });
-  };
 
   //!  handle open submenuBar
   const handleEnter = () => {
@@ -146,6 +123,11 @@ const Navbar = () => {
             to="track-parcel"
             label="Track Parcel"
             Icon={MdOutlineTrackChanges}
+          />
+          <LoginNavLink
+            to="account-settings"
+            label="Account Settings"
+            Icon={IoMdSettings}
           />
 
           <Link
