@@ -20,6 +20,7 @@ import Rider from "../pages/Rider/Rider";
 import Dashboard from "../Layouts/Dashboard/Dashboard";
 import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
 import AccountSettings from "../pages/AccountSettings/AccountSettings";
+import AccountSetting from "../Layouts/AccountSetting/AccountSetting";
 
 const Routes = createBrowserRouter([
   {
@@ -52,6 +53,14 @@ const Routes = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/account-setting",
+    element: (
+      <PrivetRoute>
+        <AccountSetting />
+      </PrivetRoute>
+    ),
   },
   {
     path: "/",

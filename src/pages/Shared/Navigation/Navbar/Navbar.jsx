@@ -125,6 +125,11 @@ const Navbar = () => {
             Icon={MdOutlineTrackChanges}
           />
           <LoginNavLink
+            to="account-setting"
+            label="account-setting check"
+            Icon={MdOutlineTrackChanges}
+          />
+          <LoginNavLink
             to="account-settings"
             label="Account Settings"
             Icon={IoMdSettings}
