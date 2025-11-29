@@ -43,7 +43,11 @@ const AccountSideMenu = () => {
           label={"Notification"}
           Icon={BiNotification}
         />
-        <AccountSideLink to={""} label={"security"} Icon={MdSecurity} />
+        <AccountSideLink
+          to={"account-security"}
+          label={"security"}
+          Icon={MdSecurity}
+        />
         <AccountSideLink
           to={"account-danger"}
           label={"Danger Zone"}
