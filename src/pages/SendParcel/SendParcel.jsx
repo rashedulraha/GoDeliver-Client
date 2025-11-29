@@ -9,7 +9,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 const SendParcel = () => {
   const { register, handleSubmit, control } = useForm();
   const axiosSecure = useAxiosSecure();
-  const { loading } = useAuth();
+  const { loading, user } = useAuth();
 
   const { fetchData } = useFetchCounters("/ServiceCounters.json");
 
@@ -196,6 +196,7 @@ const SendParcel = () => {
                   Sender Email
                 </label>
                 <input
+                  defaultValue={user.email}
                   id="senderPhoneNumber"
                   {...register("senderEmail")}
                   className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"

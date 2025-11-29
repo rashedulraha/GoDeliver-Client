@@ -1,15 +1,44 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import ThemeToggle from "../../Components/Theme/ToggleTheme";
 import { GoHome, GoSidebarExpand } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
 import { HelpCircle, LocateIcon, LogOut } from "lucide-react";
 import { LiaFileInvoiceSolid, LiaStoreSolid } from "react-icons/lia";
-import { FaRegMoneyBillAlt } from "react-icons/fa";
-import { GrDeliver } from "react-icons/gr";
+import { FaListUl, FaRegMoneyBillAlt } from "react-icons/fa";
 import { PiPasswordDuotone } from "react-icons/pi";
+import SidebarLink from "./shared/SidebarLink/SidebarLink";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
+  const { logoutUser } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      background: "#1e293b",
+      color: "white",
+      showCancelButton: true,
+      confirmButtonColor: "#14b8a6",
+      cancelButtonColor: "#f87171",
+      confirmButtonText: "Yes, me logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logoutUser()
+          .then(() => {
+            navigate("/login");
+            toast.success("Successfully Logout");
+          })
+          .catch(() => {
+            toast.error("Network error please try again");
+          });
+      }
+    });
+  };
   return (
     <div className="drawer lg:drawer-open bg-base-100 ">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -46,79 +75,53 @@ const Dashboard = () => {
           {/* Sidebar content here */}
           <ul className="menu w-full grow">
             {/* List item */}
-            <li>
-              <Link
-                to={"/"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Homepage">
-                {/* Home icon */}
-                <GoHome size={20} />
-                <span className="is-drawer-close:hidden">Homepage</span>
-              </Link>
-            </li>
 
-            <li>
-              <Link
-                to={"/deliveries"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Deliveries">
-                {/* Home icon */}
-                <GrDeliver size={20} />
-                <span className="is-drawer-close:hidden">Deliveries</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/invoices"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Invoices">
-                {/* Invoices icon */}
-                <LiaFileInvoiceSolid size={20} />
-                <span className="is-drawer-close:hidden">Invoices</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/stores"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Stores">
-                {/* Invoices icon */}
-                <LiaStoreSolid size={20} />
-                <span className="is-drawer-close:hidden">Stores</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/coverage-area"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Coverage Area">
-                {/* Invoices icon */}
-                <LocateIcon size={20} />
-                <span className="is-drawer-close:hidden">Coverage Area</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/pricing-plan"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Pricing Plan">
-                {/* Invoices icon */}
-                <FaRegMoneyBillAlt size={20} />
-                <span className="is-drawer-close:hidden">Pricing Plan</span>
-              </Link>
-            </li>
+            <SidebarLink
+              to={"/"}
+              dataTip={"Homepage"}
+              span={"HomePage"}
+              Icon={GoHome}
+            />
+            <SidebarLink
+              to={"/dashboard/my-parcels"}
+              dataTip={"my Parcels"}
+              span={"My parcels"}
+              Icon={FaListUl}
+            />
+            <SidebarLink
+              to={"/invoices"}
+              dataTip={"Invoices"}
+              span={"Invoices"}
+              Icon={LiaFileInvoiceSolid}
+            />
+            <SidebarLink
+              to={"/stores"}
+              dataTip={"Stores"}
+              span={"Stores"}
+              Icon={LiaStoreSolid}
+            />
+            <SidebarLink
+              to={"/coverage-area"}
+              dataTip={"Coverage Area"}
+              span={"Coverage Area"}
+              Icon={LocateIcon}
+            />
+            <SidebarLink
+              to={"/pricing-plan"}
+              dataTip={"Pricing Plan"}
+              span={"Pricing Plan"}
+              Icon={FaRegMoneyBillAlt}
+            />
 
             {/* List item */}
 
-            <li>
-              <button
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Settings">
-                {/* Settings icon */}
-                <IoSettingsOutline size={20} />
-                <span className="is-drawer-close:hidden">Settings</span>
-              </button>
-            </li>
+            <SidebarLink
+              to={"/settings"}
+              dataTip={"Settings"}
+              span={"Settings"}
+              Icon={IoSettingsOutline}
+            />
+
             <li>
               <button
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -139,6 +142,7 @@ const Dashboard = () => {
             </li>
             <li>
               <button
+                onClick={handleLogout}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Logout">
                 {/* Settings icon */}

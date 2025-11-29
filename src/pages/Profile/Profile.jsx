@@ -73,6 +73,7 @@ const Profile = () => {
   const handleEditEmail = () => {
     setEmailField(true);
   };
+  
   //! handle save email
   const handleSaveEmail = (data) => {
     const email = data.email;

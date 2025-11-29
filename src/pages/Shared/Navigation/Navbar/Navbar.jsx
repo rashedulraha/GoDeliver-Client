@@ -1,14 +1,14 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "../../../Responsive/Container";
 import ThemeToggle from "../../../../Components/Theme/ToggleTheme";
 import { TbTruckDelivery } from "react-icons/tb";
-import { FaBars, FaListUl, FaUser } from "react-icons/fa";
+import { FaBars, FaUser } from "react-icons/fa";
 import CustomNavLink from "./Shared/CustomNavLink";
 import ActionButton from "./Shared/ActionButton";
 import useAuth from "../../../../Hooks/useAuth";
 import { IoIosAddCircle, IoMdArrowDropdown } from "react-icons/io";
 import LoginNavLink from "./Shared/LoginNavLink";
-import { MdDashboard, MdOutlineTrackChanges } from "react-icons/md";
+import { MdOutlineTrackChanges } from "react-icons/md";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -134,9 +134,9 @@ const Navbar = () => {
         <ul
           tabIndex={0}
           className="menu menu-sm dropdown-content bg-base-200  z-9999 mt-5 md:mt-[13px] w-64 border border-base-300 px-0  rounded-sm backdrop-blur-2xl">
-          <LoginNavLink to="dashboard" label="Dashboard" Icon={MdDashboard} />
+          {/* <LoginNavLink to="dashboard" label="Dashboard" Icon={MdDashboard} /> */}
           <LoginNavLink to="Profile" label="Profile" Icon={FaUser} />
-          <LoginNavLink to="my-parcels" label="My Parcels" Icon={FaListUl} />
+
           <LoginNavLink
             to="send-parcel"
             label="Send Parcel"
@@ -148,11 +148,11 @@ const Navbar = () => {
             Icon={MdOutlineTrackChanges}
           />
 
-          <button
-            onClick={handleSignOut}
-            className="btn btn-primary bg-primary text-base-content rounded-full   shadow-none cursor-pointer mt-3  mx-3 ">
-            Logout
-          </button>
+          <Link
+            to={"/dashboard"}
+            className="btn btn-sm btn-primary bg-primary text-base-content rounded-full   shadow-none cursor-pointer mt-3  mx-3 ">
+            Dashboard
+          </Link>
         </ul>
       </div>
     </>
