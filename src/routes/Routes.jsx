@@ -23,6 +23,8 @@ import AccountSettings from "../pages/AccountSettings/AccountSettings";
 import AccountSetting from "../Layouts/AccountSetting/AccountSetting";
 import AccountProfile from "../pages/AccountSettings/AccountPage/AccountProfile/AccountProfile";
 import AccountAddress from "../pages/AccountSettings/AccountPage/AccountAddress/AccountAddress";
+import AccountPayment from "../pages/AccountSettings/AccountPage/AccountPayment/AccountPayment";
+import AccountDanger from "../pages/AccountSettings/AccountPage/AccountDanger/AccountDanger";
 
 const Routes = createBrowserRouter([
   {
@@ -71,6 +73,14 @@ const Routes = createBrowserRouter([
       {
         path: "account-address",
         Component: AccountAddress,
+      },
+      {
+        path: "account-payment",
+        Component: AccountPayment,
+      },
+      {
+        path: "account-danger",
+        Component: AccountDanger,
       },
     ],
   },

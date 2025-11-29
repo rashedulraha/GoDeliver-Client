@@ -32,11 +32,19 @@ const AccountSideMenu = () => {
           label={"address"}
           Icon={FaAddressBook}
         />
-        <AccountSideLink to={""} label={"payment"} Icon={MdOutlinePayment} />
+        <AccountSideLink
+          to={"account-payment"}
+          label={"payment"}
+          Icon={MdOutlinePayment}
+        />
         <AccountSideLink to={""} label={"delivery"} Icon={CiDeliveryTruck} />
         <AccountSideLink to={""} label={"Notification"} Icon={BiNotification} />
         <AccountSideLink to={""} label={"security"} Icon={MdSecurity} />
-        <AccountSideLink to={""} label={"Danger Zone"} Icon={CgDanger} />
+        <AccountSideLink
+          to={"account-danger"}
+          label={"Danger Zone"}
+          Icon={CgDanger}
+        />
       </div>
     </div>
   );
