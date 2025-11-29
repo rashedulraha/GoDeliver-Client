@@ -25,6 +25,7 @@ import AccountProfile from "../pages/AccountSettings/AccountPage/AccountProfile/
 import AccountAddress from "../pages/AccountSettings/AccountPage/AccountAddress/AccountAddress";
 import AccountPayment from "../pages/AccountSettings/AccountPage/AccountPayment/AccountPayment";
 import AccountDanger from "../pages/AccountSettings/AccountPage/AccountDanger/AccountDanger";
+import AccountNotification from "../pages/AccountSettings/AccountPage/AccountNotification/AccountNotification";
 
 const Routes = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const Routes = createBrowserRouter([
       {
         path: "account-danger",
         Component: AccountDanger,
+      },
+      {
+        path: "account-notification",
+        Component: AccountNotification,
       },
     ],
   },
