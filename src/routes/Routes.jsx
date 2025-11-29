@@ -21,6 +21,8 @@ import Dashboard from "../Layouts/Dashboard/Dashboard";
 import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
 import AccountSettings from "../pages/AccountSettings/AccountSettings";
 import AccountSetting from "../Layouts/AccountSetting/AccountSetting";
+import AccountProfile from "../pages/AccountSettings/AccountPage/AccountProfile/AccountProfile";
+import AccountAddress from "../pages/AccountSettings/AccountPage/AccountAddress/AccountAddress";
 
 const Routes = createBrowserRouter([
   {
@@ -61,6 +63,16 @@ const Routes = createBrowserRouter([
         <AccountSetting />
       </PrivetRoute>
     ),
+    children: [
+      {
+        index: true,
+        Component: AccountProfile,
+      },
+      {
+        path: "account-address",
+        Component: AccountAddress,
+      },
+    ],
   },
   {
     path: "/",

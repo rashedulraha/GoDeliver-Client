@@ -3,10 +3,11 @@ import Container from "../../pages/Responsive/Container";
 import Navbar from "../../pages/Shared/Navigation/Navbar/Navbar";
 import Footer from "../../pages/Shared/Navigation/Footer/Footer";
 import AccountSideMenu from "../../pages/AccountSettings/AccountSideMenu/AccountSideMenu";
+import { Outlet } from "react-router-dom";
 
 const AccountSetting = () => {
   return (
-    <>
+    <div className="min-h-screen">
       <Navbar />
       <div className="my-10">
         <Container>
@@ -21,16 +22,18 @@ const AccountSetting = () => {
 
           {/* Main  layout and content */}
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <div className="lg:grid-cols-1">
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 md:gap-3 lg:gap-6">
+            <div className="col-span-1">
               <AccountSideMenu />
             </div>
-            <div className="lg:grid-cols-3"></div>
+            <div className="col-span-1 sm:col-span-3  bg-base-200 p-4 rounded-md w-full">
+              <Outlet />
+            </div>
           </div>
         </Container>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

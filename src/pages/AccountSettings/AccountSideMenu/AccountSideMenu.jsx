@@ -2,9 +2,11 @@ import React from "react";
 import useAuth from "../../../Hooks/useAuth";
 
 import AccountSideLink from "../Shared/AccountSideLink";
-import { CgProfile } from "react-icons/cg";
+import { CgDanger, CgProfile } from "react-icons/cg";
 import { FaAddressBook } from "react-icons/fa";
-import { MdOutlinePayment } from "react-icons/md";
+import { MdOutlinePayment, MdSecurity } from "react-icons/md";
+import { CiDeliveryTruck } from "react-icons/ci";
+import { BiNotification } from "react-icons/bi";
 
 const AccountSideMenu = () => {
   const { user } = useAuth();
@@ -23,10 +25,18 @@ const AccountSideMenu = () => {
 
       {/*  side link and menu bar  */}
 
-      <div className="flex flex-col items-center mt-5 gap-3">
+      <div className="flex flex-wrap items-center mt-5 gap-3 ">
         <AccountSideLink to={""} label={"profile"} Icon={CgProfile} />
-        <AccountSideLink to={""} label={"address"} Icon={FaAddressBook} />
+        <AccountSideLink
+          to={"account-address"}
+          label={"address"}
+          Icon={FaAddressBook}
+        />
         <AccountSideLink to={""} label={"payment"} Icon={MdOutlinePayment} />
+        <AccountSideLink to={""} label={"delivery"} Icon={CiDeliveryTruck} />
+        <AccountSideLink to={""} label={"Notification"} Icon={BiNotification} />
+        <AccountSideLink to={""} label={"security"} Icon={MdSecurity} />
+        <AccountSideLink to={""} label={"Danger Zone"} Icon={CgDanger} />
       </div>
     </div>
   );
