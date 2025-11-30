@@ -28,6 +28,8 @@ import AccountNotification from "../pages/AccountSettings/AccountPage/AccountNot
 import AccountSecurity from "../pages/AccountSettings/AccountPage/AccountSecurity/AccountSecurity";
 import AccountDelivery from "../pages/AccountSettings/AccountPage/AccountDelivery/AccountDelivery";
 import Payment from "../pages/Dashboard/Payment/Payment";
+import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
+import PaymentCancel from "../pages/Dashboard/Payment/PaymentCancel";
 
 const Routes = createBrowserRouter([
   {
@@ -115,6 +117,14 @@ const Routes = createBrowserRouter([
       {
         path: "payment/:parcelId",
         Component: Payment,
+      },
+      {
+        path: "payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "payment-cancel",
+        Component: PaymentCancel,
       },
     ],
   },
