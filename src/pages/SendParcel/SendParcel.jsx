@@ -46,6 +46,7 @@ const SendParcel = () => {
           : extraWeight * 40 + 40;
 
         cost = minCharge + extraCharge;
+        data.cost = cost;
       }
     }
 
@@ -78,8 +79,6 @@ const SendParcel = () => {
         });
       }
     });
-
-    console.log("cost :", cost);
   };
 
   if (loading) {

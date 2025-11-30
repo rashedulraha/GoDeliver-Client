@@ -6,7 +6,7 @@ const LoginNavLink = ({ to, label, Icon }) => {
     <Link
       to={`/${to}`}
       className="flex items-center gap-3 hover:bg-primary/20 hover:text-base-content transition-colors  py-2 px-2">
-      {Icon && <Icon className="text-base-content" />}
+      {Icon && <Icon className="text-base-content text-lg" />}
       {label}
     </Link>
   );

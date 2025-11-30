@@ -11,6 +11,7 @@ import SidebarLink from "./shared/SidebarLink/SidebarLink";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { MdSendAndArchive } from "react-icons/md";
 
 const Dashboard = () => {
   const { logoutUser } = useAuth();
@@ -81,6 +82,12 @@ const Dashboard = () => {
               dataTip={"Homepage"}
               span={"HomePage"}
               Icon={GoHome}
+            />
+            <SidebarLink
+              to={"/send-parcel"}
+              dataTip={"Send parcel"}
+              span={"Send parcel"}
+              Icon={MdSendAndArchive}
             />
             <SidebarLink
               to={"/dashboard/my-parcels"}

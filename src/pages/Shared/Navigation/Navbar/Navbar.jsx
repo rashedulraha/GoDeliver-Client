@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Container from "../../../Responsive/Container";
 import ThemeToggle from "../../../../Components/Theme/ToggleTheme";
 import { TbTruckDelivery } from "react-icons/tb";
@@ -6,15 +6,10 @@ import { FaBars, FaUser } from "react-icons/fa";
 import CustomNavLink from "./Shared/CustomNavLink";
 import ActionButton from "./Shared/ActionButton";
 import useAuth from "../../../../Hooks/useAuth";
-import {
-  IoIosAddCircle,
-  IoMdArrowDropdown,
-  IoMdSettings,
-} from "react-icons/io";
+import { IoMdArrowDropdown, IoMdSettings } from "react-icons/io";
 import LoginNavLink from "./Shared/LoginNavLink";
-import { MdOutlineTrackChanges } from "react-icons/md";
-import { toast } from "react-toastify";
-import Swal from "sweetalert2";
+import { MdOutlineTrackChanges, MdSendAndArchive } from "react-icons/md";
+
 import { useState } from "react";
 import BeARider from "../../Button/BeARider";
 
@@ -111,13 +106,12 @@ const Navbar = () => {
         <ul
           tabIndex={0}
           className="menu menu-sm dropdown-content bg-base-200  z-9999 mt-5 md:mt-[13px] w-64 border border-base-300 px-0  rounded-sm backdrop-blur-2xl">
-          {/* <LoginNavLink to="dashboard" label="Dashboard" Icon={MdDashboard} /> */}
           <LoginNavLink to="Profile" label="Profile" Icon={FaUser} />
 
           <LoginNavLink
             to="send-parcel"
             label="Send Parcel"
-            Icon={IoIosAddCircle}
+            Icon={MdSendAndArchive}
           />
           <LoginNavLink
             to="track-parcel"
