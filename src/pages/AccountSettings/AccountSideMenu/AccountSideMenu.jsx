@@ -37,7 +37,11 @@ const AccountSideMenu = () => {
           label={"payment"}
           Icon={MdOutlinePayment}
         />
-        <AccountSideLink to={""} label={"delivery"} Icon={CiDeliveryTruck} />
+        <AccountSideLink
+          to={"account-delivery"}
+          label={"delivery"}
+          Icon={CiDeliveryTruck}
+        />
         <AccountSideLink
           to={"account-notification"}
           label={"Notification"}
