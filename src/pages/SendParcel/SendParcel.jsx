@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const SendParcel = () => {
-  const { register, handleSubmit, control } = useForm();
+  const { register, handleSubmit, control, reset } = useForm();
   const axiosSecure = useAxiosSecure();
   const { loading, user } = useAuth();
 
@@ -67,8 +67,6 @@ const SendParcel = () => {
         //?   save the info to the database
 
         axiosSecure.post("/parcels", data).then((res) => {
-          console.log("after saving data: ", res.data);
-
           Swal.fire({
             title: "Thank you!",
             background: "#0f172a",
@@ -76,6 +74,8 @@ const SendParcel = () => {
             text: "Your confirmation has been received.",
             icon: "success",
           });
+
+          reset();
         });
       }
     });

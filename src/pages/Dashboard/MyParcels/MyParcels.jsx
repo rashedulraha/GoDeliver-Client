@@ -12,7 +12,7 @@ const MyParcels = () => {
 
   const axiosSecure = useAxiosSecure();
 
-  const { data: MyParcels = [] } = useQuery({
+  const { data: MyParcels = [], refetch } = useQuery({
     queryKey: ["my-parcels", email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/parcels?email=${email}`);
@@ -34,8 +34,12 @@ const MyParcels = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/parcel/${id}`).then((res) => {
-          console.log(res.data);
-          toast.success("parcel delete");
+          console.log(res);
+
+          if (res.data.deletedCount) {
+            refetch();
+            toast.success("Your parcel request has ben  delete");
+          }
         });
       }
     });
