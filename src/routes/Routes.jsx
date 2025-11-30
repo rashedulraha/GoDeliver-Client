@@ -27,6 +27,7 @@ import AccountDanger from "../pages/AccountSettings/AccountPage/AccountDanger/Ac
 import AccountNotification from "../pages/AccountSettings/AccountPage/AccountNotification/AccountNotification";
 import AccountSecurity from "../pages/AccountSettings/AccountPage/AccountSecurity/AccountSecurity";
 import AccountDelivery from "../pages/AccountSettings/AccountPage/AccountDelivery/AccountDelivery";
+import Payment from "../pages/Dashboard/Payment/Payment";
 
 const Routes = createBrowserRouter([
   {
@@ -110,6 +111,10 @@ const Routes = createBrowserRouter([
       {
         path: "my-parcels",
         Component: MyParcels,
+      },
+      {
+        path: "payment/:parcelId",
+        Component: Payment,
       },
     ],
   },

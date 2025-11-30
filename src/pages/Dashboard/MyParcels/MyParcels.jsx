@@ -5,6 +5,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Edit, TrashIcon, View } from "lucide-react";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const MyParcels = () => {
   const { user } = useAuth();
@@ -56,7 +57,8 @@ const MyParcels = () => {
             <th>Receiver name</th>
             <th>Receiver location</th>
             <th>Send Date</th>
-            <th>Payment status</th>
+            <th>Payment </th>
+            <th>Delivery </th>
             <th>Action</th>
             <th>Cost</th>
           </tr>
@@ -71,22 +73,35 @@ const MyParcels = () => {
               <td>{parcel.receiverName}</td>
               <td>{parcel.receiverAddress}</td>
               <td>{parcel.createAt}</td>
-              <td>{parcel.s}</td>
+              <td>
+                {parcel.paymentStatus === "paid" ? (
+                  <span className="text-base-content btn-sm bg-accent shadow-none">
+                    Paid
+                  </span>
+                ) : (
+                  <Link
+                    to={`/dashboard/payment/${parcel._id}`}
+                    className="text-base-content bg-accent/10 border border-accent/30 btn-sm btn shadow-none w-full">
+                    pay
+                  </Link>
+                )}
+              </td>
+              <td>{parcel?.deliveryStatus}</td>
               <td className="space-x-3">
                 <button
                   data-tip="Parcel Edit"
-                  className="p-1.5 rounded-sm bg-primary/10  text-base-content border-primary/30 border cursor-pointer hover:bg-primary transition-all tooltip ">
+                  className="btn btn-sm btn-square shadow-none rounded-sm bg-primary/10  text-base-content border-primary/30 border cursor-pointer hover:bg-primary transition-all tooltip ">
                   <Edit size={12} />
                 </button>
                 <button
                   data-tip="Parcel View"
-                  className="p-1.5 rounded-sm bg-accent/10 hover:bg-accent text-base-content   border border-accent/30 cursor-pointer transition-all tooltip ">
+                  className="btn btn-sm btn-square rounded-sm shadow-none bg-accent/10 hover:bg-accent text-base-content   border border-accent/30 cursor-pointer transition-all tooltip ">
                   <View size={12} />
                 </button>
                 <button
                   onClick={() => handleParcelDelete(parcel._id)}
                   data-tip="Parcel Delete"
-                  className="p-1.5 rounded-sm bg-error/10 hover:bg-error border border-error/30 text-base-content  cursor-pointer transition-all tooltip ">
+                  className="btn btn-sm btn-square rounded-sm bg-error/10 shadow-none hover:bg-error border border-error/30 text-base-content  cursor-pointer transition-all tooltip ">
                   <TrashIcon size={12} />
                 </button>
               </td>
