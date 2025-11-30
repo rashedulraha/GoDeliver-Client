@@ -47,6 +47,7 @@ const SendParcel = () => {
 
         cost = minCharge + extraCharge;
         data.cost = cost;
+        data.paymentStatus = "pending";
       }
     }
 
@@ -66,7 +67,7 @@ const SendParcel = () => {
       if (result.isConfirmed) {
         //?   save the info to the database
 
-        axiosSecure.post("/parcels", data).then((res) => {
+        axiosSecure.post("/parcels", data).then(() => {
           Swal.fire({
             title: "Thank you!",
             background: "#0f172a",

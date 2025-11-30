@@ -52,13 +52,12 @@ const MyParcels = () => {
         <thead>
           <tr>
             <th></th>
-            <th>Parcel name</th>
-            <th>Parcel weight</th>
-            <th>Receiver name</th>
-            <th>Receiver location</th>
+            <th>Parcel Name</th>
+            <th>Parcel Weight</th>
+            <th>Receiver Name</th>
+            <th>Receiver Location</th>
             <th>Send Date</th>
-            <th>Payment </th>
-            <th>Delivery </th>
+            <th>pay</th>
             <th>Action</th>
             <th>Cost</th>
           </tr>
@@ -75,18 +74,18 @@ const MyParcels = () => {
               <td>{parcel.createAt}</td>
               <td>
                 {parcel.paymentStatus === "paid" ? (
-                  <span className="text-base-content btn-sm bg-accent shadow-none">
+                  <span className="text-base-content bg-accent/10 border border-accent/30 btn-sm btn shadow-none w-full cursor-not-allowed">
                     Paid
                   </span>
                 ) : (
                   <Link
                     to={`/dashboard/payment/${parcel._id}`}
-                    className="text-base-content bg-accent/10 border border-accent/30 btn-sm btn shadow-none w-full">
+                    className="text-base-content bg-accent border border-accent btn-sm btn shadow-none w-full">
                     pay
                   </Link>
                 )}
               </td>
-              <td>{parcel?.deliveryStatus}</td>
+
               <td className="space-x-3">
                 <button
                   data-tip="Parcel Edit"

@@ -31,7 +31,7 @@ const Payment = () => {
     const paymentInfo = {
       cost: bdtToUSDT,
       senderEmail: parcel.senderEmail,
-      parcelId: parcel.parcelsId,
+      parcelId: parcel._id,
       parcelName: parcel.parcelName,
     };
 
