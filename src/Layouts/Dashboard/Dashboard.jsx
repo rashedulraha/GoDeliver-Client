@@ -50,8 +50,8 @@ const Dashboard = () => {
       {/* ------------- main dashboard content ------------- */}
       <div className="drawer-content flex flex-col">
         {/* ---------- NAVBAR ---------- */}
-        <nav className="navbar w-full bg-base-300 shadow-sm px-4 lg:px-6">
-          <div className="flex items-center gap-2">
+        <nav className="navbar flex items-center justify-between w-full bg-base-300 shadow-sm px-4 lg:px-6">
+          <div className="flex items-center  gap-2">
             {/* Drawer Toggle for mobile */}
             <label
               htmlFor="my-drawer-4"

@@ -35,11 +35,9 @@ const MyParcels = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/parcel/${id}`).then((res) => {
-          console.log(res);
-
           if (res.data.deletedCount) {
             refetch();
-            toast.success("Your parcel request has ben  delete");
+            toast.success("Your parcel request has been deleted");
           }
         });
       }
@@ -57,7 +55,7 @@ const MyParcels = () => {
             <th>Receiver Name</th>
             <th>Receiver Location</th>
             <th>Send Date</th>
-            <th>pay</th>
+            <th>Pay</th>
             <th>Action</th>
             <th>Cost</th>
           </tr>
@@ -71,7 +69,14 @@ const MyParcels = () => {
               <td>{parcel.parcelWeight}</td>
               <td>{parcel.receiverName}</td>
               <td>{parcel.receiverAddress}</td>
-              <td>{parcel.createAt}</td>
+
+              {/* Date formatting */}
+              <td>
+                {parcel.createAt
+                  ? new Date(parcel.createAt).toLocaleDateString()
+                  : "N/A"}
+              </td>
+
               <td>
                 {parcel.paymentStatus === "paid" ? (
                   <span className="text-base-content bg-accent/10 border border-accent/30 btn-sm btn shadow-none w-full cursor-not-allowed">
@@ -81,29 +86,35 @@ const MyParcels = () => {
                   <Link
                     to={`/dashboard/payment/${parcel._id}`}
                     className="text-base-content bg-accent border border-accent btn-sm btn shadow-none w-full">
-                    pay
+                    Pay
                   </Link>
                 )}
               </td>
 
-              <td className="space-x-3  space-y-3 lg:space-y-0">
-                <button
-                  data-tip="Parcel Edit"
-                  className="btn btn-sm btn-square shadow-none rounded-sm bg-primary/10  text-base-content border-primary/30 border cursor-pointer hover:bg-primary transition-all tooltip ">
-                  <Edit size={12} />
-                </button>
-                <button
-                  data-tip="Parcel View"
-                  className="btn btn-sm btn-square rounded-sm shadow-none bg-accent/10 hover:bg-accent text-base-content   border border-accent/30 cursor-pointer transition-all tooltip ">
-                  <View size={12} />
-                </button>
-                <button
-                  onClick={() => handleParcelDelete(parcel._id)}
-                  data-tip="Parcel Delete"
-                  className="btn btn-sm btn-square rounded-sm bg-error/10 shadow-none hover:bg-error border border-error/30 text-base-content  cursor-pointer transition-all tooltip ">
-                  <TrashIcon size={12} />
-                </button>
+              {/* Responsive Action Buttons */}
+              <td>
+                <div className="flex flex-col lg:flex-row gap-2">
+                  <button
+                    data-tip="Parcel Edit"
+                    className="btn btn-sm btn-square shadow-none rounded-sm bg-primary/10 text-base-content border-primary/30 border cursor-pointer hover:bg-primary transition-all tooltip">
+                    <Edit size={12} />
+                  </button>
+
+                  <button
+                    data-tip="Parcel View"
+                    className="btn btn-sm btn-square rounded-sm shadow-none bg-accent/10 hover:bg-accent text-base-content border border-accent/30 cursor-pointer transition-all tooltip">
+                    <View size={12} />
+                  </button>
+
+                  <button
+                    onClick={() => handleParcelDelete(parcel._id)}
+                    data-tip="Parcel Delete"
+                    className="btn btn-sm btn-square rounded-sm bg-error/10 shadow-none hover:bg-error border border-error/30 text-base-content cursor-pointer transition-all tooltip">
+                    <TrashIcon size={12} />
+                  </button>
+                </div>
               </td>
+
               <td>{parcel.cost}</td>
             </tr>
           ))}
