@@ -1,6 +1,20 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 
 const AccountSecurity = () => {
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleUpdateEmail = (data) => {
+    console.log(data);
+
+    reset();
+  };
+
   return (
     <div>
       <div className="mb-8 ">
@@ -15,15 +29,19 @@ const AccountSecurity = () => {
             We'll send a verification link to your new email address
           </p>
 
-          <form className="mt-4">
+          <form className="mt-4" onSubmit={handleSubmit(handleUpdateEmail)}>
             <div className="form-control">
               <div>
                 <input
-                  type="text"
-                  className=" input input-md rounded-sm border bg-base-200 shadow-none"
-                  placeholder="Enter new email "
+                  {...register("email", { required: true })}
+                  type="email"
+                  className=" input input-md rounded-sm border bg-base-200 shadow-none focus:outline-none"
+                  placeholder="Enter new email"
                 />
               </div>
+              {errors.email && (
+                <span className="text-error">This email is required</span>
+              )}
             </div>
 
             <div className="card-actions  justify-end mt-4">
@@ -43,7 +61,7 @@ const AccountSecurity = () => {
             Create a strong password with letters, numbers, and symbols
           </p>
 
-          <form className="mt-4 space-y-4 ">
+          <form className="mt-4 space-y-4  ">
             <div className="form-control flex flex-col space-y-2">
               <label className="label">
                 <span className="label-text">Current Password</span>

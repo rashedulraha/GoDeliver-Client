@@ -6,33 +6,32 @@ import { useNavigate } from "react-router-dom";
 import { CgClose } from "react-icons/cg";
 
 const AccountDanger = () => {
+  const { deleteAccount } = useAuth();
   const OpenModalToDeleteAccount = useRef();
-  // const { deleteAccount } = useAuth();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // delete account
-  // const handleDelete = () => {
-  //   Swal.fire({
-  //     title: "Are you sure?",
-  //     text: "This action is permanent!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#ef4444",
-  //     cancelButtonColor: "#94a3b8",
-  //     confirmButtonText: "Yes, delete it!",
-  //   }).then((res) => {
-  //     if (res.isConfirmed) {
-  //       deleteAccount().then(() => {
-  //         navigate("/register");
-  //         toast.success("Account deleted!");
-  //       });
-  //     }
-  //   });
-  // };
+  //!  handleDelete your account
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action is permanent!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#94a3b8",
+      confirmButtonText: "Yes, delete it!",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        deleteAccount().then(() => {
+          navigate("/register");
+          toast.success("Account deleted!");
+          console.log("account delete");
+        });
+      }
+    });
+  };
 
   const handleOpenModal = () => {
-    console.log("clicked");
-
     OpenModalToDeleteAccount.current.showModal();
   };
 
@@ -104,6 +103,7 @@ const AccountDanger = () => {
 
           <div className="modal-action">
             <button
+              onClick={handleDelete}
               type="submit"
               className="btn  bg-error  shadow-none border-error text-base-content">
               Delete Account
