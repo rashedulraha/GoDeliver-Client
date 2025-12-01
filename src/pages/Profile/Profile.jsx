@@ -1,9 +1,6 @@
 import useAuth from "../../Hooks/useAuth";
 
-import { useState } from "react";
-
 import {
-  FaUser,
   FaBell,
   FaCreditCard,
   FaSignOutAlt,

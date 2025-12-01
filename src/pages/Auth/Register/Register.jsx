@@ -5,11 +5,14 @@ import { toast } from "react-toastify";
 import ButtonLoading from "../../Shared/Loading/ButtonLoading";
 import GoogleLogin from "../../Shared/GoogleLogin/GoogleLogin";
 import axios from "axios";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const Register = () => {
   const { registerUser, loading, updateUserProfile, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const axiosSecure = useAxiosSecure();
 
   // console.log(registerUser);
 
@@ -20,7 +23,7 @@ const Register = () => {
   } = useForm();
 
   const handleSubmitData = (data) => {
-    // console.log(data.image);
+    // console.log(data);
 
     const profileImage = data.image[0];
 
@@ -39,20 +42,26 @@ const Register = () => {
         }`;
 
         axios.post(image_Api_Url, formData).then((res) => {
-          console.log("after image uploaded");
-
-          // update profile here
-
+          //! update profile here
           const userProfile = {
             displayName: data.name,
             photoURL: res.data.data.url,
           };
+          const createAt = new Date();
+          const userInfo = {
+            ...data,
+            createAt,
+            role: "user",
+            imageURL: res.data.data.url,
+          };
 
-          updateUserProfile(userProfile)
-            .then()
-            .catch((error) => {
-              console.log(error.message);
-            });
+          axiosSecure.post("/users", userInfo).then(() => {
+            updateUserProfile(userProfile)
+              .then()
+              .catch((error) => {
+                console.log(error.message);
+              });
+          });
         });
       })
       .catch(() => {

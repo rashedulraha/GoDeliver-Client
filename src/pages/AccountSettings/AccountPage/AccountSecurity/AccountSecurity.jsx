@@ -1,7 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import useAuth from "../../../../Hooks/useAuth";
+import { toast } from "react-toastify";
 
 const AccountSecurity = () => {
+  const { updateUserEmail } = useAuth();
   const {
     register,
     reset,
@@ -10,7 +13,9 @@ const AccountSecurity = () => {
   } = useForm();
 
   const handleUpdateEmail = (data) => {
-    console.log(data);
+    updateUserEmail(data.email).then(() => {
+      toast.success("Your email has updated");
+    });
 
     reset();
   };
