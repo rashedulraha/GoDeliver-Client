@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import ButtonLoading from "../../Shared/Loading/ButtonLoading";
 import { toast } from "react-toastify";
 
 const Forgot = () => {
-  const { loading, forgotPassword } = useAuth();
+  const { loading, forgotPassword, user } = useAuth();
   const location = useLocation();
   const {
     register,
@@ -23,6 +23,9 @@ const Forgot = () => {
         toast.error(error.message);
       });
   };
+  if (user) {
+    return <Navigate to={"/"} replace />;
+  }
 
   return (
     <form onSubmit={handleSubmit(handleForgot)}>

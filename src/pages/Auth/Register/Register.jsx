@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import ButtonLoading from "../../Shared/Loading/ButtonLoading";
@@ -7,7 +7,7 @@ import GoogleLogin from "../../Shared/GoogleLogin/GoogleLogin";
 import axios from "axios";
 
 const Register = () => {
-  const { registerUser, loading, updateUserProfile } = useAuth();
+  const { registerUser, loading, updateUserProfile, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -59,6 +59,10 @@ const Register = () => {
         toast.error("Network error please try again");
       });
   };
+
+  if (user) {
+    return <Navigate to={"/"} replace />;
+  }
 
   return (
     <form onSubmit={handleSubmit(handleSubmitData)}>

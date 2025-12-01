@@ -5,11 +5,13 @@ import { useForm, useWatch } from "react-hook-form";
 import LoadingSpinner from "../Shared/Loading/LoadingSpinner";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
 
 const SendParcel = () => {
   const { register, handleSubmit, control, reset } = useForm();
   const axiosSecure = useAxiosSecure();
   const { loading, user } = useAuth();
+  const navigate = useNavigate();
 
   const { fetchData } = useFetchCounters("/ServiceCounters.json");
 
@@ -67,14 +69,17 @@ const SendParcel = () => {
       if (result.isConfirmed) {
         //?   save the info to the database
 
-        axiosSecure.post("/parcels", data).then(() => {
-          Swal.fire({
-            title: "Thank you!",
-            background: "#0f172a",
-            color: "white",
-            text: "Your confirmation has been received.",
-            icon: "success",
-          });
+        axiosSecure.post("/parcels", data).then((res) => {
+          if (res.data.insertedId) {
+            navigate("/dashboard/my-parcels");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Parcel has created please pay",
+              showConfirmButton: false,
+              timer: 2500,
+            });
+          }
 
           reset();
         });

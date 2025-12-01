@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import ButtonLoading from "../../Shared/Loading/ButtonLoading";
 import GoogleLogin from "../../Shared/GoogleLogin/GoogleLogin";
 
 const Login = () => {
-  const { loading } = useAuth();
+  const { loading, user } = useAuth();
   const location = useLocation();
 
   const {
@@ -23,6 +23,10 @@ const Login = () => {
     });
     console.log("Login data:", data);
   };
+
+  if (user) {
+    return <Navigate to={"/"} replace />;
+  }
 
   return (
     <form onSubmit={handleSubmit(handleLogin)}>
