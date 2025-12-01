@@ -30,6 +30,7 @@ import AccountDelivery from "../pages/AccountSettings/AccountPage/AccountDeliver
 import Payment from "../pages/Dashboard/Payment/Payment";
 import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancel from "../pages/Dashboard/Payment/PaymentCancel";
+import PaymentHistory from "../pages/Dashboard/Payment/PaymentHistory/PaymentHistory";
 
 const Routes = createBrowserRouter([
   {
@@ -125,6 +126,10 @@ const Routes = createBrowserRouter([
       {
         path: "payment-cancel",
         Component: PaymentCancel,
+      },
+      {
+        path: "payment-history",
+        Component: PaymentHistory,
       },
     ],
   },

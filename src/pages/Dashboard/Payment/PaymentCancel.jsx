@@ -5,7 +5,7 @@ import { XCircle } from "lucide-react";
 const PaymentCancel = () => {
   return (
     <div className="w-full h-[80vh] flex items-center justify-center px-4">
-      <div className="bg-base-100 max-w-md w-full shadow-xl p-10 rounded-2xl border border-base-300 text-center">
+      <div className="bg-base-100 max-w-md w-full shadow-xl p-10 rounded-md border border-base-300 text-center">
         <XCircle className="w-16 h-16 text-error mx-auto mb-4" />
 
         <h1 className="text-2xl font-bold text-base-content">

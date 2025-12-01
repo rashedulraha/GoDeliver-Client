@@ -38,7 +38,7 @@ const Payment = () => {
 
   return (
     <div className="w-full flex justify-center py-16 px-4">
-      <div className="w-full max-w-md bg-base-100 shadow-xl rounded-2xl p-8 border border-base-300">
+      <div className="w-full max-w-md bg-base-100 shadow-xl rounded-md p-8 border border-base-300">
         {/* Title */}
         <h1 className="text-2xl font-bold text-base-content">
           Complete Your Payment
@@ -48,7 +48,7 @@ const Payment = () => {
         </p>
 
         {/* Parcel Info Box */}
-        <div className="mt-6 p-5 bg-base-200 rounded-xl border border-base-300">
+        <div className="mt-6 p-5 bg-base-200 rounded-md border border-base-300">
           <h2 className="text-lg font-semibold text-base-content">
             Parcel Name:{" "}
             <span className="text-primary font-bold capitalize">

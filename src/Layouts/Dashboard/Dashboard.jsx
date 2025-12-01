@@ -102,7 +102,7 @@ const Dashboard = () => {
             />
 
             <SidebarLink
-              to="/invoices"
+              to="/dashboard/payment-history"
               dataTip="Invoices"
               span="Invoices"
               Icon={LiaFileInvoiceSolid}
