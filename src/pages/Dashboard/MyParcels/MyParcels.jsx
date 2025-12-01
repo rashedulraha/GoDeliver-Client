@@ -51,7 +51,7 @@ const MyParcels = () => {
       <table className="table table-md">
         <thead>
           <tr>
-            <th></th>
+            <th>No</th>
             <th>Parcel Name</th>
             <th>Parcel Weight</th>
             <th>Receiver Name</th>
@@ -86,7 +86,7 @@ const MyParcels = () => {
                 )}
               </td>
 
-              <td className="space-x-3">
+              <td className="space-x-3  space-y-3 lg:space-y-0">
                 <button
                   data-tip="Parcel Edit"
                   className="btn btn-sm btn-square shadow-none rounded-sm bg-primary/10  text-base-content border-primary/30 border cursor-pointer hover:bg-primary transition-all tooltip ">
