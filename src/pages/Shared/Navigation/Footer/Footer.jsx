@@ -88,7 +88,7 @@ const Footer = () => {
                 className="px-4 py-2 rounded-sm text-primary outline   w-full sm:w-auto flex-1 bg-base-100 input-md"
               />
 
-              <button className="bg-primary text-base-content btn btn-sm shadow-none border-none rounded-sm hover:bg-accent/90 transition-colors cursor-pointer">
+              <button className="bg-primary text-base-content btn btn-md shadow-none border-none rounded-sm hover:bg-accent/90 transition-colors cursor-pointer">
                 Subscribe
               </button>
             </form>

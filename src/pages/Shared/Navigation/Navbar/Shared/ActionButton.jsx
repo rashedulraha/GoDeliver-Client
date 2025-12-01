@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const ActionButton = ({ to, value, className }) => {
   return (
     <>
-      <Link to={`/${to}`} className={`btn btn-sm shadow-none  ${className}`}>
+      <Link to={`/${to}`} className={`btn btn-md shadow-none  ${className}`}>
         {value}
       </Link>
     </>

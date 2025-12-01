@@ -27,7 +27,7 @@ const AccountSecurity = () => {
             </div>
 
             <div className="card-actions  justify-end mt-4">
-              <button className="btn btn-primary text-base-content btn-sm shadow-none">
+              <button className="btn btn-primary text-base-content btn-md shadow-none">
                 Update Email
               </button>
             </div>
@@ -80,7 +80,7 @@ const AccountSecurity = () => {
             <div className="card-actions justify-end mt-4">
               <button
                 type="submit"
-                className="btn btn-primary btn-sm  shadow-none text-base-content">
+                className="btn btn-primary btn-md  shadow-none text-base-content">
                 Update Password
               </button>
             </div>
@@ -102,7 +102,7 @@ const AccountSecurity = () => {
                 Use an app like Google Authenticator
               </div>
             </div>
-            <button className="btn  btn-sm bg-accent outline-none">
+            <button className="btn  btn-md bg-accent outline-none">
               Enable
             </button>
           </div>

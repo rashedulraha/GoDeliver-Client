@@ -10,9 +10,9 @@ const AccountSideLink = ({ to, label, Icon }) => {
   const isActive = isIndexActive || isNormalActive;
 
   const activeTrue =
-    "btn w-full btn-sm border outline outline-primary shadow-none capitalize rounded-sm bg-primary";
+    "btn w-full btn-md border outline outline-primary shadow-none capitalize rounded-sm bg-primary";
   const activeFalse =
-    "btn w-full btn-sm border outline outline-primary shadow-none capitalize rounded-sm";
+    "btn w-full btn-md border outline outline-primary shadow-none capitalize rounded-sm";
 
   return (
     <Link to={to} className={isActive ? activeTrue : activeFalse}>

@@ -14,11 +14,10 @@ import { useState } from "react";
 import BeARider from "../../Button/BeARider";
 
 const dropdown = [
-  { to: "grocery-delivery", label: "Grocery Delivery" },
-  { to: "send-parcel", label: "Parcel Delivery" },
-  { to: "ride-sharing", label: "Ride Sharing" },
-  { to: "courier-service", label: "Courier Service" },
-  { to: "home-services", label: "Home Services" },
+  { to: "", label: "Grocery Delivery" },
+  { to: "", label: "Ride Sharing" },
+  { to: "", label: "Courier Service" },
+  { to: "", label: "Home Services" },
 ];
 
 //! login user
@@ -127,7 +126,7 @@ const Navbar = () => {
 
           <Link
             to={"/dashboard"}
-            className="btn btn-sm btn-primary bg-primary text-base-content rounded-full   shadow-none cursor-pointer mt-3  mx-3 ">
+            className="btn btn-md btn-primary bg-primary text-base-content rounded-full   shadow-none cursor-pointer mt-3  mx-3 ">
             Dashboard
           </Link>
         </ul>

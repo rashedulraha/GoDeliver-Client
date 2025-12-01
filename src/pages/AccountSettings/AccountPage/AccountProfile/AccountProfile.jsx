@@ -62,7 +62,7 @@ const AccountProfile = () => {
           </div>
         </div>
         <div className="flex items-end justify-end mt-8 md:mt-0  ">
-          <button className="btn btn-sm shadow-none border-none bg-primary">
+          <button className="btn btn-md shadow-none border-none bg-primary">
             Save Change
           </button>
         </div>
