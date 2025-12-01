@@ -6,6 +6,7 @@ import { Edit, TrashIcon, View } from "lucide-react";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { CgAdd } from "react-icons/cg";
 
 const MyParcels = () => {
   const { user } = useAuth();
@@ -118,6 +119,22 @@ const MyParcels = () => {
               <td>{parcel.cost}</td>
             </tr>
           ))}
+
+          {/* If no payment history */}
+          {MyParcels.length === 0 && (
+            <tr>
+              <td
+                colSpan="8"
+                className="text-center  py-6 text-base-content/60">
+                No parcels history found. <br />
+                <Link
+                  to={"/send-parcel"}
+                  className="mt-5 btn shadow-none bg-primary/10 border border-primary/30  ">
+                  <CgAdd size={21} /> Add Parcel
+                </Link>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

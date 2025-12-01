@@ -130,7 +130,7 @@ const Dashboard = () => {
             />
 
             <SidebarLink
-              to="/settings"
+              to="/account-setting"
               dataTip="Settings"
               span="Settings"
               Icon={IoSettingsOutline}

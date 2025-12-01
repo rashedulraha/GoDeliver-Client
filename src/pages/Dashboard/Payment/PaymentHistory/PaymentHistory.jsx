@@ -31,6 +31,7 @@ const PaymentHistory = () => {
               <th>Amount</th>
               <th>Customer Email</th>
               <th>Paid At</th>
+              <th>Preview</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -63,10 +64,21 @@ const PaymentHistory = () => {
                     : "N/A"}
                 </td>
 
+                {/* preview parcel details */}
+                <td>
+                  <span
+                    className={`btn btn-sm shadow-none rounded text-sm border capitalize ${
+                      payment.paymentStatus === "paid"
+                        ? "bg-accent/10 border-accent/30 "
+                        : "bg-error/10 border-error/30"
+                    }`}>
+                    <button className="cursor-pointer">view</button>
+                  </span>
+                </td>
                 {/* Payment Status */}
                 <td>
                   <span
-                    className={`px-2 py-1 rounded text-sm border ${
+                    className={`btn btn-sm shadow-none rounded text-sm border capitalize cursor-not-allowed ${
                       payment.paymentStatus === "paid"
                         ? "bg-accent/10 border-accent/30 "
                         : "bg-error/10 border-error/30"
