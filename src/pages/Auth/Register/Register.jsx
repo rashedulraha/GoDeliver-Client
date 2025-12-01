@@ -79,7 +79,7 @@ const Register = () => {
           <input
             type="text"
             {...register("name", { required: true })}
-            className={`input input-sm w-full bg-base-200 text-base-content outline-none  shadow-none ${
+            className={`input input-md w-full bg-base-200 text-base-content outline-none  shadow-none ${
               errors.name ? "input-error" : ""
             }`}
             placeholder="Your name"
@@ -95,7 +95,7 @@ const Register = () => {
           <input
             type="file"
             {...register("image", { required: true })}
-            className={`file-input bg-base-200 text-base-content outline-none  shadow-none input-sm w-full ${
+            className={`file-input bg-base-200 text-base-content outline-none  shadow-none input-md w-full ${
               errors.image ? "file-input-error" : ""
             }`}
           />
@@ -113,7 +113,7 @@ const Register = () => {
               required: true,
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
-            className={`input input-sm w-full bg-base-200 text-base-content outline-none  shadow-none ${
+            className={`input input-md w-full bg-base-200 text-base-content outline-none  shadow-none ${
               errors.email ? "input-error" : ""
             }`}
             placeholder="Email"
@@ -131,7 +131,7 @@ const Register = () => {
             <span className="label-text">Password</span>
           </label>
           <input
-            className={`input bg-base-200 text-base-content outline-none  shadow-none input-sm w-full ${
+            className={`input bg-base-200 text-base-content outline-none  shadow-none input-md w-full ${
               errors.password ? "input-error" : ""
             }`}
             type="password"
@@ -170,7 +170,7 @@ const Register = () => {
           </div>
 
           {/* Register Button */}
-          <button className="btn btn-primary text-base-content mt-4 btn-sm shadow-none">
+          <button className="btn btn-primary text-base-content mt-4 btn-md shadow-none">
             {loading ? <ButtonLoading /> : "Register"}
           </button>
 

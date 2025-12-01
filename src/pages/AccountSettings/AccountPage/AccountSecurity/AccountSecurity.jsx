@@ -20,7 +20,7 @@ const AccountSecurity = () => {
               <div>
                 <input
                   type="text"
-                  className=" input input-sm rounded-sm border bg-base-200 shadow-none"
+                  className=" input input-md rounded-sm border bg-base-200 shadow-none"
                   placeholder="Enter new email "
                 />
               </div>
@@ -50,7 +50,7 @@ const AccountSecurity = () => {
               </label>
               <input
                 type="password"
-                className="input input-sm rounded-sm border bg-base-200 shadow-none"
+                className="input input-md rounded-sm border bg-base-200 shadow-none"
                 placeholder="Enter current password"
               />
             </div>
@@ -61,7 +61,7 @@ const AccountSecurity = () => {
               </label>
               <input
                 type="password"
-                className="input input-sm rounded-sm border bg-base-200 shadow-none"
+                className="input input-md rounded-sm border bg-base-200 shadow-none"
                 placeholder="Enter new password"
               />
             </div>
@@ -72,7 +72,7 @@ const AccountSecurity = () => {
               </label>
               <input
                 type="password"
-                className="input input-sm rounded-sm border bg-base-200 shadow-none"
+                className="input input-md rounded-sm border bg-base-200 shadow-none"
                 placeholder="Confirm new password"
               />
             </div>

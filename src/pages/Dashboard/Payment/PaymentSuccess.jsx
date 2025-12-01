@@ -38,7 +38,7 @@ const PaymentSuccess = () => {
         <div className="mt-6 p-5 bg-base-200 rounded-md border border-base-300 text-left">
           <p className="font-semibold text-base-content">Transaction ID:</p>
           <p className="text-primary font-bold break-all">
-            {paymentInfo.transactionId || (
+            {paymentInfo?.transactionId || (
               <div className="flex items-center gap-2">
                 <span className="loading loading-spinner loading-sm text-primary"></span>
                 <p>Please wait...</p>
@@ -48,7 +48,7 @@ const PaymentSuccess = () => {
 
           <p className="font-semibold text-base-content mt-4">Tracking ID:</p>
           <p className="text-accent font-bold break-all">
-            {paymentInfo.trackingId || (
+            {paymentInfo?.trackingId || (
               <div className="flex items-center gap-2">
                 <span className="loading loading-spinner loading-sm text-secondary"></span>
                 <p>Please wait...</p>

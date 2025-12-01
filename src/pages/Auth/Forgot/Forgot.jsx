@@ -49,7 +49,7 @@ const Forgot = () => {
               required: true,
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
-            className={`input input-sm w-full bg-base-200 text-base-content outline-none shadow-none ${
+            className={`input input-md w-full bg-base-200 text-base-content outline-none shadow-none ${
               errors.email ? "input-error" : ""
             }`}
             placeholder="Enter your email"
@@ -64,7 +64,7 @@ const Forgot = () => {
           )}
 
           {/* Reset Button */}
-          <button className="btn btn-primary text-base-content mt-4 btn-sm shadow-none w-full">
+          <button className="btn btn-primary text-base-content mt-4 btn-md shadow-none w-full">
             {loading ? <ButtonLoading /> : "Send Reset Link"}
           </button>
 
@@ -74,7 +74,7 @@ const Forgot = () => {
           <Link
             to="/login"
             state={location.state}
-            className="btn btn-outline btn-sm btn-accent hover:text-white w-full shadow-none">
+            className="btn btn-outline btn-md btn-accent hover:text-white w-full shadow-none">
             Back to Login
           </Link>
         </div>

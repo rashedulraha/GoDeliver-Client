@@ -139,7 +139,7 @@ const SendParcel = () => {
                 id="parcelName"
                 {...register("parcelName")}
                 type="text"
-                className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none"
                 placeholder="Enter parcel name"
               />
             </div>
@@ -154,7 +154,7 @@ const SendParcel = () => {
                 id="parcelWeight"
                 {...register("parcelWeight")}
                 type="number"
-                className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none"
                 placeholder="Enter weight in KG"
               />
             </div>
@@ -175,7 +175,7 @@ const SendParcel = () => {
                 <input
                   id="senderName"
                   {...register("senderName")}
-                  className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                  className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none"
                   placeholder="Full name of sender"
                 />
               </div>
@@ -189,7 +189,7 @@ const SendParcel = () => {
                 <input
                   id="senderAddress"
                   {...register("senderAddress")}
-                  className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                  className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none"
                   placeholder="Full address"
                 />
               </div>
@@ -204,7 +204,7 @@ const SendParcel = () => {
                   defaultValue={user.email}
                   id="senderPhoneNumber"
                   {...register("senderEmail")}
-                  className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                  className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none"
                   placeholder="your@example.com"
                 />
               </div>
@@ -217,7 +217,7 @@ const SendParcel = () => {
                 <input
                   id="senderPhoneNumber"
                   {...register("senderPhoneNumber")}
-                  className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                  className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none"
                   placeholder="01xxxxxxxxx"
                 />
               </div>
@@ -298,7 +298,7 @@ const SendParcel = () => {
                 <input
                   id="receiverName"
                   {...register("receiverName")}
-                  className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                  className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none"
                   placeholder="Full name of receiver"
                 />
               </div>
@@ -312,7 +312,7 @@ const SendParcel = () => {
                 <input
                   id="receiverAddress"
                   {...register("receiverAddress")}
-                  className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                  className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none"
                   placeholder="Full delivery address"
                 />
               </div>
@@ -326,7 +326,7 @@ const SendParcel = () => {
                 <input
                   id="receiverPhoneNumber"
                   {...register("receiverEmail")}
-                  className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                  className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none"
                   placeholder="receiver@examle.com"
                 />
               </div>
@@ -339,7 +339,7 @@ const SendParcel = () => {
                 <input
                   id="receiverPhoneNumber"
                   {...register("receiverPhoneNumber")}
-                  className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none"
+                  className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none"
                   placeholder="01xxxxxxxxx"
                 />
               </div>

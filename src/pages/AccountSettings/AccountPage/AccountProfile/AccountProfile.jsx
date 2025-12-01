@@ -19,7 +19,7 @@ const AccountProfile = () => {
               <input
                 id="parcelName"
                 type="text"
-                className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none mt-3"
+                className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none mt-3"
                 placeholder="Enter full name"
               />
             </div>
@@ -31,7 +31,7 @@ const AccountProfile = () => {
               <input
                 id="parcelName"
                 type="text"
-                className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none mt-3"
+                className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none mt-3"
                 placeholder="Enter your email "
               />
             </div>
@@ -44,7 +44,7 @@ const AccountProfile = () => {
               <input
                 id="parcelName"
                 type="text"
-                className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none mt-3"
+                className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none mt-3"
                 placeholder="Enter valid phone number"
               />
             </div>
@@ -55,7 +55,7 @@ const AccountProfile = () => {
               <input
                 id="parcelName"
                 type="text"
-                className="w-full input input-sm rounded-sm border bg-base-200 outline-none shadow-none mt-3"
+                className="w-full input input-md rounded-sm border bg-base-200 outline-none shadow-none mt-3"
                 placeholder="Enter your national id card "
               />
             </div>

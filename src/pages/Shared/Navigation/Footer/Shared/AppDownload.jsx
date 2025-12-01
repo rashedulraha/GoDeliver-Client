@@ -6,7 +6,7 @@ const AppDownload = ({ to, value }) => {
       <a
         target="_blank"
         href={`${to}`}
-        className=" border border-primary text-base-content btn shadow-none btn-sm text-sm font-semibold hover:bg-base-100/90 transition duration-110">
+        className=" border border-primary text-base-content btn shadow-none btn-md text-sm font-semibold hover:bg-base-100/90 transition duration-110">
         {value}
       </a>
     </>

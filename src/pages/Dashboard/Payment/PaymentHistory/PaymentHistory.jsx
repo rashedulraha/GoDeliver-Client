@@ -67,7 +67,7 @@ const PaymentHistory = () => {
                 {/* preview parcel details */}
                 <td>
                   <span
-                    className={`btn btn-sm shadow-none rounded text-sm border capitalize ${
+                    className={`btn btn-md shadow-none rounded text-sm border capitalize ${
                       payment.paymentStatus === "paid"
                         ? "bg-accent/10 border-accent/30 "
                         : "bg-error/10 border-error/30"
@@ -78,7 +78,7 @@ const PaymentHistory = () => {
                 {/* Payment Status */}
                 <td>
                   <span
-                    className={`btn btn-sm shadow-none rounded text-sm border capitalize cursor-not-allowed ${
+                    className={`btn btn-md shadow-none rounded text-sm border capitalize cursor-not-allowed ${
                       payment.paymentStatus === "paid"
                         ? "bg-accent/10 border-accent/30 "
                         : "bg-error/10 border-error/30"

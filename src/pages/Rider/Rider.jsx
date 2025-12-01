@@ -1,9 +1,12 @@
 import React from "react";
+import Container from "../Responsive/Container";
 
 const Rider = () => {
   return (
     <div>
-      <h1>Hello rider</h1>
+      <Container>
+        <h1>Hello rider</h1>
+      </Container>
     </div>
   );
 };

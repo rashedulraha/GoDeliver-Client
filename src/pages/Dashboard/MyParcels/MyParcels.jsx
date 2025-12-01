@@ -80,13 +80,13 @@ const MyParcels = () => {
 
               <td>
                 {parcel.paymentStatus === "paid" ? (
-                  <span className="text-base-content bg-accent/10 border border-accent/30 btn-sm btn shadow-none w-full cursor-not-allowed">
+                  <span className="text-base-content bg-accent/10 border border-accent/30 btn-md btn shadow-none w-full cursor-not-allowed">
                     Paid
                   </span>
                 ) : (
                   <Link
                     to={`/dashboard/payment/${parcel._id}`}
-                    className="text-base-content bg-accent border border-accent btn-sm btn shadow-none w-full">
+                    className="text-base-content bg-accent border border-accent btn-md btn shadow-none w-full">
                     Pay
                   </Link>
                 )}
@@ -97,20 +97,20 @@ const MyParcels = () => {
                 <div className="flex flex-col lg:flex-row gap-2">
                   <button
                     data-tip="Parcel Edit"
-                    className="btn btn-sm btn-square shadow-none rounded-sm bg-primary/10 text-base-content border-primary/30 border cursor-pointer hover:bg-primary transition-all tooltip">
+                    className="btn btn-md btn-square shadow-none rounded-sm bg-primary/10 text-base-content border-primary/30 border cursor-pointer hover:bg-primary transition-all tooltip">
                     <Edit size={12} />
                   </button>
 
                   <button
                     data-tip="Parcel View"
-                    className="btn btn-sm btn-square rounded-sm shadow-none bg-accent/10 hover:bg-accent text-base-content border border-accent/30 cursor-pointer transition-all tooltip">
+                    className="btn btn-md btn-square rounded-sm shadow-none bg-accent/10 hover:bg-accent text-base-content border border-accent/30 cursor-pointer transition-all tooltip">
                     <View size={12} />
                   </button>
 
                   <button
                     onClick={() => handleParcelDelete(parcel._id)}
                     data-tip="Parcel Delete"
-                    className="btn btn-sm btn-square rounded-sm bg-error/10 shadow-none hover:bg-error border border-error/30 text-base-content cursor-pointer transition-all tooltip">
+                    className="btn btn-md btn-square rounded-sm bg-error/10 shadow-none hover:bg-error border border-error/30 text-base-content cursor-pointer transition-all tooltip">
                     <TrashIcon size={12} />
                   </button>
                 </div>
