@@ -8,17 +8,25 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Rider = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
+  const axiosSecure = useAxiosSecure();
 
   const handleSubmitForm = (data) => {
-    console.log(data);
+    const cleanedData = {
+      ...data,
+      fastName: data.fastName.trim(),
+      lastName: data.lastName.trim(),
+      email: data.email.trim(),
+      phoneNumber: data.phoneNumber.trim(),
+      city: data.city.trim(),
+    };
+
+    axiosSecure.post("/rider", cleanedData).then((res) => {
+      console.log(res.data);
+    });
   };
 
   return (
@@ -166,7 +174,8 @@ const Rider = () => {
                     <label className="cursor-pointer label justify-start gap-2">
                       <input
                         type="radio"
-                        name="vehicle"
+                        value="Yes"
+                        {...register("vehicle", { required: true })}
                         className="radio checked:bg-accent radio-sm"
                       />
                       <span className="label-text">Yes</span>
@@ -174,7 +183,8 @@ const Rider = () => {
                     <label className="cursor-pointer label justify-start gap-2">
                       <input
                         type="radio"
-                        name="vehicle"
+                        value="No"
+                        {...register("vehicle", { required: true })}
                         className="radio checked:bg-accent radio-sm"
                       />
                       <span className="label-text">No</span>
@@ -192,7 +202,7 @@ const Rider = () => {
 
             {/* Info Section - without .map() */}
             <div className="flex-1 w-full mt-8 xl:mt-0">
-              <div className="bg-base-100 rounded-xl p-4 sm:p-6 shadow-lg lg:shadow-xl">
+              <div className="bg-base-100/40 rounded-md p-4 sm:p-6 shadow-lg lg:shadow-xl">
                 <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-base-content">
                   Why Join Our Team?
                 </h3>

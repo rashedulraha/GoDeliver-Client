@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 
 const AccountSetting = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-base-200">
       <Navbar />
       <div className="my-10">
         <Container>
@@ -26,7 +26,7 @@ const AccountSetting = () => {
             <div className="col-span-1">
               <AccountSideMenu />
             </div>
-            <div className="col-span-1 sm:col-span-3  bg-base-200 p-4 rounded-md w-full">
+            <div className="col-span-1 sm:col-span-3  bg-base-100/40 p-4 rounded-md w-full">
               <Outlet />
             </div>
           </div>

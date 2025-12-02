@@ -13,7 +13,7 @@ const AccountSideMenu = () => {
   const photoURL = user.photoURL;
   const displayName = user.displayName;
   return (
-    <div className="bg-base-200 rounded-md p-4">
+    <div className="bg-base-100/40 rounded-md p-4">
       <div className=" flex flex-col gap-2 items-center justify-center ">
         <img
           className="-full border hover:bg-base-200 hover:text-white transition-all w-12 md:w-14 h-12 md:h-14 cursor-pointer rounded-full object-cover"
