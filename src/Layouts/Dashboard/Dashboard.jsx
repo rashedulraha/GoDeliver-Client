@@ -4,7 +4,7 @@ import ThemeToggle from "../../Components/Theme/ToggleTheme";
 
 import { GoHome, GoSidebarExpand } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
-import { HelpCircle, LocateIcon, LogOut } from "lucide-react";
+import { Bike, HelpCircle, LocateIcon, LogOut } from "lucide-react";
 import { LiaFileInvoiceSolid, LiaStoreSolid } from "react-icons/lia";
 import { FaListUl, FaRegMoneyBillAlt } from "react-icons/fa";
 import { PiPasswordDuotone } from "react-icons/pi";
@@ -106,6 +106,12 @@ const Dashboard = () => {
               dataTip="Invoices"
               span="Invoices"
               Icon={LiaFileInvoiceSolid}
+            />
+            <SidebarLink
+              to="/dashboard/approve-rider"
+              dataTip="Approve Rider"
+              span="Approve Rider"
+              Icon={Bike}
             />
 
             <SidebarLink
