@@ -7,8 +7,20 @@ import {
   FaClock,
   FaShieldAlt,
 } from "react-icons/fa";
+import { useForm } from "react-hook-form";
 
 const Rider = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const handleSubmitForm = (data) => {
+    console.log(data);
+  };
+
   return (
     // Main container with a subtle background and minimum height for full-screen feel
     <div className="min-h-screen bg-base-200">
@@ -36,7 +48,9 @@ const Rider = () => {
               <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-base-content">
                 Tell us about yourself
               </h2>
-              <form className="space-y-4 sm:space-y-6">
+              <form
+                className="space-y-4 sm:space-y-6"
+                onSubmit={handleSubmit(handleSubmitForm)}>
                 {/* Responsive grid: 1 column on small, 2 on medium+ */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div className="form-control w-full">
@@ -47,6 +61,7 @@ const Rider = () => {
                     </label>
                     <input
                       type="text"
+                      {...register("fastName", { required: true })}
                       placeholder="First name"
                       className="input input-bordered w-full text-sm sm:text-base"
                     />
@@ -58,6 +73,7 @@ const Rider = () => {
                       </span>
                     </label>
                     <input
+                      {...register("lastName", { required: true })}
                       type="text"
                       placeholder="Last name"
                       className="input input-bordered w-full text-sm sm:text-base"
@@ -74,6 +90,7 @@ const Rider = () => {
                     </label>
                     <input
                       type="email"
+                      {...register("email", { required: true })}
                       placeholder="your@email.com"
                       className="input input-bordered w-full text-sm sm:text-base"
                     />
@@ -86,6 +103,7 @@ const Rider = () => {
                     </label>
                     <input
                       type="tel"
+                      {...register("phoneNumber", { required: true })}
                       placeholder="+880 1XXX XXXXXX"
                       className="input input-bordered w-full text-sm sm:text-base"
                     />
@@ -100,6 +118,7 @@ const Rider = () => {
                       </span>
                     </label>
                     <input
+                      {...register("dateOfBirth", { required: true })}
                       type="date"
                       className="input input-bordered w-full text-sm sm:text-base"
                     />
@@ -112,6 +131,7 @@ const Rider = () => {
                     </label>
                     <input
                       type="text"
+                      {...register("city", { required: true })}
                       placeholder="Your city"
                       className="input input-bordered w-full text-sm sm:text-base"
                     />
@@ -147,7 +167,7 @@ const Rider = () => {
                       <input
                         type="radio"
                         name="vehicle"
-                        className="radio checked:bg-primary radio-sm"
+                        className="radio checked:bg-accent radio-sm"
                       />
                       <span className="label-text">Yes</span>
                     </label>
@@ -155,7 +175,7 @@ const Rider = () => {
                       <input
                         type="radio"
                         name="vehicle"
-                        className="radio checked:bg-primary radio-sm"
+                        className="radio checked:bg-accent radio-sm"
                       />
                       <span className="label-text">No</span>
                     </label>
@@ -170,7 +190,7 @@ const Rider = () => {
               </form>
             </div>
 
-            {/* Info Section */}
+            {/* Info Section - without .map() */}
             <div className="flex-1 w-full mt-8 xl:mt-0">
               <div className="bg-base-100 rounded-xl p-4 sm:p-6 shadow-lg lg:shadow-xl">
                 <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-base-content">
@@ -178,45 +198,65 @@ const Rider = () => {
                 </h3>
 
                 <div className="space-y-4 sm:space-y-6">
-                  {/* Each benefit item */}
-                  {[
-                    {
-                      icon: FaMotorcycle,
-                      title: "Flexible Schedule",
-                      desc: "Choose when and how much you want to work.",
-                    },
-                    {
-                      icon: FaClock,
-                      title: "Quick Payments",
-                      desc: "Get paid weekly with no delays.",
-                    },
-                    {
-                      icon: FaShieldAlt,
-                      title: "Insurance Coverage",
-                      desc: "Comprehensive insurance for all riders.",
-                    },
-                    {
-                      icon: FaMapMarkerAlt,
-                      title: "Work Near Home",
-                      desc: "Choose routes in your preferred area.",
-                    },
-                  ].map((item, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-3 sm:gap-4">
-                      <div className="bg-primary/10 p-2 sm:p-3 rounded-full flex-shrink-0">
-                        <item.icon className="text-primary text-lg sm:text-xl" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-sm sm:text-base text-base-content">
-                          {item.title}
-                        </h4>
-                        <p className="text-xs sm:text-sm text-base-content/70 mt-1">
-                          {item.desc}
-                        </p>
-                      </div>
+                  {/* Item 1 */}
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="bg-primary/10 p-2 sm:p-3 rounded-full shrink-0">
+                      <FaMotorcycle className="text-primary text-lg sm:text-xl" />
                     </div>
-                  ))}
+                    <div>
+                      <h4 className="font-semibold text-sm sm:text-base text-base-content">
+                        Flexible Schedule
+                      </h4>
+                      <p className="text-xs sm:text-sm text-base-content/70 mt-1">
+                        Choose when and how much you want to work.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Item 2 */}
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="bg-primary/10 p-2 sm:p-3 rounded-full shrink-0">
+                      <FaClock className="text-primary text-lg sm:text-xl" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-sm sm:text-base text-base-content">
+                        Quick Payments
+                      </h4>
+                      <p className="text-xs sm:text-sm text-base-content/70 mt-1">
+                        Get paid weekly with no delays.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Item 3 */}
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="bg-primary/10 p-2 sm:p-3 rounded-full shrink-0">
+                      <FaShieldAlt className="text-primary text-lg sm:text-xl" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-sm sm:text-base text-base-content">
+                        Insurance Coverage
+                      </h4>
+                      <p className="text-xs sm:text-sm text-base-content/70 mt-1">
+                        Comprehensive insurance for all riders.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Item 4 */}
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="bg-primary/10 p-2 sm:p-3 rounded-full shrink-0">
+                      <FaMapMarkerAlt className="text-primary text-lg sm:text-xl" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-sm sm:text-base text-base-content">
+                        Work Near Home
+                      </h4>
+                      <p className="text-xs sm:text-sm text-base-content/70 mt-1">
+                        Choose routes in your preferred area.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-primary/5 rounded-lg border border-primary/20">
