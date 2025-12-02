@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 
 import {
@@ -9,9 +10,12 @@ import {
   FaCar,
   FaClock,
 } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { user, logoutUser } = useAuth();
+  const navigate = useNavigate();
 
   // User-specific stats display
   const renderUserStats = () => {
@@ -82,6 +86,29 @@ const Profile = () => {
     );
   };
 
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out!",
+      icon: "warning",
+      background: "#1e293b",
+      color: "white",
+      showCancelButton: true,
+      confirmButtonColor: "#14b8a6",
+      cancelButtonColor: "#f87171",
+      confirmButtonText: "Logout",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logoutUser()
+          .then(() => {
+            navigate("/login");
+            toast.success("Successfully Logged out");
+          })
+          .catch(() => toast.error("Network error! Try again"));
+      }
+    });
+  };
+
   return (
     <div className="min-h-screen bg-base-100 p-4 md:p-8">
       <div className="max-w-6md mx-auto">
@@ -94,10 +121,12 @@ const Profile = () => {
             </p>
           </div>
           <div className="flex items-center space-x-4">
-            <button className="btn btn-ghost btn-circle relative">
+            <button className="btn bg-primary/10 border border-primary/30 hover:bg-primary btn-circle relative transition-all ">
               <FaBell className="text-md text-base-content" />
             </button>
-            <button className="btn bg-error shadow-none border-none text-base-content">
+            <button
+              className="btn bg-error/10 border border-error/30 hover:bg-error shadow-none text-base-content transition-all"
+              onClick={handleLogout}>
               <FaSignOutAlt className="mr-2" />
               Logout
             </button>

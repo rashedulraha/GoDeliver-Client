@@ -3,19 +3,44 @@ import useAuth from "../../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import ButtonLoading from "../Loading/ButtonLoading";
 import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const GoogleLogin = () => {
   const navigate = useNavigate();
   const { withGoogleLogin } = useAuth();
   const location = useLocation();
+  const axiosSecure = useAxiosSecure();
 
   const [googleLoading, setGoogleLoading] = useState(false);
+
   const handleWithGoogleLogin = () => {
     setGoogleLoading(true);
     withGoogleLogin()
-      .then(() => {
+      .then((res) => {
         setGoogleLoading(false);
         navigate(location.state || "/");
+        console.log(res);
+
+        const createDate = new Date();
+
+        const name = res.user.displayName;
+        const email = res.user.email;
+        const photo = res.user.photoURL;
+        const role = "user";
+        const createAt = createDate;
+
+        const userInfo = {
+          name,
+          email,
+          photo,
+          role,
+          createAt,
+        };
+
+        axiosSecure.post("/users", userInfo).then((res) => {
+          console.log(res.data);
+        });
+
         toast.success("sing in successfully");
       })
       .catch(() => {

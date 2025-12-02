@@ -129,7 +129,7 @@ const MyParcels = () => {
                 No parcels history found. <br />
                 <Link
                   to={"/send-parcel"}
-                  className="mt-5 btn shadow-none bg-primary/10 border border-primary/30  ">
+                  className="mt-5 btn shadow-none bg-base-200/10 border border-base-200/30  ">
                   <CgAdd size={21} /> Add Parcel
                 </Link>
               </td>
