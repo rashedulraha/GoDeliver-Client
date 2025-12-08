@@ -34,10 +34,13 @@ import PaymentHistory from "../pages/Dashboard/Payment/PaymentHistory/PaymentHis
 import ApproveRider from "../pages/Dashboard/ApproveRider/ApproveRider";
 import UserManagement from "../pages/Dashboard/UserManagement/UserManagement";
 import AdminRoute from "./AdminRoute";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 
 const Routes = createBrowserRouter([
   {
     path: "/",
+    errorElement: <NotFoundPage />,
     Component: MainLayouts,
     children: [
       { index: true, Component: Home },
@@ -47,6 +50,7 @@ const Routes = createBrowserRouter([
       { path: "/pricing", Component: Pricing },
       { path: "/blog", Component: Blog },
       { path: "/contact", Component: Contact },
+      { path: "/error", Component: ErrorPage }, // Add this route for the ErrorPage
       {
         path: "/profile",
         element: (
@@ -68,6 +72,7 @@ const Routes = createBrowserRouter([
   },
   {
     path: "/account-setting",
+    errorElement: <NotFoundPage />,
     element: (
       <PrivetRoute>
         <AccountSetting />
@@ -107,6 +112,7 @@ const Routes = createBrowserRouter([
   {
     path: "/",
     Component: AuthLayouts,
+    errorElement: <NotFoundPage />,
     children: [
       { path: "login", Component: Login },
       { path: "register", Component: Register },
@@ -115,6 +121,7 @@ const Routes = createBrowserRouter([
   },
   {
     path: "dashboard",
+    errorElement: <NotFoundPage />,
     element: (
       <PrivetRoute>
         <Dashboard />
