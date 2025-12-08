@@ -35,10 +35,10 @@ const PaymentHistory = () => {
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-base-content">
             Payment History
-            <span className="ml-2 text-sm badge badge-primary badge-outline">
-              {payments.length} {payments.length === 1 ? "Record" : "Records"}
-            </span>
-          </h2>
+          </h2>{" "}
+          <span className="text-base-content">
+            {payments.length} {payments.length === 1 ? "Record" : "Records"}
+          </span>
         </div>
 
         <div className="overflow-x-auto">

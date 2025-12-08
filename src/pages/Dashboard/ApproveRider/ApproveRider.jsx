@@ -1,12 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import {
-  FaCheckCircle,
-  FaTimesCircle,
-  FaEye,
-  FaUserCheck,
-  FaUserTimes,
-} from "react-icons/fa";
+import { FaEye, FaUserCheck, FaUserTimes } from "react-icons/fa";
 import { useRef, useState } from "react";
 import Swal from "sweetalert2";
 import Container from "../../Responsive/Container";
@@ -121,9 +115,7 @@ const ApproveRider = () => {
                 Review and approve rider applications
               </p>
             </div>
-            <div className="badge badge-lg badge-primary p-3">
-              Total: {riders.length}
-            </div>
+            <div className="text-base-content">Total: {riders.length}</div>
           </div>
         </div>
       </div>
@@ -261,7 +253,7 @@ const ApproveRider = () => {
             <div className="space-y-6">
               <div className="flex justify-center">
                 <div className="avatar">
-                  <div className="w-28 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <div className="w-20 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                     <img
                       src={
                         selectedRider.photoURL ||
@@ -331,36 +323,6 @@ const ApproveRider = () => {
                   {getStatus(selectedRider).charAt(0).toUpperCase() +
                     getStatus(selectedRider).slice(1)}
                 </span>
-              </div>
-
-              <div className="flex justify-center gap-4 pt-4">
-                <button
-                  onClick={() => updateRiderStatus(selectedRider, "approve")}
-                  disabled={getStatus(selectedRider) === "approved"}
-                  className={`btn ${
-                    getStatus(selectedRider) === "approved"
-                      ? "btn-success text-success-content"
-                      : "btn-success/10 text-success border-success/30 hover:bg-success/20"
-                  }`}>
-                  <FaUserCheck className="mr-2" />
-                  Approve
-                </button>
-
-                <button
-                  onClick={() => updateRiderStatus(selectedRider, "reject")}
-                  disabled={
-                    getStatus(selectedRider) === "reject" ||
-                    getStatus(selectedRider) === "rejected"
-                  }
-                  className={`btn ${
-                    getStatus(selectedRider) === "reject" ||
-                    getStatus(selectedRider) === "rejected"
-                      ? "btn-error text-error-content"
-                      : "btn-error/10 text-error border-error/30 hover:bg-error/20"
-                  }`}>
-                  <FaUserTimes className="mr-2" />
-                  Reject
-                </button>
               </div>
             </div>
           )}
