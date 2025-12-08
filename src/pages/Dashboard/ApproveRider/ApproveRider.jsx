@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 
 const ApproveRider = () => {
   const axiosSecure = useAxiosSecure();
+
   const viewOpenModal = useRef();
   const [selectedRider, setSelectedRider] = useState(null);
 
@@ -164,8 +165,8 @@ const ApproveRider = () => {
             <div className="space-y-4 text-base">
               {/* Avatar */}
               <div className="flex justify-center mb-4">
-                <div className="w-24 h-24 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary font-bold text-3xl">
-                  {selectedRider.fastName[0]}
+                <div className="w-24 h-24 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center ">
+                  <img src={selectedRider.photoURL} alt="rider photo" />
                 </div>
               </div>
 
@@ -209,17 +210,17 @@ const ApproveRider = () => {
 
                 {/* Status */}
                 <div>
-                  <p className="text-sm text-base-content/40">Status</p>
+                  <p className="text-sm text-base-content/40 ">Status</p>
                   <p
                     className={
                       selectedRider.status === "approved"
                         ? "text-accent font-semibold"
                         : selectedRider.status === "reject"
-                        ? "text-error font-semibold"
+                        ? "text-error font-semibold "
                         : selectedRider.status === "pending"
-                        ? "text-primary font-semibold"
+                        ? "text-primary font-semibold "
                         : selectedRider.status === "onHold"
-                        ? "text-warning font-semibold"
+                        ? "text-warning font-semibold "
                         : "text-base-content font-semibold"
                     }>
                     {selectedRider.status
@@ -228,24 +229,6 @@ const ApproveRider = () => {
                       : "N/A"}
                   </p>
                 </div>
-              </div>
-
-              {/* Divider */}
-              <div className="divider mb-4"></div>
-
-              {/* Footer Actions */}
-              <div className="flex justify-end gap-3">
-                <button className="btn btn-sm bg-error/10 border border-error text-error hover:bg-error hover:text-base-content transition shadow-none">
-                  Reject
-                </button>
-
-                <button className="btn btn-sm bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-base-content transition shadow-none">
-                  Approve
-                </button>
-
-                <button className="btn btn-sm bg-warning/10 border border-warning text-warning hover:bg-warning hover:text-base-content transition shadow-none">
-                  On Hold
-                </button>
               </div>
             </div>
           )}

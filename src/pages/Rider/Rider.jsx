@@ -10,10 +10,12 @@ import {
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
+import useAuth from "../../Hooks/useAuth";
 
 const Rider = () => {
   const { register, handleSubmit, reset } = useForm();
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
   const handleSubmitForm = (data) => {
     const cleanedData = {
@@ -23,6 +25,7 @@ const Rider = () => {
       email: data.email.trim(),
       phoneNumber: data.phoneNumber.trim(),
       city: data.city.trim(),
+      photoURL: user.photoURL,
     };
 
     axiosSecure
