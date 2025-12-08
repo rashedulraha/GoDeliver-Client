@@ -19,9 +19,11 @@ import SidebarLink from "./shared/SidebarLink/SidebarLink";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import useRole from "../../Hooks/useRole";
 
 const Dashboard = () => {
   const { logoutUser, user } = useAuth();
+  const { role } = useRole();
 
   const navigate = useNavigate();
 
@@ -108,22 +110,26 @@ const Dashboard = () => {
 
             <SidebarLink
               to="/dashboard/payment-history"
-              dataTip="Invoices"
-              span="Invoices"
+              dataTip="Payment History"
+              span="Payment History"
               Icon={LiaFileInvoiceSolid}
             />
-            <SidebarLink
-              to="/dashboard/approve-rider"
-              dataTip="Approve Rider"
-              span="Approve Rider"
-              Icon={Bike}
-            />
-            <SidebarLink
-              to="/dashboard/user-management"
-              dataTip="User management"
-              span="users management"
-              Icon={Users}
-            />
+            {role === "admin" && (
+              <>
+                <SidebarLink
+                  to="/dashboard/approve-rider"
+                  dataTip="Approve Rider"
+                  span="Approve Rider"
+                  Icon={Bike}
+                />
+                <SidebarLink
+                  to="/dashboard/user-management"
+                  dataTip="User management"
+                  span="users management"
+                  Icon={Users}
+                />
+              </>
+            )}
 
             <SidebarLink
               to="/stores"

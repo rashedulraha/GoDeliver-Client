@@ -26,7 +26,7 @@ const UserManagement = () => {
 
   const updateUserRole = useMutation({
     mutationFn: async ({ userId, role }) => {
-      const res = await axiosSecure.patch(`/users/${userId}/role`, { role });
+      const res = await axiosSecure.patch(`/users/${userId}`, { role });
       return res.data;
     },
     onSuccess: () => {
@@ -48,7 +48,7 @@ const UserManagement = () => {
     },
   });
 
-  const handleRoleChange = (userId, currentRole: string) => {
+  const handleRoleChange = (userId, currentRole) => {
     const newRole = currentRole === "admin" ? "user" : "admin";
     const actionText =
       newRole === "admin" ? "make admin" : "remove admin privileges from";
@@ -108,7 +108,7 @@ const UserManagement = () => {
   return (
     <div className="py-6">
       {/* Page Header */}
-      <div className="card bg-base-100 shadow-lg border border-base-300 mb-6">
+      <div className="card bg-base-100  mb-6">
         <div className="card-body">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
@@ -138,7 +138,7 @@ const UserManagement = () => {
       </div>
 
       {/* Table */}
-      <div className="card bg-base-100 shadow-lg border border-base-300 overflow-hidden">
+      <div className="card bg-base-100 shadow-lg  overflow-hidden">
         <div className="card-body p-0">
           <div className="overflow-x-auto">
             <table className="table table-zebra">
@@ -201,7 +201,7 @@ const UserManagement = () => {
 
                     {/* Make Admin / Remove Admin */}
                     <td>
-                      {user.role === "admin" ? (
+                      {user.role === "user" ? (
                         <button
                           onClick={() => handleRoleChange(user._id, user.role)}
                           className="btn btn-sm bg-error/10 text-error border-error/30 hover:bg-error/20 tooltip"

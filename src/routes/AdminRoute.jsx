@@ -1,0 +1,21 @@
+import React from "react";
+import useAuth from "../Hooks/useAuth";
+import useRole from "../Hooks/useRole";
+import LoadingSpinner from "../pages/Shared/Loading/LoadingSpinner";
+import { Navigate } from "react-router-dom";
+
+const AdminRoute = ({ children }) => {
+  const { loading } = useAuth();
+  const { role, isLoading } = useRole();
+
+  if (loading || isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (role !== "admin") {
+    return <Navigate to={"/"} />;
+  }
+  return children;
+};
+
+export default AdminRoute;

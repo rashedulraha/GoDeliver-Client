@@ -1,7 +1,16 @@
 import React, { useState } from "react";
+import useRole from "../../Hooks/useRole";
+import useAuth from "../../Hooks/useAuth";
+import LoadingSpinner from "../Shared/Loading/LoadingSpinner";
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("Story");
+  const { loading } = useAuth();
+  const { isLoading } = useRole();
+
+  if ((loading, isLoading)) {
+    return <LoadingSpinner />;
+  }
 
   const tabs = ["Story", "Mission", "Success", "Team & Others"];
 

@@ -3,8 +3,11 @@ import { BarLoader } from "react-spinners";
 
 const LoadingSpinner = () => {
   return (
-    <div className="flex items-center justify-center  h-screen z-50 absolute top-0 inset-0 bg-base-200">
-      <BarLoader color="#007bff" />
+    <div className="flex flex-col items-center justify-center py-20 absolute z-999 bg-base-200 inset-0 h-screen">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mb-4"></div>
+      <h2 className="text-center text-lg font-medium text-base-content">
+        Loading users...
+      </h2>
     </div>
   );
 };
