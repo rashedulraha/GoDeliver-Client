@@ -3,18 +3,31 @@ import useAuth from "../../../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { Eye } from "lucide-react";
+import Container from "../../../Responsive/Container";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: payments = [] } = useQuery({
+  const { isLoading, data: payments = [] } = useQuery({
     queryKey: ["payments", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/payments?email=${user.email}`);
       return res.data;
     },
   });
+
+  if (isLoading)
+    return (
+      <Container>
+        <div className="flex flex-col items-center justify-center py-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mb-4"></div>
+          <h2 className="text-center text-lg font-medium text-base-content">
+            Loading users...
+          </h2>
+        </div>
+      </Container>
+    );
 
   return (
     <div className="card bg-base-100 shadow-lg ">
