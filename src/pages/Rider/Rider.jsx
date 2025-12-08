@@ -9,9 +9,10 @@ import {
 } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 
 const Rider = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const axiosSecure = useAxiosSecure();
 
   const handleSubmitForm = (data) => {
@@ -24,9 +25,15 @@ const Rider = () => {
       city: data.city.trim(),
     };
 
-    axiosSecure.post("/rider", cleanedData).then((res) => {
-      console.log(res.data);
-    });
+    axiosSecure
+      .post("/rider", cleanedData)
+      .then(() => {
+        toast.success("Successfully create rider");
+        reset();
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
