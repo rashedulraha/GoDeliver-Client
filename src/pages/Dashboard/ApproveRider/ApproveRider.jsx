@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { Link } from "react-router-dom";
-
-// Icons
+import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaCheckCircle, FaTimesCircle, FaEye } from "react-icons/fa";
+import { useRef, useState } from "react";
 
 const ApproveRider = () => {
   const axiosSecure = useAxiosSecure();
+  const viewOpenModal = useRef();
+  const [selectedRider, setSelectedRider] = useState(null);
 
   const { data: riders = [] } = useQuery({
     queryKey: ["riders"],
@@ -15,6 +16,13 @@ const ApproveRider = () => {
       return res.data;
     },
   });
+
+  const handleOpenModal = (id) => {
+    viewOpenModal.current.showModal();
+
+    const findCurrentRider = riders.find((rider) => rider._id === id);
+    setSelectedRider(findCurrentRider);
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -37,65 +45,84 @@ const ApproveRider = () => {
             <tr key={rider._id} className="capitalize">
               <td>{index + 1}</td>
 
-              {/* Full Name */}
               <td>
                 {rider.fastName} {rider.lastName}
               </td>
-
               <td>{rider.email}</td>
-
               <td>{rider.phoneNumber}</td>
-
-              {/* DOB Formatting */}
-              <td>
-                {rider.dateOfBirth
-                  ? new Date(rider.dateOfBirth).toLocaleDateString()
-                  : "N/A"}
-              </td>
-
+              <td>{new Date(rider.dateOfBirth).toLocaleDateString()}</td>
               <td>{rider.city}</td>
-
               <td>{rider.vehicle}</td>
 
-              {/* Action Buttons */}
               <td>
                 <div className="flex gap-2">
-                  {/* Approve */}
-                  <button
-                    className="btn btn-sm shadow-none bg-accent/10 border border-accent"
-                    data-tip="Approve">
+                  <button className="btn btn-sm bg-accent/10 border border-accent">
                     <FaCheckCircle />
                   </button>
 
-                  {/* Reject */}
-                  <button
-                    className="btn btn-sm shadow-none bg-error/10 border border-error"
-                    data-tip="Reject">
+                  <button className="btn btn-sm bg-error/10 border border-error">
                     <FaTimesCircle />
                   </button>
 
-                  {/* View */}
-                  <Link
-                    to={`/dashboard/rider/${rider._id}`}
-                    className="btn btn-sm shadow-none bg-primary/10  border border-primary"
-                    data-tip="View Details">
+                  <button
+                    onClick={() => handleOpenModal(rider._id)}
+                    className="btn btn-sm bg-primary/10 border border-primary">
                     <FaEye />
-                  </Link>
+                  </button>
                 </div>
               </td>
             </tr>
           ))}
 
-          {/* If no riders */}
           {riders.length === 0 && (
             <tr>
-              <td colSpan="8" className="text-center py-6 text-base-content/60">
+              <td colSpan="8" className="text-center py-6">
                 No Riders Found.
               </td>
             </tr>
           )}
         </tbody>
       </table>
+
+      {/* View Modal */}
+      <dialog
+        ref={viewOpenModal}
+        className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box relative">
+          <h3 className="font-bold text-lg mb-3">Rider Details</h3>
+
+          <form method="dialog">
+            <button className="absolute top-5 right-5 p-0.5">
+              <IoIosCloseCircleOutline size={24} />
+            </button>
+          </form>
+
+          {selectedRider && (
+            <div className="space-y-2 mt-5 text-base capitalize">
+              <p>
+                <strong>Name:</strong> {selectedRider.fastName}{" "}
+                {selectedRider.lastName}
+              </p>
+              <p>
+                <strong>Email:</strong> {selectedRider.email}
+              </p>
+              <p>
+                <strong>Phone:</strong> {selectedRider.phoneNumber}
+              </p>
+              <p>
+                <strong>Date of Birth:</strong>{" "}
+                {new Date(selectedRider.dateOfBirth).toLocaleDateString()}
+              </p>
+              <p>
+                <strong>City:</strong> {selectedRider.city}
+              </p>
+              <p>
+                <strong>Vehicle:</strong> {selectedRider.vehicle}
+              </p>
+            </div>
+          )}
+        </div>
+      </dialog>
     </div>
   );
 };
