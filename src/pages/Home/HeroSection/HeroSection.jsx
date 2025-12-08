@@ -226,6 +226,16 @@ const HeroSection = () => {
                 </div>
               </div>
             </div>
+
+            {/* Floating Elements */}
+            <div
+              data-aos="fade-up"
+              data-aos-delay="900"
+              className="absolute -top-6 -left-6 w-32 h-32 bg-accent/10 rounded-full blur-xl"></div>
+            <div
+              data-aos="fade-up"
+              data-aos-delay="1000"
+              className="absolute -bottom-6 -right-6 w-40 h-40 bg-primary/10 rounded-full blur-xl"></div>
           </div>
         </div>
       </div>
