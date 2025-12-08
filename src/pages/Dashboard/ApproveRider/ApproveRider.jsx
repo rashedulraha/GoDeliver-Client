@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaCheckCircle, FaTimesCircle, FaEye } from "react-icons/fa";
 import { useRef, useState } from "react";
+import Swal from "sweetalert2";
 
 const ApproveRider = () => {
   const axiosSecure = useAxiosSecure();
@@ -10,12 +11,53 @@ const ApproveRider = () => {
   const [selectedRider, setSelectedRider] = useState(null);
 
   const { data: riders = [] } = useQuery({
-    queryKey: ["riders"],
+    queryKey: ["rider"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/riders");
+      const res = await axiosSecure.get("/rider");
       return res.data;
     },
   });
+
+  const handleApproval = (id) => {
+    const updateInfo = { status: "approved" };
+    axiosSecure
+      .patch(`/rider/${id}`, updateInfo)
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            background: "switchColor",
+            title: "Rider approved successfully complete",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+  const handleReject = (id) => {
+    const updateInfo = { status: "reject" };
+    axiosSecure
+      .patch(`/rider/${id}`, updateInfo)
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            background: "switchColor",
+            title: "Rider Rejected successfully complete",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   const handleOpenModal = (id) => {
     viewOpenModal.current.showModal();
@@ -37,6 +79,7 @@ const ApproveRider = () => {
             <th>Date of Birth</th>
             <th>City</th>
             <th>Vehicle</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -54,14 +97,30 @@ const ApproveRider = () => {
               <td>{new Date(rider.dateOfBirth).toLocaleDateString()}</td>
               <td>{rider.city}</td>
               <td>{rider.vehicle}</td>
+              <td
+                className={
+                  rider.status === "approved"
+                    ? "text-accent font-semibold"
+                    : rider.status === "reject"
+                    ? "text-error font-semibold"
+                    : rider.status === "pending"
+                    ? "text-primary font-semibold"
+                    : "text-base-content"
+                }>
+                {rider.status}
+              </td>
 
               <td>
                 <div className="flex gap-2">
-                  <button className="btn btn-sm bg-accent/10 border border-accent">
+                  <button
+                    onClick={() => handleApproval(rider._id)}
+                    className="btn btn-sm bg-accent/10 border border-accent">
                     <FaCheckCircle />
                   </button>
 
-                  <button className="btn btn-sm bg-error/10 border border-error">
+                  <button
+                    onClick={() => handleReject(rider._id)}
+                    className="btn btn-sm bg-error/10 border border-error">
                     <FaTimesCircle />
                   </button>
 
@@ -84,15 +143,13 @@ const ApproveRider = () => {
           )}
         </tbody>
       </table>
-
-      {/* View Modal */}
       <dialog
         ref={viewOpenModal}
         className="modal modal-bottom sm:modal-middle">
         <div className="modal-box relative rounded-lg shadow-lg border border-base-300">
           {/* Close Button */}
           <form method="dialog">
-            <button className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
+            <button className="absolute top-4 right-4 text-base-content/30 hover:text-error transition">
               <IoIosCloseCircleOutline size={28} />
             </button>
           </form>
@@ -112,46 +169,69 @@ const ApproveRider = () => {
                 </div>
               </div>
 
+              {/* Grid Info */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 capitalize">
                 <div>
-                  <p className="text-sm text-gray-500">Full Name</p>
+                  <p className="text-sm text-base-content/40">Full Name</p>
                   <p className="font-semibold">
                     {selectedRider.fastName} {selectedRider.lastName}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">Email</p>
+                  <p className="text-sm text-base-content/40">Email</p>
                   <p className="font-semibold lowercase">
                     {selectedRider.email}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">Phone</p>
+                  <p className="text-sm text-base-content/40">Phone</p>
                   <p className="font-semibold">{selectedRider.phoneNumber}</p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">Date of Birth</p>
+                  <p className="text-sm text-base-content/40">Date of Birth</p>
                   <p className="font-semibold">
                     {new Date(selectedRider.dateOfBirth).toLocaleDateString()}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">City</p>
+                  <p className="text-sm text-base-content/40">City</p>
                   <p className="font-semibold">{selectedRider.city}</p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">Vehicle</p>
+                  <p className="text-sm text-base-content/40">Vehicle</p>
                   <p className="font-semibold">{selectedRider.vehicle}</p>
+                </div>
+
+                {/* Status */}
+                <div>
+                  <p className="text-sm text-base-content/40">Status</p>
+                  <p
+                    className={
+                      selectedRider.status === "approved"
+                        ? "text-accent font-semibold"
+                        : selectedRider.status === "reject"
+                        ? "text-error font-semibold"
+                        : selectedRider.status === "pending"
+                        ? "text-primary font-semibold"
+                        : selectedRider.status === "onHold"
+                        ? "text-warning font-semibold"
+                        : "text-base-content font-semibold"
+                    }>
+                    {selectedRider.status
+                      ? selectedRider.status.charAt(0).toUpperCase() +
+                        selectedRider.status.slice(1)
+                      : "N/A"}
+                  </p>
                 </div>
               </div>
 
               {/* Divider */}
-              <div className="divider mt-6 mb-4"></div>
+              <div className="divider mb-4"></div>
 
               {/* Footer Actions */}
               <div className="flex justify-end gap-3">
@@ -161,6 +241,10 @@ const ApproveRider = () => {
 
                 <button className="btn btn-sm bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-base-content transition shadow-none">
                   Approve
+                </button>
+
+                <button className="btn btn-sm bg-warning/10 border border-warning text-warning hover:bg-warning hover:text-base-content transition shadow-none">
+                  On Hold
                 </button>
               </div>
             </div>

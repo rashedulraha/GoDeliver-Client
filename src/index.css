@@ -40,3 +40,7 @@ body {
 .active {
   @apply text-primary border-b pb-1;
 }
+
+.switchColor {
+  @apply bg-base-200 text-base-content;
+}
