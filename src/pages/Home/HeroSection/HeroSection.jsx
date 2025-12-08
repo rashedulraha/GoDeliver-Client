@@ -236,6 +236,22 @@ const HeroSection = () => {
               data-aos="fade-up"
               data-aos-delay="1000"
               className="absolute -bottom-6 -right-6 w-40 h-40 bg-primary/10 rounded-full blur-xl"></div>
+
+            {/* Animated Truck */}
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
+              <div
+                data-aos="zoom-in"
+                data-aos-delay="1100"
+                data-aos-anchor-placement="center-bottom"
+                className="relative">
+                <Truck className="w-16 h-16 text-primary" />
+                <div className="absolute -top-2 -right-2">
+                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
+                    <Package className="w-4 h-4 text-white" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
