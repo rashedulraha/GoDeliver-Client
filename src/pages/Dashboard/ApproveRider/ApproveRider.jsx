@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaCheckCircle, FaTimesCircle, FaEye } from "react-icons/fa";
 import { useRef, useState } from "react";
 import Swal from "sweetalert2";
@@ -10,6 +9,7 @@ const ApproveRider = () => {
   const viewOpenModal = useRef(null);
   const [selectedRider, setSelectedRider] = useState(null);
 
+  // Fetch riders
   const { refetch, data: riders = [] } = useQuery({
     queryKey: ["rider"],
     queryFn: async () => {
@@ -18,16 +18,18 @@ const ApproveRider = () => {
     },
   });
 
-  // Helper function to get correct status string
+  // Get status safely
   const getStatus = (rider) => {
     if (!rider) return "pending";
-    if (typeof rider.status === "string") return rider.status.toLowerCase();
-    if (rider.status && typeof rider.status === "object" && rider.status.status)
-      return rider.status.status.toLowerCase();
-    return "pending";
+    return (rider?.status?.status || rider?.status || "pending")
+      .toString()
+      .toLowerCase();
   };
 
+  // Update rider status
   const updateRiderStatus = (rider, newStatus) => {
+    if (!rider?._id) return;
+
     const updateInfo = { riderStatus: newStatus, email: rider.email };
 
     axiosSecure
@@ -35,6 +37,7 @@ const ApproveRider = () => {
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           refetch();
+
           Swal.fire({
             icon: "success",
             title: `Rider ${
@@ -44,22 +47,25 @@ const ApproveRider = () => {
             position: "top-end",
             showConfirmButton: false,
             timer: 2000,
-            timerProgressBar: true,
           });
+
+          // Close modal if open
+          handleCloseModal();
         }
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
         Swal.fire("Error", "Failed to update status", "error");
       });
   };
 
+  // Open modal
   const handleOpenModal = (id) => {
     const rider = riders.find((r) => r._id === id);
     setSelectedRider(rider);
     viewOpenModal.current?.showModal();
   };
 
+  // Close modal
   const handleCloseModal = () => {
     viewOpenModal.current?.close();
     setSelectedRider(null);
@@ -71,7 +77,7 @@ const ApproveRider = () => {
 
       <div className="overflow-x-auto bg-base-100 rounded-lg shadow">
         <table className="table table-zebra">
-          <thead className="bg-base-200">
+          <thead>
             <tr>
               <th>#</th>
               <th>Name</th>
@@ -84,6 +90,7 @@ const ApproveRider = () => {
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
             {riders.length === 0 ? (
               <tr>
@@ -99,22 +106,21 @@ const ApproveRider = () => {
                   <tr key={rider._id} className="hover">
                     <td>{index + 1}</td>
                     <td className="font-medium">
-                      {rider.fastName} {rider.lastName}
+                      {rider.firstName} {rider.lastName}
                     </td>
                     <td>{rider.email}</td>
                     <td>{rider.phoneNumber}</td>
                     <td>{new Date(rider.dateOfBirth).toLocaleDateString()}</td>
                     <td>{rider.city}</td>
                     <td>{rider.vehicle}</td>
-
                     <td>
                       <span
                         className={`badge badge-lg font-bold ${
                           status === "approved"
-                            ? "badge-success"
-                            : status === "reject"
+                            ? "badge-primary"
+                            : status === "reject" || status === "rejected"
                             ? "badge-error"
-                            : "badge-warning"
+                            : "badge-accent"
                         }`}>
                         {status.charAt(0).toUpperCase() + status.slice(1)}
                       </span>
@@ -125,22 +131,24 @@ const ApproveRider = () => {
                         <button
                           onClick={() => updateRiderStatus(rider, "approve")}
                           disabled={status === "approved"}
-                          className="btn btn-sm btn-success btn-outline"
+                          className="btn btn-sm btn-outline btn-primary"
                           title="Approve">
                           <FaCheckCircle />
                         </button>
 
                         <button
                           onClick={() => updateRiderStatus(rider, "reject")}
-                          disabled={status === "reject"}
-                          className="btn btn-sm btn-error btn-outline"
+                          disabled={
+                            status === "reject" || status === "rejected"
+                          }
+                          className="btn btn-sm btn-outline btn-error"
                           title="Reject">
                           <FaTimesCircle />
                         </button>
 
                         <button
                           onClick={() => handleOpenModal(rider._id)}
-                          className="btn btn-sm btn-primary btn-outline"
+                          className="btn btn-sm btn-outline btn-accent"
                           title="View Details">
                           <FaEye />
                         </button>
@@ -184,27 +192,32 @@ const ApproveRider = () => {
                 <div>
                   <p className="text-sm opacity-70">Full Name</p>
                   <p className="font-bold text-lg">
-                    {selectedRider.fastName} {selectedRider.lastName}
+                    {selectedRider.firstName} {selectedRider.lastName}
                   </p>
                 </div>
+
                 <div>
                   <p className="text-sm opacity-70">Email</p>
                   <p className="font-bold">{selectedRider.email}</p>
                 </div>
+
                 <div>
                   <p className="text-sm opacity-70">Phone</p>
                   <p className="font-bold">{selectedRider.phoneNumber}</p>
                 </div>
+
                 <div>
                   <p className="text-sm opacity-70">Date of Birth</p>
                   <p className="font-bold">
                     {new Date(selectedRider.dateOfBirth).toLocaleDateString()}
                   </p>
                 </div>
+
                 <div>
                   <p className="text-sm opacity-70">City</p>
                   <p className="font-bold">{selectedRider.city}</p>
                 </div>
+
                 <div>
                   <p className="text-sm opacity-70">Vehicle</p>
                   <p className="font-bold">{selectedRider.vehicle}</p>
@@ -217,7 +230,8 @@ const ApproveRider = () => {
                   className={`text-2xl font-bold ${
                     getStatus(selectedRider) === "approved"
                       ? "text-success"
-                      : getStatus(selectedRider) === "reject"
+                      : getStatus(selectedRider) === "reject" ||
+                        getStatus(selectedRider) === "rejected"
                       ? "text-error"
                       : "text-warning"
                   }`}>
@@ -229,7 +243,6 @@ const ApproveRider = () => {
           )}
         </div>
 
-        {/* Click outside to close */}
         <form method="dialog" className="modal-backdrop">
           <button onClick={handleCloseModal}>close</button>
         </form>

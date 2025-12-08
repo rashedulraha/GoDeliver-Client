@@ -14,7 +14,6 @@ import {
   MapPin,
   DollarSign,
   Navigation,
-  Building,
 } from "lucide-react";
 
 // Import Swiper React components
@@ -383,32 +382,6 @@ const HeroSection = () => {
                   );
                 })}
               </Swiper>
-            </div>
-
-            {/* Floating Elements */}
-            <div
-              data-aos="fade-up"
-              data-aos-delay="900"
-              className="absolute -top-6 -left-6 w-32 h-32 bg-accent/10 rounded-full blur-xl"></div>
-            <div
-              data-aos="fade-up"
-              data-aos-delay="1000"
-              className="absolute -bottom-6 -right-6 w-40 h-40 bg-primary/10 rounded-full blur-xl"></div>
-
-            {/* Animated Truck */}
-            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
-              <div
-                data-aos="zoom-in"
-                data-aos-delay="1100"
-                data-aos-anchor-placement="center-bottom"
-                className="relative animate-bounce">
-                <Truck className="w-16 h-16 text-primary" />
-                <div className="absolute -top-2 -right-2 animate-pulse">
-                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-                    <Package className="w-4 h-4 text-base-content" />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
