@@ -7,11 +7,10 @@ import Swal from "sweetalert2";
 
 const ApproveRider = () => {
   const axiosSecure = useAxiosSecure();
-
-  const viewOpenModal = useRef();
+  const viewOpenModal = useRef(null);
   const [selectedRider, setSelectedRider] = useState(null);
 
-  const { data: riders = [] } = useQuery({
+  const { refetch, data: riders = [] } = useQuery({
     queryKey: ["rider"],
     queryFn: async () => {
       const res = await axiosSecure.get("/rider");
@@ -19,209 +18,221 @@ const ApproveRider = () => {
     },
   });
 
-  const updateRiderStatus = (id, status) => {
-    const updateInfo = { status: status };
+  // Helper function to get correct status string
+  const getStatus = (rider) => {
+    if (!rider) return "pending";
+    if (typeof rider.status === "string") return rider.status.toLowerCase();
+    if (rider.status && typeof rider.status === "object" && rider.status.status)
+      return rider.status.status.toLowerCase();
+    return "pending";
+  };
+
+  const updateRiderStatus = (rider, newStatus) => {
+    const updateInfo = { riderStatus: newStatus, email: rider.email };
+
     axiosSecure
-      .patch(`/rider/${id}`, updateInfo)
+      .patch(`/rider/${rider._id}`, updateInfo)
       .then((res) => {
-        if (res.data.modifiedCount) {
+        if (res.data.modifiedCount > 0) {
+          refetch();
           Swal.fire({
-            position: "top-end",
             icon: "success",
-            background: "switchColor",
-            title: "Rider approved successfully complete",
+            title: `Rider ${
+              newStatus === "approve" ? "Approved" : "Rejected"
+            }!`,
+            toast: true,
+            position: "top-end",
             showConfirmButton: false,
-            timer: 1000,
+            timer: 2000,
+            timerProgressBar: true,
           });
         }
       })
-      .catch((error) => {
-        console.log(error.message);
+      .catch((err) => {
+        console.error(err);
+        Swal.fire("Error", "Failed to update status", "error");
       });
   };
 
-  const handleApproval = (id) => {
-    const updateInfo = { status: "approve" };
-    updateRiderStatus(id, updateInfo);
-  };
-  const handleReject = (id) => {
-    const updateInfo = { status: "reject" };
-    updateRiderStatus(id, updateInfo);
-  };
-
   const handleOpenModal = (id) => {
-    viewOpenModal.current.showModal();
-    console.log(id);
+    const rider = riders.find((r) => r._id === id);
+    setSelectedRider(rider);
+    viewOpenModal.current?.showModal();
+  };
 
-    const findCurrentRider = riders.find((rider) => rider._id === id);
-    setSelectedRider(findCurrentRider);
+  const handleCloseModal = () => {
+    viewOpenModal.current?.close();
+    setSelectedRider(null);
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table table-md">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Date of Birth</th>
-            <th>City</th>
-            <th>Vehicle</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+    <div>
+      <h2 className="text-2xl font-bold mb-6 text-center">Approve Riders</h2>
 
-        <tbody>
-          {riders.map((rider, index) => (
-            <tr key={rider._id} className="capitalize">
-              <td>{index + 1}</td>
-
-              <td>
-                {rider.fastName} {rider.lastName}
-              </td>
-              <td>{rider.email}</td>
-              <td>{rider.phoneNumber}</td>
-              <td>{new Date(rider.dateOfBirth).toLocaleDateString()}</td>
-              <td>{rider.city}</td>
-              <td>{rider.vehicle}</td>
-              <td
-                className={
-                  rider.status === "approved"
-                    ? "text-accent font-semibold"
-                    : rider.status === "reject"
-                    ? "text-error font-semibold"
-                    : rider.status === "pending"
-                    ? "text-primary font-semibold"
-                    : "text-base-content"
-                }>
-                {rider.status}
-              </td>
-
-              <td>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleApproval(rider._id)}
-                    className="btn btn-sm bg-accent/10 border border-accent">
-                    <FaCheckCircle />
-                  </button>
-
-                  <button
-                    onClick={() => handleReject(rider._id)}
-                    className="btn btn-sm bg-error/10 border border-error">
-                    <FaTimesCircle />
-                  </button>
-
-                  <button
-                    onClick={() => handleOpenModal(rider._id)}
-                    className="btn btn-sm bg-primary/10 border border-primary">
-                    <FaEye />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-
-          {riders.length === 0 && (
+      <div className="overflow-x-auto bg-base-100 rounded-lg shadow">
+        <table className="table table-zebra">
+          <thead className="bg-base-200">
             <tr>
-              <td colSpan="8" className="text-center py-6">
-                No Riders Found.
-              </td>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>DOB</th>
+              <th>City</th>
+              <th>Vehicle</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
-          )}
-        </tbody>
-      </table>
-      <dialog
-        ref={viewOpenModal}
-        className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box relative rounded-lg shadow-lg border border-base-300">
-          {/* Close Button */}
-          <form method="dialog">
-            <button className="absolute top-4 right-4 text-base-content/30 hover:text-error transition">
-              <IoIosCloseCircleOutline size={28} />
-            </button>
-          </form>
+          </thead>
+          <tbody>
+            {riders.length === 0 ? (
+              <tr>
+                <td colSpan="9" className="text-center py-10 text-gray-500">
+                  No riders found
+                </td>
+              </tr>
+            ) : (
+              riders.map((rider, index) => {
+                const status = getStatus(rider);
 
-          {/* Header */}
-          <h3 className="font-bold text-2xl mb-6 text-center text-primary">
+                return (
+                  <tr key={rider._id} className="hover">
+                    <td>{index + 1}</td>
+                    <td className="font-medium">
+                      {rider.fastName} {rider.lastName}
+                    </td>
+                    <td>{rider.email}</td>
+                    <td>{rider.phoneNumber}</td>
+                    <td>{new Date(rider.dateOfBirth).toLocaleDateString()}</td>
+                    <td>{rider.city}</td>
+                    <td>{rider.vehicle}</td>
+
+                    <td>
+                      <span
+                        className={`badge badge-lg font-bold ${
+                          status === "approved"
+                            ? "badge-success"
+                            : status === "reject"
+                            ? "badge-error"
+                            : "badge-warning"
+                        }`}>
+                        {status.charAt(0).toUpperCase() + status.slice(1)}
+                      </span>
+                    </td>
+
+                    <td>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => updateRiderStatus(rider, "approve")}
+                          disabled={status === "approved"}
+                          className="btn btn-sm btn-success btn-outline"
+                          title="Approve">
+                          <FaCheckCircle />
+                        </button>
+
+                        <button
+                          onClick={() => updateRiderStatus(rider, "reject")}
+                          disabled={status === "reject"}
+                          className="btn btn-sm btn-error btn-outline"
+                          title="Reject">
+                          <FaTimesCircle />
+                        </button>
+
+                        <button
+                          onClick={() => handleOpenModal(rider._id)}
+                          className="btn btn-sm btn-primary btn-outline"
+                          title="View Details">
+                          <FaEye />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Modal */}
+      <dialog ref={viewOpenModal} className="modal">
+        <div className="modal-box max-w-2xl">
+          <button
+            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            onClick={handleCloseModal}>
+            ✕
+          </button>
+
+          <h3 className="font-bold text-2xl text-center mb-6 text-primary">
             Rider Details
           </h3>
 
-          {/* Rider Info */}
           {selectedRider && (
-            <div className="space-y-4 text-base">
-              {/* Avatar */}
-              <div className="flex justify-center mb-4">
-                <div className="w-20 h-20 rounded-full  border-primary/30 flex items-center justify-center overflow-hidden">
-                  <img src={selectedRider.photoURL} alt="rider photo" />
+            <div className="space-y-6">
+              <div className="flex justify-center">
+                <div className="avatar">
+                  <div className="w-28 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img
+                      src={selectedRider.photoURL || "/default-avatar.png"}
+                      alt="Rider"
+                    />
+                  </div>
                 </div>
               </div>
 
-              {/* Grid Info */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 capitalize">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <p className="text-sm text-base-content/40">Full Name</p>
-                  <p className="font-semibold">
+                  <p className="text-sm opacity-70">Full Name</p>
+                  <p className="font-bold text-lg">
                     {selectedRider.fastName} {selectedRider.lastName}
                   </p>
                 </div>
-
                 <div>
-                  <p className="text-sm text-base-content/40">Email</p>
-                  <p className="font-semibold lowercase">
-                    {selectedRider.email}
-                  </p>
+                  <p className="text-sm opacity-70">Email</p>
+                  <p className="font-bold">{selectedRider.email}</p>
                 </div>
-
                 <div>
-                  <p className="text-sm text-base-content/40">Phone</p>
-                  <p className="font-semibold">{selectedRider.phoneNumber}</p>
+                  <p className="text-sm opacity-70">Phone</p>
+                  <p className="font-bold">{selectedRider.phoneNumber}</p>
                 </div>
-
                 <div>
-                  <p className="text-sm text-base-content/40">Date of Birth</p>
-                  <p className="font-semibold">
+                  <p className="text-sm opacity-70">Date of Birth</p>
+                  <p className="font-bold">
                     {new Date(selectedRider.dateOfBirth).toLocaleDateString()}
                   </p>
                 </div>
-
                 <div>
-                  <p className="text-sm text-base-content/40">City</p>
-                  <p className="font-semibold">{selectedRider.city}</p>
+                  <p className="text-sm opacity-70">City</p>
+                  <p className="font-bold">{selectedRider.city}</p>
                 </div>
-
                 <div>
-                  <p className="text-sm text-base-content/40">Vehicle</p>
-                  <p className="font-semibold">{selectedRider.vehicle}</p>
+                  <p className="text-sm opacity-70">Vehicle</p>
+                  <p className="font-bold">{selectedRider.vehicle}</p>
                 </div>
+              </div>
 
-                {/* Status */}
-                <div>
-                  <p className="text-sm text-base-content/40 ">Status</p>
-                  <p
-                    className={
-                      selectedRider.status === "approved"
-                        ? "text-accent font-semibold"
-                        : selectedRider.status === "reject"
-                        ? "text-error font-semibold "
-                        : selectedRider.status === "pending"
-                        ? "text-primary font-semibold "
-                        : selectedRider.status === "onHold"
-                        ? "text-warning font-semibold "
-                        : "text-base-content font-semibold"
-                    }>
-                    {selectedRider.status
-                      ? selectedRider.status.charAt(0).toUpperCase() +
-                        selectedRider.status.slice(1)
-                      : "N/A"}
-                  </p>
-                </div>
+              <div className="text-center pt-4">
+                <p className="text-sm opacity-70">Current Status</p>
+                <span
+                  className={`text-2xl font-bold ${
+                    getStatus(selectedRider) === "approved"
+                      ? "text-success"
+                      : getStatus(selectedRider) === "reject"
+                      ? "text-error"
+                      : "text-warning"
+                  }`}>
+                  {getStatus(selectedRider).charAt(0).toUpperCase() +
+                    getStatus(selectedRider).slice(1)}
+                </span>
               </div>
             </div>
           )}
         </div>
+
+        {/* Click outside to close */}
+        <form method="dialog" className="modal-backdrop">
+          <button onClick={handleCloseModal}>close</button>
+        </form>
       </dialog>
     </div>
   );
