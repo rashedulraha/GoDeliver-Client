@@ -44,3 +44,36 @@ body {
 .switchColor {
   @apply bg-base-200 text-base-content;
 }
+
+.tracking-slider {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.swiper-slide-active {
+  opacity: 1;
+}
+
+/* Custom scrollbar */
+.tracking-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Fade animation for progress bar */
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--progress-width);
+  }
+}
+
+.swiper-slide-active .h-full.bg-white {
+  animation: progressFill 1.5s ease-out forwards;
+}

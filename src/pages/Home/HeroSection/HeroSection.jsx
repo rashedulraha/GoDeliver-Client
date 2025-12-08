@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Truck,
@@ -9,9 +9,59 @@ import {
   Star,
   CheckCircle,
   Users,
+  ChevronLeft,
+  ChevronRight,
+  MapPin,
+  DollarSign,
+  Navigation,
+  Building,
 } from "lucide-react";
 
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/effect-fade";
+
+// Import required modules
+import { Autoplay, Navigation as SwiperNav, EffectFade } from "swiper/modules";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+
 const HeroSection = () => {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const swiperRef = useRef(null);
+  const axiosSecure = useAxiosSecure();
+
+  const { data: trackingSlides = [] } = useQuery({
+    queryKey: ["trackingSlides"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/trackingSlides");
+      return res.data;
+    },
+  });
+
+  const nextSlide = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
+
+  const prevSlide = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
+  const goToSlide = (index) => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideTo(index);
+    }
+  };
+
   return (
     <section className="relative overflow-hidden bg-linear-to-br from-primary/5 via-base-100 to-accent/5">
       {/* Background Effects */}
@@ -28,7 +78,7 @@ const HeroSection = () => {
 
       <div className="relative container mx-auto px-4 py-10 md:py-15">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
+          {/* Left Content (Unchanged) */}
           <div
             data-aos="fade-right"
             data-aos-duration="1000"
@@ -119,112 +169,220 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right Content - Hero Image/Animation */}
+          {/* Right Content - Swiper Slider */}
           <div
             data-aos="fade-left"
             data-aos-duration="1200"
             data-aos-delay="300"
             className="relative">
-            {/* Main Card */}
-            <div className="relative bg-base-100 rounded-3xl shadow-2xl overflow-hidden border border-base-300">
-              <div className="p-6">
-                {/* Tracking Card */}
-                <div
-                  data-aos="zoom-in"
-                  data-aos-delay="500"
-                  className="bg-linear-to-r from-primary to-accent rounded-2xl p-6 text-white mb-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <h3 className="text-xl font-bold">Live Tracking</h3>
-                      <p className="text-primary-content/80">
-                        Track ID: GD-789456123
-                      </p>
-                    </div>
-                    <Truck className="w-10 h-10" />
-                  </div>
+            {/* Slider Navigation Buttons */}
+            <div className="absolute top-4 right-4 z-10 flex gap-2">
+              <button
+                onClick={prevSlide}
+                className="w-8 h-8 rounded-full bg-base-100/80 backdrop-blur-sm flex items-center justify-center hover:bg-base-200 transition-colors shadow-lg"
+                aria-label="Previous slide">
+                <ChevronLeft className="w-5 h-5 text-base-content" />
+              </button>
+              <button
+                onClick={nextSlide}
+                className="w-8 h-8 rounded-full bg-base-100/80 backdrop-blur-sm flex items-center justify-center hover:bg-base-200 transition-colors shadow-lg"
+                aria-label="Next slide">
+                <ChevronRight className="w-5 h-5 text-base-content" />
+              </button>
+            </div>
 
-                  {/* Progress Bar */}
-                  <div className="mb-4">
-                    <div className="flex justify-between text-sm mb-2">
-                      <span>Dhaka</span>
-                      <span>Chittagong</span>
-                    </div>
-                    <div className="h-2 bg-white/20 rounded-full overflow-hidden">
-                      <div className="h-full bg-white w-3/4 rounded-full relative">
-                        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-white rounded-full"></div>
-                      </div>
-                    </div>
-                    <div className="flex justify-between text-xs mt-2">
-                      <span>Picked</span>
-                      <span>In Transit</span>
-                      <span className="text-white/60">Delivered</span>
-                    </div>
-                  </div>
-                </div>
+            {/* Slide Indicators */}
+            <div className="absolute top-4 left-4 z-10 flex gap-2">
+              {trackingSlides?.map((slide, index) => (
+                <button
+                  key={slide.id}
+                  onClick={() => goToSlide(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    activeSlide === index ? "bg-primary w-4" : "bg-base-400/50"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
 
-                {/* Parcel Info Cards */}
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div
-                    data-aos="flip-left"
-                    data-aos-delay="600"
-                    className="card bg-base-200">
-                    <div className="card-body p-4">
-                      <div className="flex items-center gap-3">
-                        <Package className="w-8 h-8 text-primary" />
-                        <div>
-                          <div className="font-semibold">Parcel Type</div>
-                          <div className="text-sm text-base-400">Document</div>
+            {/* Swiper Container */}
+            <div className="relative bg-base-100 rounded-3xl shadow-2xl overflow-hidden border border-base-300 pt-12">
+              <Swiper
+                ref={swiperRef}
+                spaceBetween={30}
+                effect="fade"
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
+                modules={[Autoplay, EffectFade]}
+                onSlideChange={(swiper) => setActiveSlide(swiper.activeIndex)}
+                className="tracking-slider">
+                {trackingSlides.map((slide) => {
+                  const Icon = slide.icon;
+                  return (
+                    <SwiperSlide key={slide.id}>
+                      <div className="p-6">
+                        {/* Tracking Card */}
+                        <div
+                          data-aos="zoom-in"
+                          data-aos-delay="500"
+                          className={`bg-linear-to-r ${slide.color} rounded-2xl p-6 text-base-content mb-6`}>
+                          <div className="flex items-center justify-between mb-4">
+                            <div>
+                              <h3 className="text-xl font-bold">
+                                {slide.title}
+                              </h3>
+                              <p className="text-primary-content/80">
+                                Track ID: {slide.trackingId}
+                              </p>
+                            </div>
+                            <Icon className="w-10 h-10" />
+                          </div>
+
+                          {/* Progress Bar */}
+                          <div className="mb-4">
+                            <div className="flex justify-between text-sm mb-2">
+                              <div className="flex items-center gap-1">
+                                <MapPin className="w-4 h-4" />
+                                <span>{slide.from}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <span>{slide.to}</span>
+                                <MapPin className="w-4 h-4" />
+                              </div>
+                            </div>
+                            <div className="h-2 bg-base-200 rounded-full overflow-hidden">
+                              <div
+                                className="h-full bg-base-content rounded-full relative transition-all duration-1000"
+                                style={{ width: `${slide.progress}%` }}>
+                                <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-base-content rounded-full"></div>
+                              </div>
+                            </div>
+                            <div className="flex justify-between text-xs mt-2">
+                              <span>Picked</span>
+                              <span
+                                className={`px-2 py-0.5 rounded-full ${slide.statusColor} text-base-content`}>
+                                {slide.status}
+                              </span>
+                              <span>Delivered</span>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div
-                    data-aos="flip-right"
-                    data-aos-delay="700"
-                    className="card bg-base-200">
-                    <div className="card-body p-4">
-                      <div className="flex items-center gap-3">
-                        <Clock className="w-8 h-8 text-accent" />
-                        <div>
-                          <div className="font-semibold">Delivery Time</div>
-                          <div className="text-sm text-base-400">
-                            6-12 Hours
+                        {/* Parcel Info Cards */}
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                          <div
+                            data-aos="flip-left"
+                            data-aos-delay="600"
+                            className="card bg-base-200">
+                            <div className="card-body p-4">
+                              <div className="flex items-center gap-3">
+                                <Package className="w-8 h-8 text-primary" />
+                                <div>
+                                  <div className="font-semibold">
+                                    Parcel Type
+                                  </div>
+                                  <div className="text-sm text-base-400">
+                                    {slide.parcelType}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            data-aos="flip-right"
+                            data-aos-delay="700"
+                            className="card bg-base-200">
+                            <div className="card-body p-4">
+                              <div className="flex items-center gap-3">
+                                <DollarSign className="w-8 h-8 text-accent" />
+                                <div>
+                                  <div className="font-semibold">Cost</div>
+                                  <div className="text-sm text-base-400">
+                                    {slide.price}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Time and Rider Cards */}
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                          <div
+                            data-aos="flip-left"
+                            data-aos-delay="800"
+                            className="card bg-base-200">
+                            <div className="card-body p-4">
+                              <div className="flex items-center gap-3">
+                                <Clock className="w-8 h-8 text-accent" />
+                                <div>
+                                  <div className="font-semibold">
+                                    Delivery Time
+                                  </div>
+                                  <div className="text-sm text-base-400">
+                                    {slide.deliveryTime}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            data-aos="flip-right"
+                            data-aos-delay="900"
+                            className="card bg-base-200">
+                            <div className="card-body p-4">
+                              <div className="flex items-center gap-3">
+                                <Navigation className="w-8 h-8 text-primary" />
+                                <div>
+                                  <div className="font-semibold">Distance</div>
+                                  <div className="text-sm text-base-400">
+                                    {slide.riderDistance}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Rider Info */}
+                        <div
+                          data-aos="zoom-in-up"
+                          data-aos-delay="1000"
+                          className="card bg-base-200">
+                          <div className="card-body p-4">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <div className="avatar">
+                                  <div className="w-12 h-12 rounded-full bg-linear-to-br from-primary to-accent text-primary-content flex items-center justify-center">
+                                    <Users className="w-6 h-6" />
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="font-semibold">
+                                    Rider Assigned
+                                  </div>
+                                  <div className="text-sm text-base-400">
+                                    {slide.riderName}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="badge badge-accent gap-1">
+                                <Shield className="w-3 h-3" />
+                                Verified
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Rider Info */}
-                <div
-                  data-aos="zoom-in-up"
-                  data-aos-delay="800"
-                  className="card bg-base-200">
-                  <div className="card-body p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="w-12 h-12 rounded-full bg-primary text-primary-content flex items-center justify-center">
-                            <Users className="w-6 h-6" />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-semibold">Rider Assigned</div>
-                          <div className="text-sm text-base-400">
-                            John Doe • 10 min away
-                          </div>
-                        </div>
-                      </div>
-                      <div className="badge badge-accent gap-1">
-                        <Shield className="w-3 h-3" />
-                        Verified
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
             </div>
 
             {/* Floating Elements */}
@@ -243,11 +401,11 @@ const HeroSection = () => {
                 data-aos="zoom-in"
                 data-aos-delay="1100"
                 data-aos-anchor-placement="center-bottom"
-                className="relative">
+                className="relative animate-bounce">
                 <Truck className="w-16 h-16 text-primary" />
-                <div className="absolute -top-2 -right-2">
+                <div className="absolute -top-2 -right-2 animate-pulse">
                   <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-                    <Package className="w-4 h-4 text-white" />
+                    <Package className="w-4 h-4 text-base-content" />
                   </div>
                 </div>
               </div>
