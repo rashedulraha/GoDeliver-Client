@@ -4,7 +4,7 @@ import ThemeToggle from "../../Components/Theme/ToggleTheme";
 
 import { GoHome, GoSidebarExpand } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
-import { Bike, HelpCircle, LocateIcon, LogOut } from "lucide-react";
+import { Bike, HelpCircle, LocateIcon, LogOut, Users } from "lucide-react";
 import { LiaFileInvoiceSolid, LiaStoreSolid } from "react-icons/lia";
 import {
   FaListUl,
@@ -92,19 +92,18 @@ const Dashboard = () => {
               span="HomePage"
               Icon={GoHome}
             />
+            <SidebarLink
+              to=""
+              dataTip="My Parcels"
+              span="My Parcels"
+              Icon={FaListUl}
+            />
 
             <SidebarLink
               to="/send-parcel"
               dataTip="Send Parcel"
               span="Send Parcel"
               Icon={MdSendAndArchive}
-            />
-
-            <SidebarLink
-              to="/dashboard/my-parcels"
-              dataTip="My Parcels"
-              span="My Parcels"
-              Icon={FaListUl}
             />
 
             <SidebarLink
@@ -118,6 +117,12 @@ const Dashboard = () => {
               dataTip="Approve Rider"
               span="Approve Rider"
               Icon={Bike}
+            />
+            <SidebarLink
+              to="/dashboard/user-management"
+              dataTip="User management"
+              span="users management"
+              Icon={Users}
             />
 
             <SidebarLink

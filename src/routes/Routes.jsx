@@ -32,6 +32,7 @@ import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancel from "../pages/Dashboard/Payment/PaymentCancel";
 import PaymentHistory from "../pages/Dashboard/Payment/PaymentHistory/PaymentHistory";
 import ApproveRider from "../pages/Dashboard/ApproveRider/ApproveRider";
+import UserManagement from "../pages/Dashboard/UserManagement/UserManagement";
 
 const Routes = createBrowserRouter([
   {
@@ -120,7 +121,7 @@ const Routes = createBrowserRouter([
     ),
     children: [
       {
-        path: "my-parcels",
+        index: true,
         Component: MyParcels,
       },
       {
@@ -142,6 +143,10 @@ const Routes = createBrowserRouter([
       {
         path: "approve-rider",
         Component: ApproveRider,
+      },
+      {
+        path: "user-management",
+        Component: UserManagement,
       },
     ],
   },

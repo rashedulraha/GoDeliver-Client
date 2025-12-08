@@ -27,18 +27,26 @@ const MyParcels = () => {
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
-      background: "#1e293b",
-      color: "white",
+      background: "var(--color-base-200)",
+      color: "var(--color-base-content)",
       showCancelButton: true,
-      confirmButtonColor: "#f87171",
-      cancelButtonColor: "#14b8a6",
+      confirmButtonColor: "var(--color-error)",
+      cancelButtonColor: "var(--color-accent)",
       confirmButtonText: "Yes, delete parcel",
+      customClass: {
+        popup: "border border-base-300",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/parcel/${id}`).then((res) => {
           if (res.data.deletedCount) {
             refetch();
-            toast.success("Your parcel request has been deleted");
+            toast.success("Your parcel request has been deleted", {
+              style: {
+                background: "var(--color-base-200)",
+                color: "var(--color-base-content)",
+              },
+            });
           }
         });
       }
@@ -46,97 +54,126 @@ const MyParcels = () => {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table table-md">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Parcel Name</th>
-            <th>Parcel Weight</th>
-            <th>Receiver Name</th>
-            <th>Receiver Location</th>
-            <th>Send Date</th>
-            <th>Pay</th>
-            <th>Action</th>
-            <th>Cost</th>
-          </tr>
-        </thead>
+    <div className="card bg-base-100 shadow-lg">
+      <div className="card-body">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-base-content">My Parcels</h2>
+          <Link
+            to={"/send-parcel"}
+            className="btn bg-primary text-primary-content border-primary hover:bg-primary-focus transition-all">
+            <CgAdd size={21} /> Add New Parcel
+          </Link>
+        </div>
 
-        <tbody>
-          {MyParcels?.map((parcel, index) => (
-            <tr key={parcel._id} className="capitalize">
-              <th>{index + 1}</th>
-              <td>{parcel.parcelName}</td>
-              <td>{parcel.parcelWeight}</td>
-              <td>{parcel.receiverName}</td>
-              <td>{parcel.receiverAddress}</td>
+        <div className="overflow-x-auto">
+          <table className="table table-zebra">
+            <thead className="bg-base-200">
+              <tr>
+                <th className="text-base-content">No</th>
+                <th className="text-base-content">Parcel Name</th>
+                <th className="text-base-content">Weight</th>
+                <th className="text-base-content">Receiver</th>
+                <th className="text-base-content">Location</th>
+                <th className="text-base-content">Date</th>
+                <th className="text-base-content">Payment</th>
+                <th className="text-base-content">Actions</th>
+                <th className="text-base-content">Cost</th>
+              </tr>
+            </thead>
 
-              {/* Date formatting */}
-              <td>
-                {parcel.createAt
-                  ? new Date(parcel.createAt).toLocaleDateString()
-                  : "N/A"}
-              </td>
+            <tbody>
+              {MyParcels?.map((parcel, index) => (
+                <tr
+                  key={parcel._id}
+                  className="hover:bg-base-200/50 transition-colors">
+                  <th className="text-base-content">{index + 1}</th>
+                  <td className="text-base-content font-medium">
+                    {parcel.parcelName}
+                  </td>
+                  <td className="text-base-content">
+                    {parcel.parcelWeight} kg
+                  </td>
+                  <td className="text-base-content">{parcel.receiverName}</td>
+                  <td className="text-base-content">
+                    {parcel.receiverAddress}
+                  </td>
 
-              <td>
-                {parcel.paymentStatus === "paid" ? (
-                  <span className="text-base-content bg-accent/10 border border-accent/30 btn-md btn shadow-none w-full cursor-not-allowed">
-                    Paid
-                  </span>
-                ) : (
-                  <Link
-                    to={`/dashboard/payment/${parcel._id}`}
-                    className="text-base-content bg-accent border border-accent btn-md btn shadow-none w-full">
-                    Pay
-                  </Link>
-                )}
-              </td>
+                  {/* Date formatting */}
+                  <td className="text-base-content">
+                    {parcel.createAt
+                      ? new Date(parcel.createAt).toLocaleDateString()
+                      : "N/A"}
+                  </td>
 
-              {/* Responsive Action Buttons */}
-              <td>
-                <div className="flex flex-col lg:flex-row gap-2">
-                  <button
-                    data-tip="Parcel Edit"
-                    className="btn btn-md btn-square shadow-none rounded-sm bg-primary/10 text-base-content border-primary/30 border cursor-pointer hover:bg-primary transition-all tooltip">
-                    <Edit size={12} />
-                  </button>
+                  <td>
+                    {parcel.paymentStatus === "paid" ? (
+                      <span className="badge badge-success text-success-content gap-2">
+                        Paid
+                      </span>
+                    ) : (
+                      <Link
+                        to={`/dashboard/payment/${parcel._id}`}
+                        className="btn btn-sm bg-accent text-accent-content border-accent hover:bg-accent-focus transition-all">
+                        Pay Now
+                      </Link>
+                    )}
+                  </td>
 
-                  <button
-                    data-tip="Parcel View"
-                    className="btn btn-md btn-square rounded-sm shadow-none bg-accent/10 hover:bg-accent text-base-content border border-accent/30 cursor-pointer transition-all tooltip">
-                    <View size={12} />
-                  </button>
+                  {/* Responsive Action Buttons */}
+                  <td>
+                    <div className="flex gap-2">
+                      <button
+                        data-tip="Edit Parcel"
+                        className="btn btn-sm btn-circle bg-primary/10 text-primary border-primary/30 hover:bg-primary/20 tooltip">
+                        <Edit size={14} />
+                      </button>
 
-                  <button
-                    onClick={() => handleParcelDelete(parcel._id)}
-                    data-tip="Parcel Delete"
-                    className="btn btn-md btn-square rounded-sm bg-error/10 shadow-none hover:bg-error border border-error/30 text-base-content cursor-pointer transition-all tooltip">
-                    <TrashIcon size={12} />
-                  </button>
-                </div>
-              </td>
+                      <button
+                        data-tip="View Details"
+                        className="btn btn-sm btn-circle bg-accent/10 text-accent border-accent/30 hover:bg-accent/20 tooltip">
+                        <View size={14} />
+                      </button>
 
-              <td>{parcel.cost}</td>
-            </tr>
-          ))}
+                      <button
+                        onClick={() => handleParcelDelete(parcel._id)}
+                        data-tip="Delete Parcel"
+                        className="btn btn-sm btn-circle bg-error/10 text-error border-error/30 hover:bg-error/20 tooltip">
+                        <TrashIcon size={14} />
+                      </button>
+                    </div>
+                  </td>
 
-          {/* If no payment history */}
-          {MyParcels.length === 0 && (
-            <tr>
-              <td
-                colSpan="8"
-                className="text-center  py-6 text-base-content/60">
-                No parcels history found. <br />
-                <Link
-                  to={"/send-parcel"}
-                  className="mt-5 btn shadow-none bg-base-200/10 border border-base-200/30  ">
-                  <CgAdd size={21} /> Add Parcel
-                </Link>
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+                  <td className="font-semibold text-base-content">
+                    ${parcel.cost}
+                  </td>
+                </tr>
+              ))}
+
+              {/* If no parcels history */}
+              {MyParcels.length === 0 && (
+                <tr>
+                  <td colSpan="9" className="text-center py-10">
+                    <div className="flex flex-col items-center justify-center space-y-4">
+                      <div className="text-5xl text-base-content/30">📦</div>
+                      <h3 className="text-xl font-semibold text-base-content/70">
+                        No parcels found
+                      </h3>
+                      <p className="text-base-content/50">
+                        You haven't created any parcel requests yet
+                      </p>
+                      <Link
+                        to={"/send-parcel"}
+                        className="mt-2 btn bg-primary text-primary-content border-primary hover:bg-primary-focus transition-all">
+                        <CgAdd size={21} /> Create Your First Parcel
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
