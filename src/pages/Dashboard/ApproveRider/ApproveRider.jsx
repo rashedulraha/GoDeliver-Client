@@ -1,106 +1,96 @@
 import { useQuery } from "@tanstack/react-query";
-
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
-import { Edit, TrashIcon, View } from "lucide-react";
-import { CgAdd } from "react-icons/cg";
+
+// Icons
+import { FaCheckCircle, FaTimesCircle, FaEye } from "react-icons/fa";
 
 const ApproveRider = () => {
   const axiosSecure = useAxiosSecure();
 
   const { data: riders = [] } = useQuery({
-    queryKey: ["rider", "pending"],
+    queryKey: ["riders"],
     queryFn: async () => {
       const res = await axiosSecure.get("/riders");
       return res.data;
     },
   });
+
   return (
     <div className="overflow-x-auto">
       <table className="table table-md">
         <thead>
           <tr>
             <th>No</th>
-            <th>Parcel Name</th>
-            <th>Parcel Weight</th>
-            <th>Receiver Name</th>
-            <th>Receiver Location</th>
-            <th>Send Date</th>
-            <th>Pay</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date of Birth</th>
+            <th>City</th>
+            <th>Vehicle</th>
             <th>Action</th>
-            <th>Cost</th>
           </tr>
         </thead>
 
         <tbody>
-          {riders?.map((parcel, index) => (
-            <tr key={parcel._id} className="capitalize">
-              <th>{index + 1}</th>
-              <td>{parcel.parcelName}</td>
-              <td>{parcel.parcelWeight}</td>
-              <td>{parcel.receiverName}</td>
-              <td>{parcel.receiverAddress}</td>
+          {riders.map((rider, index) => (
+            <tr key={rider._id} className="capitalize">
+              <td>{index + 1}</td>
 
-              {/* Date formatting */}
+              {/* Full Name */}
               <td>
-                {parcel.createAt
-                  ? new Date(parcel.createAt).toLocaleDateString()
+                {rider.fastName} {rider.lastName}
+              </td>
+
+              <td>{rider.email}</td>
+
+              <td>{rider.phoneNumber}</td>
+
+              {/* DOB Formatting */}
+              <td>
+                {rider.dateOfBirth
+                  ? new Date(rider.dateOfBirth).toLocaleDateString()
                   : "N/A"}
               </td>
 
+              <td>{rider.city}</td>
+
+              <td>{rider.vehicle}</td>
+
+              {/* Action Buttons */}
               <td>
-                {parcel.paymentStatus === "paid" ? (
-                  <span className="text-base-content bg-accent/10 border border-accent/30 btn-md btn shadow-none w-full cursor-not-allowed">
-                    Paid
-                  </span>
-                ) : (
+                <div className="flex gap-2">
+                  {/* Approve */}
+                  <button
+                    className="btn btn-sm shadow-none bg-accent/10 border border-accent"
+                    data-tip="Approve">
+                    <FaCheckCircle />
+                  </button>
+
+                  {/* Reject */}
+                  <button
+                    className="btn btn-sm shadow-none bg-error/10 border border-error"
+                    data-tip="Reject">
+                    <FaTimesCircle />
+                  </button>
+
+                  {/* View */}
                   <Link
-                    to={`/dashboard/payment/${parcel._id}`}
-                    className="text-base-content bg-accent border border-accent btn-md btn shadow-none w-full">
-                    Pay
+                    to={`/dashboard/rider/${rider._id}`}
+                    className="btn btn-sm shadow-none bg-primary/10  border border-primary"
+                    data-tip="View Details">
+                    <FaEye />
                   </Link>
-                )}
-              </td>
-
-              {/* Responsive Action Buttons */}
-              <td>
-                <div className="flex flex-col lg:flex-row gap-2">
-                  <button
-                    data-tip="Parcel Edit"
-                    className="btn btn-md btn-square shadow-none rounded-sm bg-primary/10 text-base-content border-primary/30 border cursor-pointer hover:bg-primary transition-all tooltip">
-                    <Edit size={12} />
-                  </button>
-
-                  <button
-                    data-tip="Parcel View"
-                    className="btn btn-md btn-square rounded-sm shadow-none bg-accent/10 hover:bg-accent text-base-content border border-accent/30 cursor-pointer transition-all tooltip">
-                    <View size={12} />
-                  </button>
-
-                  <button
-                    data-tip="Parcel Delete"
-                    className="btn btn-md btn-square rounded-sm bg-error/10 shadow-none hover:bg-error border border-error/30 text-base-content cursor-pointer transition-all tooltip">
-                    <TrashIcon size={12} />
-                  </button>
                 </div>
               </td>
-
-              <td>{parcel.cost}</td>
             </tr>
           ))}
 
-          {/* If no payment history */}
+          {/* If no riders */}
           {riders.length === 0 && (
             <tr>
-              <td
-                colSpan="8"
-                className="text-center  py-6 text-base-content/60">
-                No parcels history found. <br />
-                <Link
-                  to={"/send-parcel"}
-                  className="mt-5 btn shadow-none bg-base-200/10 border border-base-200/30  ">
-                  <CgAdd size={21} /> Add Parcel
-                </Link>
+              <td colSpan="8" className="text-center py-6 text-base-content/60">
+                No Riders Found.
               </td>
             </tr>
           )}

@@ -6,7 +6,12 @@ import { GoHome, GoSidebarExpand } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
 import { Bike, HelpCircle, LocateIcon, LogOut } from "lucide-react";
 import { LiaFileInvoiceSolid, LiaStoreSolid } from "react-icons/lia";
-import { FaListUl, FaRegMoneyBillAlt } from "react-icons/fa";
+import {
+  FaListUl,
+  FaRegMoneyBillAlt,
+  FaSignOutAlt,
+  FaUserCircle,
+} from "react-icons/fa";
 import { PiPasswordDuotone } from "react-icons/pi";
 import { MdSendAndArchive } from "react-icons/md";
 
@@ -16,7 +21,9 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
-  const { logoutUser } = useAuth();
+  const { logoutUser, user } = useAuth();
+  console.log(user);
+
   const navigate = useNavigate();
 
   // Logout Handler
@@ -158,15 +165,29 @@ const Dashboard = () => {
               </button>
             </li>
 
-            {/* Logout */}
-            <li>
+            {/* Sidebar Footer */}
+            <div className="border-t border-sidebar-border flex items-center is-drawer-close:flex-col is-drawer-open:flex-row  gap-2 mt-10 py-5">
+              {/* Collapsed state avatar */}
+              <div className="  justify-center">
+                {user?.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt="User Avatar"
+                    className="w-8 h-8 rounded-full border-2 border-sidebar-primary"
+                  />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-sidebar-primary text-sidebar-primary-foreground flex items-center justify-center">
+                    <FaUserCircle size={16} />
+                  </div>
+                )}
+              </div>
               <button
                 onClick={handleLogout}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right hover:bg-error/20 rounded-lg flex items-center gap-3 px-3 py-2 text-error font-semibold">
-                <LogOut size={20} />
-                <span className="is-drawer-close:hidden">Logout</span>
+                <FaSignOutAlt size={20} />
+                <span className="is-drawer-close:hidden ">Logout</span>
               </button>
-            </li>
+            </div>
           </ul>
         </div>
       </div>
