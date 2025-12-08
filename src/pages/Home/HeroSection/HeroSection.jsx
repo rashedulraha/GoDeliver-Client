@@ -118,6 +118,115 @@ const HeroSection = () => {
               ))}
             </div>
           </div>
+
+          {/* Right Content - Hero Image/Animation */}
+          <div
+            data-aos="fade-left"
+            data-aos-duration="1200"
+            data-aos-delay="300"
+            className="relative">
+            {/* Main Card */}
+            <div className="relative bg-base-100 rounded-3xl shadow-2xl overflow-hidden border border-base-300">
+              <div className="p-6">
+                {/* Tracking Card */}
+                <div
+                  data-aos="zoom-in"
+                  data-aos-delay="500"
+                  className="bg-linear-to-r from-primary to-accent rounded-2xl p-6 text-white mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h3 className="text-xl font-bold">Live Tracking</h3>
+                      <p className="text-primary-content/80">
+                        Track ID: GD-789456123
+                      </p>
+                    </div>
+                    <Truck className="w-10 h-10" />
+                  </div>
+
+                  {/* Progress Bar */}
+                  <div className="mb-4">
+                    <div className="flex justify-between text-sm mb-2">
+                      <span>Dhaka</span>
+                      <span>Chittagong</span>
+                    </div>
+                    <div className="h-2 bg-white/20 rounded-full overflow-hidden">
+                      <div className="h-full bg-white w-3/4 rounded-full relative">
+                        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-white rounded-full"></div>
+                      </div>
+                    </div>
+                    <div className="flex justify-between text-xs mt-2">
+                      <span>Picked</span>
+                      <span>In Transit</span>
+                      <span className="text-white/60">Delivered</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Parcel Info Cards */}
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <div
+                    data-aos="flip-left"
+                    data-aos-delay="600"
+                    className="card bg-base-200">
+                    <div className="card-body p-4">
+                      <div className="flex items-center gap-3">
+                        <Package className="w-8 h-8 text-primary" />
+                        <div>
+                          <div className="font-semibold">Parcel Type</div>
+                          <div className="text-sm text-base-400">Document</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    data-aos="flip-right"
+                    data-aos-delay="700"
+                    className="card bg-base-200">
+                    <div className="card-body p-4">
+                      <div className="flex items-center gap-3">
+                        <Clock className="w-8 h-8 text-accent" />
+                        <div>
+                          <div className="font-semibold">Delivery Time</div>
+                          <div className="text-sm text-base-400">
+                            6-12 Hours
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Rider Info */}
+                <div
+                  data-aos="zoom-in-up"
+                  data-aos-delay="800"
+                  className="card bg-base-200">
+                  <div className="card-body p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="w-12 h-12 rounded-full bg-primary text-primary-content flex items-center justify-center">
+                            <Users className="w-6 h-6" />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-semibold">Rider Assigned</div>
+                          <div className="text-sm text-base-400">
+                            John Doe • 10 min away
+                          </div>
+                        </div>
+                      </div>
+                      <div className="badge badge-accent gap-1">
+                        <Shield className="w-3 h-3" />
+                        Verified
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
