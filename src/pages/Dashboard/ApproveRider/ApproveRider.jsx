@@ -19,8 +19,8 @@ const ApproveRider = () => {
     },
   });
 
-  const handleApproval = (id) => {
-    const updateInfo = { status: "approved" };
+  const updateRiderStatus = (id, status) => {
+    const updateInfo = { status: status };
     axiosSecure
       .patch(`/rider/${id}`, updateInfo)
       .then((res) => {
@@ -39,25 +39,14 @@ const ApproveRider = () => {
         console.log(error.message);
       });
   };
+
+  const handleApproval = (id) => {
+    const updateInfo = { status: "approve" };
+    updateRiderStatus(id, updateInfo);
+  };
   const handleReject = (id) => {
     const updateInfo = { status: "reject" };
-    axiosSecure
-      .patch(`/rider/${id}`, updateInfo)
-      .then((res) => {
-        if (res.data.modifiedCount) {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            background: "switchColor",
-            title: "Rider Rejected successfully complete",
-            showConfirmButton: false,
-            timer: 1000,
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    updateRiderStatus(id, updateInfo);
   };
 
   const handleOpenModal = (id) => {
@@ -165,7 +154,7 @@ const ApproveRider = () => {
             <div className="space-y-4 text-base">
               {/* Avatar */}
               <div className="flex justify-center mb-4">
-                <div className="w-24 h-24 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center ">
+                <div className="w-20 h-20 rounded-full  border-primary/30 flex items-center justify-center overflow-hidden">
                   <img src={selectedRider.photoURL} alt="rider photo" />
                 </div>
               </div>

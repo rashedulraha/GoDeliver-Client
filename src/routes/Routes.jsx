@@ -45,7 +45,14 @@ const Routes = createBrowserRouter([
       { path: "/pricing", Component: Pricing },
       { path: "/blog", Component: Blog },
       { path: "/contact", Component: Contact },
-      { path: "/profile", Component: Profile },
+      {
+        path: "/profile",
+        element: (
+          <PrivetRoute>
+            <Profile />
+          </PrivetRoute>
+        ),
+      },
       { path: "/send-parcel", Component: SendParcel },
       {
         path: "/be-a-rider",

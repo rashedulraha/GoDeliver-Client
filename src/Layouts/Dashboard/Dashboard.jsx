@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import ThemeToggle from "../../Components/Theme/ToggleTheme";
 
 import { GoHome, GoSidebarExpand } from "react-icons/go";
@@ -69,7 +69,7 @@ const Dashboard = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <ThemeToggle />
+            <h2>{user.displayName}</h2> <ThemeToggle />
           </div>
         </nav>
 
@@ -167,7 +167,7 @@ const Dashboard = () => {
             {/* Sidebar Footer */}
             <div className="border-t border-sidebar-border flex items-center is-drawer-close:flex-col is-drawer-open:flex-row  gap-2 mt-10 py-5">
               {/* Collapsed state avatar */}
-              <div className="  justify-center">
+              <Link to={"/profile"} className="  justify-center ">
                 {user?.photoURL ? (
                   <img
                     src={user.photoURL}
@@ -179,7 +179,7 @@ const Dashboard = () => {
                     <FaUserCircle size={16} />
                   </div>
                 )}
-              </div>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right hover:bg-error/20 rounded-lg flex items-center gap-3 px-3 py-2 text-error font-semibold">

@@ -12,6 +12,7 @@ import { MdOutlineTrackChanges, MdSendAndArchive } from "react-icons/md";
 
 import { useState } from "react";
 import BeARider from "../../Button/BeARider";
+import { Bike } from "lucide-react";
 
 const dropdown = [
   { to: "", label: "Grocery Delivery" },
@@ -152,14 +153,14 @@ const Navbar = () => {
             </div>
 
             <Link to="/" className="flex items-center gap-2 font-bold text-2xl">
-              <TbTruckDelivery size={34} color="#007bff" />
+              <Bike className="text-primary" size={28} />
               <span className="hidden sm:inline">Go Deliver</span>
             </Link>
           </div>
 
           {/* Desktop Menu */}
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1 text-white/90">
+            <ul className="menu menu-horizontal px-1 text-base-content/90">
               {MenuLink}
             </ul>
           </div>

@@ -94,8 +94,8 @@ const Profile = () => {
       background: "#1e293b",
       color: "white",
       showCancelButton: true,
-      confirmButtonColor: "#14b8a6",
-      cancelButtonColor: "#f87171",
+      confirmButtonColor: "#f87171",
+      cancelButtonColor: "#14b8a6",
       confirmButtonText: "Logout",
     }).then((result) => {
       if (result.isConfirmed) {
