@@ -19,6 +19,7 @@ const ApproveRider = () => {
 
   const handleOpenModal = (id) => {
     viewOpenModal.current.showModal();
+    console.log(id);
 
     const findCurrentRider = riders.find((rider) => rider._id === id);
     setSelectedRider(findCurrentRider);
@@ -88,37 +89,80 @@ const ApproveRider = () => {
       <dialog
         ref={viewOpenModal}
         className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box relative">
-          <h3 className="font-bold text-lg mb-3">Rider Details</h3>
-
+        <div className="modal-box relative rounded-lg shadow-lg border border-base-300">
+          {/* Close Button */}
           <form method="dialog">
-            <button className="absolute top-5 right-5 p-0.5">
-              <IoIosCloseCircleOutline size={24} />
+            <button className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
+              <IoIosCloseCircleOutline size={28} />
             </button>
           </form>
 
+          {/* Header */}
+          <h3 className="font-bold text-2xl mb-6 text-center text-primary">
+            Rider Details
+          </h3>
+
+          {/* Rider Info */}
           {selectedRider && (
-            <div className="space-y-2 mt-5 text-base capitalize">
-              <p>
-                <strong>Name:</strong> {selectedRider.fastName}{" "}
-                {selectedRider.lastName}
-              </p>
-              <p>
-                <strong>Email:</strong> {selectedRider.email}
-              </p>
-              <p>
-                <strong>Phone:</strong> {selectedRider.phoneNumber}
-              </p>
-              <p>
-                <strong>Date of Birth:</strong>{" "}
-                {new Date(selectedRider.dateOfBirth).toLocaleDateString()}
-              </p>
-              <p>
-                <strong>City:</strong> {selectedRider.city}
-              </p>
-              <p>
-                <strong>Vehicle:</strong> {selectedRider.vehicle}
-              </p>
+            <div className="space-y-4 text-base">
+              {/* Avatar */}
+              <div className="flex justify-center mb-4">
+                <div className="w-24 h-24 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary font-bold text-3xl">
+                  {selectedRider.fastName[0]}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 capitalize">
+                <div>
+                  <p className="text-sm text-gray-500">Full Name</p>
+                  <p className="font-semibold">
+                    {selectedRider.fastName} {selectedRider.lastName}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-500">Email</p>
+                  <p className="font-semibold lowercase">
+                    {selectedRider.email}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-500">Phone</p>
+                  <p className="font-semibold">{selectedRider.phoneNumber}</p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-500">Date of Birth</p>
+                  <p className="font-semibold">
+                    {new Date(selectedRider.dateOfBirth).toLocaleDateString()}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-500">City</p>
+                  <p className="font-semibold">{selectedRider.city}</p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-500">Vehicle</p>
+                  <p className="font-semibold">{selectedRider.vehicle}</p>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="divider mt-6 mb-4"></div>
+
+              {/* Footer Actions */}
+              <div className="flex justify-end gap-3">
+                <button className="btn btn-sm bg-error/10 border border-error text-error hover:bg-error hover:text-base-content transition shadow-none">
+                  Reject
+                </button>
+
+                <button className="btn btn-sm bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-base-content transition shadow-none">
+                  Approve
+                </button>
+              </div>
             </div>
           )}
         </div>
