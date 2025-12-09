@@ -34,7 +34,6 @@ const HeroSection = () => {
 
   const {
     data: trackingSlides = [],
-    isLoading,
     isError,
     error,
   } = useQuery({
@@ -45,26 +44,10 @@ const HeroSection = () => {
     },
   });
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        Loading...
-      </div>
-    );
-  }
-
   if (isError) {
     return (
       <div className="flex justify-center items-center h-screen">
         Error: {error.message}
-      </div>
-    );
-  }
-
-  if (!trackingSlides || trackingSlides.length === 0) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        No tracking slides available
       </div>
     );
   }
@@ -165,7 +148,7 @@ const HeroSection = () => {
           </div>
 
           {/* Right Side - Swiper */}
-          <div data-aos="fade-left" data-aos-delay="300" className="relative">
+          <div data-aos="fade-left" className="relative">
             {/* Navigation Buttons */}
             <div className="absolute top-6 right-6 z-50 flex gap-3">
               <button
@@ -198,7 +181,6 @@ const HeroSection = () => {
             {/* Swiper Container */}
             <div className="rounded-3xl overflow-hidden shadow-2xl border border-base-300">
               <Swiper
-                // এই লাইনটি সবচেয়ে গুরুত্বপূর্ণ
                 onSwiper={(swiper) => (swiperRef.current = swiper)}
                 loop={true}
                 effect="fade"

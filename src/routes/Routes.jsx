@@ -50,7 +50,7 @@ const Routes = createBrowserRouter([
       { path: "/pricing", Component: Pricing },
       { path: "/blog", Component: Blog },
       { path: "/contact", Component: Contact },
-      { path: "/error", Component: ErrorPage }, // Add this route for the ErrorPage
+      { path: "/error", Component: ErrorPage },
       {
         path: "/profile",
         element: (

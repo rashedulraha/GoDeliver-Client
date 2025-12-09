@@ -13,6 +13,7 @@ import {
 
 import AppDownload from "./Shared/AppDownload";
 import TramsAndCondition from "./Shared/TramsAndCondition";
+import { Bike } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -27,7 +28,7 @@ const Footer = () => {
             <Link
               to="/"
               className="flex items-center gap-2 font-bold text-2xl mb-4">
-              <TbTruckDelivery size={34} />
+              <Bike className="text-primary" size={28} />
               <span>Go Deliver</span>
             </Link>
             <p className="text-base-content/50 max-w-xs">

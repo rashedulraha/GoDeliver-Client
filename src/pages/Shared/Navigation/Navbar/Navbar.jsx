@@ -96,7 +96,7 @@ const Navbar = () => {
               className="md:tooltip md:tooltip-bottom flex items-center justify-center"
               data-tip={`${displayName}`}>
               <img
-                className="-full border hover:bg-base-200 hover:text-white transition-all w-8 md:w-10 h-8 md:h-10 cursor-pointer rounded-full object-cover"
+                className="-full border hover:bg-base-200 hover:text-base-content transition-all w-8 md:w-10 h-8 md:h-10 cursor-pointer rounded-full object-cover"
                 src={photoURL}
                 alt="user Image"
               />
