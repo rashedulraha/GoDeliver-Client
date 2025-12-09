@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Container from "../../../Responsive/Container";
-import { TbTruckDelivery } from "react-icons/tb";
+
 import {
   FaFacebook,
   FaTwitter,

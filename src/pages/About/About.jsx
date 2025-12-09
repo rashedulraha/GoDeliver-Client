@@ -9,7 +9,7 @@ const About = () => {
       .then((res) => res.json())
       .then((data) => {
         setTabData(data);
-        setActiveTab(Object.keys(data)[0]); // set first tab as active
+        setActiveTab(Object.keys(data)[0]);
       })
       .catch((err) => console.error("Failed to load About content:", err));
   }, []);
@@ -17,39 +17,54 @@ const About = () => {
   const tabs = Object.keys(tabData);
 
   return (
-    <div className="min-h-screen bg-base-100 text-base-content p-6 md:p-12">
-      <div className="max-w-4xl mx-auto">
+    <section className="relative py-20 lg:py-24 bg-linear-to-br from-primary/5 via-base-100 to-accent/5">
+      <div className="container mx-auto px-4 relative z-10">
         {/* Header Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">About Us</h1>
-          <p className="text-lg md:text-xl text-base-content/50 max-w-2xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h1
+            data-aos="fade-up"
+            className="text-4xl md:text-5xl font-black text-base-content mb-6">
+            About <span className="text-primary">Us</span>
+          </h1>
+          <p
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="text-lg text-base-content/70">
             Delivering excellence since our inception, we've grown to become a
             trusted name in logistics.
           </p>
         </div>
 
         {/* Tabs Navigation */}
-        <div className="flex flex-wrap justify-center mb-8 border-b border-base-300">
+        <div
+          data-aos="fade-up"
+          data-aos-delay="200"
+          className="flex flex-wrap justify-center gap-2 mb-12">
           {tabs.map((tab) => (
             <button
               key={tab}
-              className={`px-4 py-2 font-medium text-sm md:text-base transition-colors ${
+              onClick={() => setActiveTab(tab)}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                 activeTab === tab
-                  ? "border-b-2 border-primary text-primary"
-                  : "hover:text-primary"
-              }`}
-              onClick={() => setActiveTab(tab)}>
+                  ? "bg-primary text-base-content shadow-lg"
+                  : "bg-base-100 text-base-content/70 hover:bg-base-200 hover:text-primary"
+              }`}>
               {tab}
             </button>
           ))}
         </div>
 
         {/* Content Section */}
-        <div className="bg-base-200 rounded-lg p-6 md:p-8 shadow-md">
+        <div
+          data-aos="fade-up"
+          data-aos-delay="300"
+          className="max-w-4xl mx-auto bg-base-100 rounded-2xl p-8 md:p-12 shadow-xl border border-base-300">
           <div className="space-y-4">
             {activeTab &&
               tabData[activeTab]?.map((paragraph, index) => (
-                <p key={index} className="text-base-content/50 leading-relaxed">
+                <p
+                  key={index}
+                  className="text-base-content/80 leading-relaxed text-lg">
                   {paragraph}
                 </p>
               ))}
@@ -57,11 +72,11 @@ const About = () => {
         </div>
 
         {/* Decorative Element */}
-        <div className="mt-8 flex justify-center">
+        <div className="mt-12 flex justify-center">
           <div className="h-1 w-24 bg-primary rounded-full"></div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
