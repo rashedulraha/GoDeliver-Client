@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaEye, FaUserCheck, FaUserTimes } from "react-icons/fa";
 import { useRef, useState } from "react";
-import Swal from "sweetalert2";
 import Container from "../../Responsive/Container";
 import { toast } from "react-toastify";
 

@@ -23,8 +23,6 @@ const Register = () => {
   } = useForm();
 
   const handleSubmitData = (data) => {
-    // console.log(data);
-
     const profileImage = data.image[0];
 
     registerUser(data.email, data.password)
@@ -47,6 +45,7 @@ const Register = () => {
             displayName: data.name,
             photoURL: res.data.data.url,
           };
+
           const createAt = new Date();
           const userInfo = {
             ...data,
