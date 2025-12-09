@@ -1,60 +1,74 @@
-import React from "react";
-import Container from "../../Responsive/Container";
+import React, { useEffect, useState } from "react";
+import { MapPin, Shield, Headphones } from "lucide-react";
+
+// Map string icon names to React components
+const icons = { MapPin, Shield, Headphones };
 
 const Features = () => {
+  const [features, setFeatures] = useState([]);
+
+  useEffect(() => {
+    fetch("/features.json")
+      .then((res) => res.json())
+      .then((data) => setFeatures(data))
+      .catch((err) => console.error("Failed to load features:", err));
+  }, []);
+
   return (
-    <Container>
-      <div className=" space-y-8 p-4">
-        <div className="flex flex-col lg:flex-row items-center gap-8 p-8 rounded-md border">
-          <div className="w-full lg:w-1/3 flex justify-center">
-            <img alt="Tracking Illustration" className="max-w-[220px] w-full" />
-          </div>
-
-          <div className="w-full lg:w-2/3">
-            <h2 className="text-2xl font-semibold mb-3">
-              Live Parcel Tracking
-            </h2>
-            <p className="text-base leading-relaxed">
-              Stay updated in real-time with our live parcel tracking feature.
-              From pick-up to delivery, monitor your shipment’s journey and get
-              instant status updates for complete peace of mind.
-            </p>
-          </div>
+    <section className="relative py-20 lg:py-24">
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2
+            className="text-4xl md:text-5xl font-black text-base-content mb-6"
+            data-aos="fade-up">
+            Why Choose <span className="text-primary">Go Deliver</span>
+          </h2>
+          <p
+            className="text-lg text-base-content/70"
+            data-aos="fade-up"
+            data-aos-delay="100">
+            We combine cutting-edge technology with a dedicated team to provide
+            a delivery experience you can trust.
+          </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center gap-8 p-8 rounded-md border">
-          <div className="w-full lg:w-1/3 flex justify-center">
-            <img alt="Delivery Illustration" className="max-w-[220px] w-full" />
-          </div>
+        {/* Features List */}
+        <div className="space-y-12">
+          {features.map((feature, idx) => {
+            const Icon = icons[feature.icon];
+            const isEven = feature.id % 2 === 0;
 
-          <div className="w-full lg:w-2/3">
-            <h2 className="text-2xl font-semibold mb-3">100% Safe Delivery</h2>
-            <p className="text-base leading-relaxed">
-              We ensure your parcels are handled with the utmost care and
-              delivered securely to their destination. Our reliable process
-              guarantees safe and damage-free delivery every time.
-            </p>
-          </div>
-        </div>
+            return (
+              <div
+                key={feature.id}
+                data-aos="fade-up"
+                data-aos-delay={idx * 100 + 200}
+                className={`flex flex-col items-center gap-8 lg:flex-row ${
+                  isEven ? "lg:flex-row-reverse" : ""
+                } bg-base-100 border border-base-100 p-8 lg:p-12 rounded-lg transition-all duration-300`}>
+                {/* Icon */}
+                <div className="w-full lg:w-1/3 flex justify-center">
+                  <div className="w-32 h-32 rounded-full bg-linear-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+                    {Icon && <Icon className="w-16 h-16 text-primary" />}
+                  </div>
+                </div>
 
-        <div className="flex flex-col lg:flex-row items-center gap-8 p-8 rounded-md border">
-          <div className="w-full lg:w-1/3 flex justify-center">
-            <img alt="Support Illustration" className="max-w-[220px] w-full" />
-          </div>
-
-          <div className="w-full lg:w-2/3">
-            <h2 className="text-2xl font-semibold mb-3">
-              24/7 Call Center Support
-            </h2>
-            <p className="text-base leading-relaxed">
-              Our dedicated support team is available around the clock to assist
-              you with any questions, updates, or delivery concerns—anytime you
-              need us.
-            </p>
-          </div>
+                {/* Text Content */}
+                <div className="w-full lg:w-2/3 text-center lg:text-left">
+                  <h3 className="text-3xl font-bold text-base-content mb-4">
+                    {feature.title}
+                  </h3>
+                  <p className="text-base-content/70 leading-relaxed">
+                    {feature.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </Container>
+    </section>
   );
 };
 
