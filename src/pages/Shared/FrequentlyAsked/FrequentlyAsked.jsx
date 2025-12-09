@@ -42,7 +42,7 @@ const FrequentlyAsked = () => {
               <input
                 type="radio"
                 name="faq-accordion"
-                defaultChecked={idx === 0} // first FAQ open by default
+                defaultChecked={idx === 0}
               />
               <div className="collapse-title text-lg font-semibold flex items-center gap-3">
                 <HelpCircle className="w-5 h-5 text-accent shrink-0" />

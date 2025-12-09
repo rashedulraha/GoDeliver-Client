@@ -1,64 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Calendar, Clock, User, Search, ArrowRight } from "lucide-react";
+import { Calendar, User, Search, ArrowRight } from "lucide-react";
 
-const blogPosts = [
-  {
-    id: 1,
-    title: "How to Send a Parcel in Just 2 Hours with Go Deliver",
-    excerpt:
-      "Fastest intra-city delivery in Bangladesh. Learn step-by-step how to book a parcel in minutes and get it delivered within hours.",
-    author: "Rahim Khan",
-    date: "2025-12-05",
-    readTime: "5 min read",
-    category: "Tips & Tricks",
-    image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop",
-    slug: "how-to-send-parcel-in-2-hours",
-  },
-  {
-    id: 2,
-    title: "Cheapest Way to Send Parcels Outside Dhaka",
-    excerpt:
-      "Deliver to any district or upazila starting at just ৳80. Discover the most cost-effective shipping methods for rural areas.",
-    author: "Ayesha Siddika",
-    date: "2025-11-28",
-    readTime: "8 min read",
-    category: "Guide",
-    image:
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=500&fit=crop",
-    slug: "cheapest-delivery-outside-dhaka",
-  },
-  {
-    id: 3,
-    title: "Earn ৳50,000+ Per Month as a Go Deliver Rider",
-    excerpt:
-      "Work full-time or part-time — your schedule, your choice. Learn how to join and maximize your daily earnings.",
-    author: "Karim Hossain",
-    date: "2025-11-20",
-    readTime: "6 min read",
-    category: "Rider",
-    image:
-      "https://images.unsplash.com/photo-1556742111-a301076d9d41?w=800&h=500&fit=crop",
-    slug: "earn-50k-as-rider",
-  },
-  {
-    id: 4,
-    title: "7 Ways to Avoid Parcel Delays During Eid & Festivals",
-    excerpt:
-      "Ensure your gifts and orders arrive on time during peak seasons. Follow these proven tips used by thousands of smart senders.",
-    author: "Fatema Akter",
-    date: "2025-11-15",
-    readTime: "4 min read",
-    category: "Tips & Tricks",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=500&fit=crop",
-    slug: "avoid-festival-delivery-delays",
-  },
-];
-
-const Blog = () => {
+export default function Blog() {
+  const [blogPosts, setBlogPosts] = useState([]);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    fetch("/blogPosts.json")
+      .then((res) => res.json())
+      .then((data) => setBlogPosts(data))
+      .catch((err) => console.error("Failed to load blog posts:", err));
+  }, []);
 
   const filtered = blogPosts.filter(
     (p) =>
@@ -69,7 +22,7 @@ const Blog = () => {
   return (
     <>
       {/* Hero */}
-      <section className="py-20 bg-linear-to-br from-primary/10 via-base-100 to-accent/10">
+      <section className="py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-black mb-4">
             Go Deliver <span className="text-primary">Blog</span>
@@ -108,6 +61,7 @@ const Blog = () => {
                   className="rounded-xl overflow-hidden bg-base-200 shadow-lg hover:-translate-y-2 hover:shadow-2xl transition group">
                   <img
                     src={post.image}
+                    alt={post.title}
                     className="w-full h-48 object-cover group-hover:scale-110 transition duration-500"
                   />
 
@@ -145,6 +99,4 @@ const Blog = () => {
       </section>
     </>
   );
-};
-
-export default Blog;
+}
