@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { Eye } from "lucide-react";
+
+import { GrFormClose } from "react-icons/gr";
 
 const AssignRider = () => {
   const axiosSecure = useAxiosSecure();
+  const [selectedParcel, setSelectParcel] = useState(null);
   const openModal = useRef();
   const { data: parcels = [] } = useQuery({
     queryKey: ["parcels", "delivery-pickup"],
@@ -16,8 +18,26 @@ const AssignRider = () => {
     },
   });
 
-  const handleAssignRider = () => {
+  const { data: riders = [] } = useQuery({
+    queryKey: ["rider", selectedParcel?.senderDistrict, "Available"],
+    enabled: !!selectedParcel,
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/rider?status=approve&district=${selectedParcel?.senderDistrict}&workStatus=Available`
+      );
+      console.log(res.data);
+
+      return res.data;
+    },
+  });
+
+  const handleAssignRider = (parcel) => {
+    setSelectParcel(parcel);
     openModal.current.showModal();
+  };
+
+  const handleRiderAssign = () => {
+    console.log("assign rider complete");
   };
   return (
     <div>
@@ -30,6 +50,7 @@ const AssignRider = () => {
               <th className="text-base-content">Transaction ID</th>
               <th className="text-base-content">Sender Name</th>
               <th className="text-base-content">Parcel Weight</th>
+              <th className="text-base-content">Pickup district</th>
               <th className="text-base-content">Phone Number</th>
               <th className="text-base-content">Date</th>
               <th className="text-base-content">const</th>
@@ -75,7 +96,10 @@ const AssignRider = () => {
                   </span>
                 </td>
 
-                {/* Customer Email */}
+                {/* Customer district */}
+                <td className="text-base-content">{parcel.senderDistrict}</td>
+
+                {/* Customer phone number */}
                 <td className="text-base-content">
                   {parcel.senderPhoneNumber}
                 </td>
@@ -87,23 +111,24 @@ const AssignRider = () => {
                     : "N/A"}
                   <div className="text-xs text-base-content/60">
                     {parcel.paidAt
-                      ? new Date(parcel.paidAt).toLocaleTimeString([], {
+                      ? new Date(parcel.createAt).toLocaleTimeString([], {
                           hour: "2-digit",
                           minute: "2-digit",
                         })
                       : ""}
                   </div>
                 </td>
-                <td>{parcel.deliveryStatus}</td>
+
                 {/* Customer cost */}
                 <td className="text-base-content">{parcel.cost}</td>
+                <td>{parcel.deliveryStatus}</td>
 
                 {/* parcel Status */}
                 <td>
                   <button
-                    onClick={handleAssignRider}
+                    onClick={() => handleAssignRider(parcel)}
                     className="btn btn-sm shadow-none bg-accent border-none">
-                    Assign rider
+                    Assign Rider
                   </button>
                 </td>
               </tr>
@@ -130,17 +155,55 @@ const AssignRider = () => {
       </div>
 
       {/* Open the modal using document.getElementById('ID').showModal() method */}
-
-      <dialog ref={openModal} className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
+      <dialog
+        ref={openModal}
+        className="modal modal-bottom sm:modal-middle relative">
+        <div className="modal-box max-w-3xl w-full">
+          <h3 className="font-bold text-lg">rider: {riders.length}</h3>
           <p className="py-4">
             Press ESC key or click the button below to close
           </p>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
+
+          <div className="modal-action ">
+            <div className="overflow-x-auto w-full">
+              <table className="table table-zebra table-sm w-full">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Assign</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {riders?.map((rider, index) => (
+                    <tr key={rider._id}>
+                      <th>{index + 1}</th>
+                      <td className="truncate">
+                        {rider?.firstName} {rider?.lastName}
+                      </td>
+                      <td>{rider.email}</td>
+                      <td>{rider?.phoneNumber}</td>
+                      <td>
+                        <button
+                          onClick={handleRiderAssign}
+                          className="btn btn-sm bg-accent border-none">
+                          Assign
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Close button */}
+            <form method="dialog" className="absolute top-5 right-5">
+              <button className="p-2 bg-primary/10 border border-primary hover:bg-primary transition rounded-full shadow-none">
+                <GrFormClose />
+              </button>
             </form>
           </div>
         </div>
