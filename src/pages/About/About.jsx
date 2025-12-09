@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const About = () => {
-  const [activeTab, setActiveTab] = useState("Story");
+  const [tabData, setTabData] = useState({});
+  const [activeTab, setActiveTab] = useState("");
 
-  const tabs = ["Story", "Mission", "Success", "Team & Others"];
+  useEffect(() => {
+    fetch("/about.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setTabData(data);
+        setActiveTab(Object.keys(data)[0]); // set first tab as active
+      })
+      .catch((err) => console.error("Failed to load About content:", err));
+  }, []);
 
-  const content = {
-    Story: [
-      "Our journey began with a simple promise: to make delivery fast, reliable, and stress-free. What started as a small operation has grown into a trusted partner for thousands of customers who depend on us for their critical shipments.",
-      "Through innovation and dedication, we've developed cutting-edge logistics solutions that include real-time tracking, optimized routing, and a network of professional couriers committed to excellence.",
-      "Whether it's a personal package or a business-critical delivery, we ensure every item reaches its destination on time, every time. Our commitment to quality service remains the cornerstone of our company culture.",
-    ],
-  };
+  const tabs = Object.keys(tabData);
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content p-6 md:p-12">
@@ -31,7 +34,9 @@ const About = () => {
             <button
               key={tab}
               className={`px-4 py-2 font-medium text-sm md:text-base transition-colors ${
-                activeTab === tab ? "active" : "hover:text-primary"
+                activeTab === tab
+                  ? "border-b-2 border-primary text-primary"
+                  : "hover:text-primary"
               }`}
               onClick={() => setActiveTab(tab)}>
               {tab}
@@ -41,27 +46,17 @@ const About = () => {
 
         {/* Content Section */}
         <div className="bg-base-200 rounded-lg p-6 md:p-8 shadow-md">
-          {activeTab === "Story" && (
-            <div className="space-y-4">
-              {content.Story.map((paragraph, index) => (
+          <div className="space-y-4">
+            {activeTab &&
+              tabData[activeTab]?.map((paragraph, index) => (
                 <p key={index} className="text-base-content/50 leading-relaxed">
                   {paragraph}
                 </p>
               ))}
-            </div>
-          )}
-
-          {/* Placeholder for other tabs */}
-          {activeTab !== "Story" && (
-            <div className="text-center py-8">
-              <p className="text-base-content/50">
-                Content for {activeTab} section will appear here.
-              </p>
-            </div>
-          )}
+          </div>
         </div>
 
-        {/* Additional decorative element */}
+        {/* Decorative Element */}
         <div className="mt-8 flex justify-center">
           <div className="h-1 w-24 bg-primary rounded-full"></div>
         </div>
