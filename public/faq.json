@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "question": "How long does a standard delivery take?",
+    "answer": "Standard deliveries within major cities like Dhaka and Chittagong typically take 24-48 hours. Deliveries to other districts can take 48-72 hours. You can check estimated times during the booking process."
+  },
+  {
+    "id": 2,
+    "question": "Do you offer express delivery?",
+    "answer": "Yes, we offer an express delivery option within Dhaka city, ensuring your parcel is delivered within 4-6 hours from pickup. This service is available for an additional fee."
+  },
+  {
+    "id": 3,
+    "question": "How can I track my parcel?",
+    "answer": "Once your parcel is picked up, you will receive a unique tracking ID via SMS and email. You can use this ID on our website or app to track your parcel in real-time."
+  },
+  {
+    "id": 4,
+    "question": "What is Cash on Delivery (COD)?",
+    "answer": "Cash on Delivery allows your customers to pay for the product at the time of delivery. We collect the payment on your behalf and securely deposit it to your account after a successful delivery."
+  },
+  {
+    "id": 5,
+    "question": "What happens if a parcel is lost or damaged?",
+    "answer": "We take full responsibility for the safety of your parcels. In the rare event of loss or damage, please file a claim through our support center within 48 hours. We will investigate and compensate according to our terms and conditions."
+  }
+]

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Truck, MapPin, CreditCard, Building } from "lucide-react";
+import Container from "../../Responsive/Container";
 
 const icons = {
   Truck,
@@ -20,7 +21,7 @@ export default function HowItWorks() {
 
   return (
     <section className="relative py-20 lg:py-24">
-      <div className="container mx-auto px-4 relative z-10">
+      <Container className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2
             data-aos="fade-up"
@@ -62,7 +63,7 @@ export default function HowItWorks() {
             );
           })}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

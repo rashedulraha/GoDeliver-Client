@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MapPin, Shield, Headphones } from "lucide-react";
+import Container from "../../Responsive/Container";
 
 // Map string icon names to React components
 const icons = { MapPin, Shield, Headphones };
@@ -15,9 +16,8 @@ const Features = () => {
   }, []);
 
   return (
-    <section className="relative py-20 lg:py-24">
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
+    <section className="relative py-20 lg:py-24 ">
+      <Container>
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2
             className="text-4xl md:text-5xl font-black text-base-content mb-6"
@@ -67,7 +67,7 @@ const Features = () => {
             );
           })}
         </div>
-      </div>
+      </Container>
     </section>
   );
 };
