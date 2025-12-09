@@ -2,7 +2,6 @@ import React from "react";
 import useAuth from "../Hooks/useAuth";
 import useRole from "../Hooks/useRole";
 import LoadingSpinner from "../pages/Shared/Loading/LoadingSpinner";
-import { Navigate } from "react-router-dom";
 
 const AdminRoute = ({ children }) => {
   const { loading, logoutUser } = useAuth();
