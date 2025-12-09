@@ -5,7 +5,7 @@ import LoadingSpinner from "../pages/Shared/Loading/LoadingSpinner";
 import { Navigate } from "react-router-dom";
 
 const AdminRoute = ({ children }) => {
-  const { loading } = useAuth();
+  const { loading, logoutUser } = useAuth();
   const { role, isLoading } = useRole();
 
   if (loading || isLoading) {
@@ -13,7 +13,7 @@ const AdminRoute = ({ children }) => {
   }
 
   if (role !== "admin") {
-    return <Navigate to={"/"} />;
+    return logoutUser();
   }
   return children;
 };

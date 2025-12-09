@@ -94,8 +94,8 @@ const SendParcel = () => {
   }
 
   return (
-    <section className="relative py-20 lg:py-24 bg-gradient-to-br from-primary/5 via-base-100 to-accent/5">
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="relative py-10 lg:py-24 bg-linear-to-br from-primary/5 via-base-100 to-accent/5">
+      <Container>
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h1
@@ -115,12 +115,12 @@ const SendParcel = () => {
         <div
           data-aos="fade-up"
           data-aos-delay="200"
-          className="max-w-6xl mx-auto bg-base-100 rounded-2xl shadow-xl border border-base-300 p-8 md:p-12">
+          className="w-full mx-auto bg-base-100 rounded-md  border border-base-300 p-6 md:p-10">
           <form
             onSubmit={handleSubmit(handleFormSubmit)}
             className="space-y-12">
             {/* Parcel Information */}
-            <div>
+            <div className="flex flex-col">
               <h2 className="text-2xl font-bold text-base-content mb-6 flex items-center gap-3">
                 <Package className="w-7 h-7 text-primary" />
                 Parcel Information
@@ -151,7 +151,7 @@ const SendParcel = () => {
                         className="radio radio-primary"
                       />
                       <Package className="w-5 h-5" />
-                      <span>Non-Document</span>
+                      <span className="truncate"> Non-Document</span>
                     </label>
                   </div>
                   {errors.parcelType && (
@@ -168,7 +168,7 @@ const SendParcel = () => {
                   <input
                     {...register("parcelName", { required: true })}
                     type="text"
-                    className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    className="w-full input input-md shadow-none rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50 "
                     placeholder="e.g., Important Documents"
                   />
                   {errors.parcelName && (
@@ -189,7 +189,7 @@ const SendParcel = () => {
                     })}
                     type="number"
                     step="0.1"
-                    className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    className="w-full input input-md shadow-none rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
                     placeholder="e.g., 1.5"
                   />
                   {errors.parcelWeight && (
@@ -218,7 +218,7 @@ const SendParcel = () => {
                     <input
                       {...register("senderName", { required: true })}
                       type="text"
-                      className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      className="w-full input input-md shadow-none rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
                       placeholder="Full name"
                       defaultValue={user?.displayName}
                     />
@@ -236,7 +236,7 @@ const SendParcel = () => {
                     <input
                       {...register("senderPhoneNumber", { required: true })}
                       type="tel"
-                      className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      className="w-full input input-md shadow-none rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
                       placeholder="01xxxxxxxxx"
                     />
                     {errors.senderPhoneNumber && (
@@ -253,7 +253,7 @@ const SendParcel = () => {
                     <input
                       {...register("senderEmail", { required: true })}
                       type="email"
-                      className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      className="w-full input input-md shadow-none rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
                       placeholder="your@example.com"
                       defaultValue={user?.email}
                     />
@@ -319,7 +319,7 @@ const SendParcel = () => {
                     </label>
                     <textarea
                       {...register("senderAddress", { required: true })}
-                      className="w-full p-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+                      className="w-full p-3 rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
                       placeholder="Full pickup address"
                       rows="2"
                     />
@@ -347,7 +347,7 @@ const SendParcel = () => {
                     <input
                       {...register("receiverName", { required: true })}
                       type="text"
-                      className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      className="w-full input input-md shadow-none rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
                       placeholder="Full name"
                     />
                     {errors.receiverName && (
@@ -364,7 +364,7 @@ const SendParcel = () => {
                     <input
                       {...register("receiverPhoneNumber", { required: true })}
                       type="tel"
-                      className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      className="w-full input input-md shadow-none rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
                       placeholder="01xxxxxxxxx"
                     />
                     {errors.receiverPhoneNumber && (
@@ -380,7 +380,7 @@ const SendParcel = () => {
                     <input
                       {...register("senderEmail", { required: true })}
                       type="email"
-                      className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      className="w-full input input-md shadow-none rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
                       placeholder="your@example.com"
                     />
                     {errors.senderEmail && (
@@ -445,7 +445,7 @@ const SendParcel = () => {
                     </label>
                     <textarea
                       {...register("receiverAddress", { required: true })}
-                      className="w-full p-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+                      className="w-full p-3 rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
                       placeholder="Full delivery address"
                       rows="2"
                     />
@@ -469,7 +469,7 @@ const SendParcel = () => {
             </div>
           </form>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };
