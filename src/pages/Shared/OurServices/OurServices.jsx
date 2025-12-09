@@ -26,6 +26,48 @@ const OurServices = () => {
             time.
           </p>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, idx) => {
+            const Icon = icons[service.icon]; // map string to component
+
+            return (
+              <div
+                key={idx}
+                className={`group p-8 rounded-2xl text-center transition-all duration-300 hover:-translate-y-2 border-2 ${
+                  service.highlighted
+                    ? "bg-accent/10 border-accent shadow-xl"
+                    : "bg-base-100 border-base-300 shadow-lg hover:shadow-2xl"
+                }`}>
+                <div
+                  className={`w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 ${
+                    service.highlighted
+                      ? "bg-linear-to-br from-accent/20 to-primary/20"
+                      : "bg-linear-to-br from-primary/10 to-accent/10"
+                  }`}>
+                  <Icon
+                    className={`w-10 h-10 ${
+                      service.highlighted ? "text-accent" : "text-primary"
+                    }`}
+                  />
+                </div>
+
+                <h3
+                  className={`text-xl font-bold mb-3 transition-colors ${
+                    service.highlighted
+                      ? "text-accent"
+                      : "text-base-content group-hover:text-primary"
+                  }`}>
+                  {service.title}
+                </h3>
+
+                <p className="text-sm text-base-content/70 leading-relaxed">
+                  {service.desc}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
