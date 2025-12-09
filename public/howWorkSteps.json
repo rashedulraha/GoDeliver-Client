@@ -1,0 +1,22 @@
+[
+  {
+    "icon": "Truck",
+    "title": "1. Book a Delivery",
+    "desc": "Easily book a parcel pickup through our app or website. Enter details, and we'll handle the rest."
+  },
+  {
+    "icon": "CreditCard",
+    "title": "2. Secure Payment",
+    "desc": "Choose from multiple payment options, including secure Cash on Delivery for your convenience."
+  },
+  {
+    "icon": "MapPin",
+    "title": "3. Track in Real-Time",
+    "desc": "Follow your parcel's journey in real-time. Know exactly where it is and when it will arrive."
+  },
+  {
+    "icon": "Building",
+    "title": "4. For Your Business",
+    "desc": "Integrate our API for seamless logistics. Perfect solutions for SMEs and large corporations."
+  }
+]
