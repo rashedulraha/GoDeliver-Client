@@ -16,17 +16,11 @@ import {
   Navigation,
 } from "lucide-react";
 
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
 import "swiper/css/effect-fade";
+import { Autoplay, EffectFade } from "swiper/modules";
 
-// Import required modules
-import { Autoplay, Navigation as SwiperNav, EffectFade } from "swiper/modules";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
@@ -43,226 +37,181 @@ const HeroSection = () => {
     },
   });
 
-  const nextSlide = () => {
-    if (swiperRef.current && swiperRef.current.swiper) {
-      swiperRef.current.swiper.slideNext();
-    }
-  };
-
-  const prevSlide = () => {
-    if (swiperRef.current && swiperRef.current.swiper) {
-      swiperRef.current.swiper.slidePrev();
-    }
-  };
-
-  const goToSlide = (index) => {
-    if (swiperRef.current && swiperRef.current.swiper) {
-      swiperRef.current.swiper.slideTo(index);
-    }
-  };
-
   return (
-    <section className="relative overflow-hidden bg-linear-to-br from-primary/5 via-base-100 to-accent/5">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
+    <section className="relative overflow-hidden bg-linear-to-br from-primary/5 via-base-100 to-accent/5 min-h-screen flex items-center">
+      {/* Background Blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          data-aos="fade-down"
+          data-aos-delay="300"
+          className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
+        />
         <div
           data-aos="fade-up"
-          data-aos-delay="200"
-          className="absolute top-0 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl"></div>
-        <div
-          data-aos="fade-up"
-          data-aos-delay="400"
-          className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
+          data-aos-delay="500"
+          className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
+        />
       </div>
 
-      <div className="relative container mx-auto px-4 py-10 md:py-15">
+      <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content (Unchanged) */}
-          <div
-            data-aos="fade-right"
-            data-aos-duration="1000"
-            className="space-y-8">
+          {/* Left Side */}
+          <div data-aos="fade-right" className="space-y-8">
             <div
               data-aos="zoom-in"
-              data-aos-delay="300"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium">
-              <Star className="w-4 h-4" />
-              <span>Trusted by 10,000+ Businesses</span>
+              data-aos-delay="200"
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-primary/10 text-primary font-bold">
+              <Star className="w-5 h-5" /> Trusted by 10,000+ Businesses
             </div>
 
             <h1
               data-aos="fade-up"
-              data-aos-delay="400"
-              className="text-4xl md:text-6xl font-bold text-base-content leading-tight">
+              data-aos-delay="300"
+              className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight">
               Deliver <span className="text-primary">Anywhere</span> in
-              Bangladesh
-              <span className="block text-accent">Within Hours</span>
+              Bangladesh <span className="block text-accent">Within Hours</span>
             </h1>
 
             <p
               data-aos="fade-up"
               data-aos-delay="500"
-              className="text-xl text-base-400 max-w-2xl">
+              className="text-xl text-base-content/70 max-w-2xl">
               Go Deliver is your reliable partner for door-to-door parcel
-              delivery. Book, track, and manage deliveries seamlessly across all
-              64 districts.
+              delivery across all 64 districts.
             </p>
 
-            {/* Stats */}
             <div
               data-aos="fade-up"
-              data-aos-delay="600"
-              className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {stats.map((stat, index) => (
+              data-aos-delay="700"
+              className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map((s, i) => (
                 <div
-                  key={index}
+                  key={i}
                   data-aos="zoom-in"
-                  data-aos-delay={700 + index * 100}
+                  data-aos-delay={800 + i * 100}
                   className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-primary">
-                    {stat.value}
+                  <div className="text-4xl font-bold text-primary">
+                    {s.value}
                   </div>
-                  <div className="text-sm text-base-400">{stat.label}</div>
+                  <div className="text-base-content/60 mt-1">{s.label}</div>
                 </div>
               ))}
             </div>
 
-            {/* CTA Buttons */}
             <div
               data-aos="fade-up"
-              data-aos-delay="1100"
-              className="flex flex-col sm:flex-row gap-4">
+              data-aos-delay="1000"
+              className="flex flex-wrap gap-4">
               <Link
                 to="/dashboard/parcel/add"
-                className="btn btn-primary btn-lg rounded-full px-8 group"
-                data-aos="zoom-in"
-                data-aos-delay="1200">
-                <span>Book Delivery Now</span>
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                className="btn btn-primary btn-lg rounded-full px-10">
+                Book Delivery Now{" "}
+                <ArrowRight className="ml-2 group-hover:translate-x-2 transition" />
               </Link>
-
               <Link
                 to="/auth?type=register"
-                className="btn btn-outline btn-lg rounded-full px-8 border-2"
-                data-aos="zoom-in"
-                data-aos-delay="1300">
+                className="btn btn-outline btn-lg rounded-full px-10">
                 Become a Rider
               </Link>
             </div>
 
-            {/* Features List */}
             <div
               data-aos="fade-up"
-              data-aos-delay="1400"
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {features.map((feature, index) => (
+              data-aos-delay="1200"
+              className="grid grid-cols-2 gap-4">
+              {features.map((f, i) => (
                 <div
-                  key={index}
+                  key={i}
                   data-aos="fade-right"
-                  data-aos-delay={1500 + index * 100}
+                  data-aos-delay={1300 + i * 100}
                   className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-accent shrink-0" />
-                  <span className="text-base-content">{feature}</span>
+                  <CheckCircle className="w-6 h-6 text-accent" />
+                  <span className="font-medium">{f}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right Content - Swiper Slider */}
-          <div
-            data-aos="fade-left"
-            data-aos-duration="1200"
-            data-aos-delay="300"
-            className="relative">
-            {/* Slider Navigation Buttons */}
-            <div className="absolute top-4 right-4 z-10 flex gap-2">
+          {/* Right Side - Swiper (100% Fixed) */}
+          <div data-aos="fade-left" data-aos-delay="300" className="relative">
+            {/* Controls */}
+            <div className="absolute top-6 right-6 z-50 flex gap-3">
               <button
-                onClick={prevSlide}
-                className="w-8 h-8 rounded-full bg-base-100/80 backdrop-blur-sm flex items-center justify-center hover:bg-base-200 transition-colors shadow-lg"
-                aria-label="Previous slide">
-                <ChevronLeft className="w-5 h-5 text-base-content" />
+                onClick={() => swiperRef.current?.swiper?.slidePrev()}
+                className="w-8 h-8 rounded-full bg-primary flex items-center justify-center  ">
+                <ChevronLeft />
               </button>
               <button
-                onClick={nextSlide}
-                className="w-8 h-8 rounded-full bg-base-100/80 backdrop-blur-sm flex items-center justify-center hover:bg-base-200 transition-colors shadow-lg"
-                aria-label="Next slide">
-                <ChevronRight className="w-5 h-5 text-base-content" />
+                onClick={() => swiperRef.current?.swiper?.slideNext()}
+                className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                <ChevronRight />
               </button>
             </div>
 
-            {/* Slide Indicators */}
-            <div className="absolute top-4 left-4 z-10 flex gap-2">
-              {trackingSlides?.map((slide, index) => (
+            <div className="absolute top-6 left-6 z-50 flex gap-2">
+              {trackingSlides.map((_, i) => (
                 <button
-                  key={slide.id}
-                  onClick={() => goToSlide(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    activeSlide === index ? "bg-primary w-4" : "bg-base-400/50"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
+                  key={i}
+                  onClick={() => swiperRef.current?.swiper?.slideToLoop(i)}
+                  className={`transition-all ${
+                    activeSlide === i
+                      ? "w-10 h-2 bg-primary"
+                      : "w-2 h-2 bg-base-content/40"
+                  } rounded-full`}
                 />
               ))}
             </div>
 
-            {/* Swiper Container */}
-            <div className="relative bg-base-100 rounded-3xl shadow-2xl overflow-hidden border border-base-300 pt-12">
+            {/* Swiper */}
+            <div className="rounded-3xl overflow-hidden shadow-2xl border border-base-300">
               <Swiper
                 ref={swiperRef}
-                spaceBetween={30}
+                loop={true}
                 effect="fade"
-                autoplay={{
-                  delay: 5000,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: true,
-                }}
+                fadeEffect={{ crossFade: true }}
+                autoplay={{ delay: 5000, pauseOnMouseEnter: true }}
                 modules={[Autoplay, EffectFade]}
-                onSlideChange={(swiper) => setActiveSlide(swiper.activeIndex)}
-                className="tracking-slider">
+                onSlideChange={(s) => setActiveSlide(s.realIndex)}
+                className="overflow-hidden!">
                 {trackingSlides.map((slide) => {
-                  const Icon = slide.icon;
+                  const Icon = slide.icon || Truck;
                   return (
                     <SwiperSlide key={slide.id}>
-                      <div className="p-6">
-                        {/* Tracking Card */}
-                        <div
-                          data-aos="zoom-in"
-                          data-aos-delay="500"
-                          className={`bg-linear-to-r ${slide.color} rounded-2xl p-6 text-base-content mb-6`}>
-                          <div className="flex items-center justify-between mb-4">
+                      <div className="p-8 lg:p-12">
+                        <div className={`rounded-md p-8 text-base-content`}>
+                          <div className="flex justify-between items-start mb-8">
                             <div>
-                              <h3 className="text-xl font-bold">
+                              <h3 className="text-3xl font-bold">
                                 {slide.title}
                               </h3>
-                              <p className="text-primary-content/80">
+                              <p className="text-base-content/80 mt-1">
                                 Track ID: {slide.trackingId}
                               </p>
                             </div>
-                            <Icon className="w-10 h-10" />
+                            <Icon className="w-16 h-16" />
                           </div>
 
-                          {/* Progress Bar */}
-                          <div className="mb-4">
-                            <div className="flex justify-between text-sm mb-2">
-                              <div className="flex items-center gap-1">
-                                <MapPin className="w-4 h-4" />
-                                <span>{slide.from}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <span>{slide.to}</span>
-                                <MapPin className="w-4 h-4" />
-                              </div>
+                          {/* Progress */}
+                          <div className="mt-8">
+                            <div className="flex justify-between text-sm mb-3">
+                              <span className="flex items-center gap-2">
+                                <MapPin className="w-4 h-4" /> {slide.from}
+                              </span>
+                              <span className="flex items-center gap-2">
+                                {slide.to} <MapPin className="w-4 h-4" />
+                              </span>
                             </div>
-                            <div className="h-2 bg-base-200 rounded-full overflow-hidden">
+                            <div className="h-4 bg-base-content/30 rounded-full overflow-hidden">
                               <div
-                                className="h-full bg-base-content rounded-full relative transition-all duration-1000"
+                                className="h-full bg-base-content rounded-full relative"
                                 style={{ width: `${slide.progress}%` }}>
-                                <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-base-content rounded-full"></div>
+                                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 bg-base-content rounded-full shadow-lg" />
                               </div>
                             </div>
-                            <div className="flex justify-between text-xs mt-2">
+                            <div className="flex justify-between mt-3 text-sm">
                               <span>Picked</span>
                               <span
-                                className={`px-2 py-0.5 rounded-full ${slide.statusColor} text-base-content`}>
+                                className={`px-4 py-1 rounded-full ${slide.statusColor}`}>
                                 {slide.status}
                               </span>
                               <span>Delivered</span>
@@ -270,111 +219,41 @@ const HeroSection = () => {
                           </div>
                         </div>
 
-                        {/* Parcel Info Cards */}
-                        <div className="grid grid-cols-2 gap-4 mb-6">
-                          <div
-                            data-aos="flip-left"
-                            data-aos-delay="600"
-                            className="card bg-base-200">
-                            <div className="card-body p-4">
-                              <div className="flex items-center gap-3">
-                                <Package className="w-8 h-8 text-primary" />
-                                <div>
-                                  <div className="font-semibold">
-                                    Parcel Type
-                                  </div>
-                                  <div className="text-sm text-base-400">
-                                    {slide.parcelType}
-                                  </div>
-                                </div>
-                              </div>
+                        {/* Cards */}
+                        <div className="grid grid-cols-2 gap-4 mt-8">
+                          {productsIcon.map((item, i) => (
+                            <div
+                              key={i}
+                              className="bg-base-200 rounded-2xl p-6 text-center shadow-lg">
+                              <item.Icon
+                                className={`w-12 h-12 mx-auto ${
+                                  i < 2 ? "text-primary" : "text-accent"
+                                }`}
+                              />
+                              <p className="mt-3 font-semibold">{item.label}</p>
+                              <p className="text-sm text-base-content/70">
+                                {item.value}
+                              </p>
                             </div>
-                          </div>
-
-                          <div
-                            data-aos="flip-right"
-                            data-aos-delay="700"
-                            className="card bg-base-200">
-                            <div className="card-body p-4">
-                              <div className="flex items-center gap-3">
-                                <DollarSign className="w-8 h-8 text-accent" />
-                                <div>
-                                  <div className="font-semibold">Cost</div>
-                                  <div className="text-sm text-base-400">
-                                    {slide.price}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          ))}
                         </div>
 
-                        {/* Time and Rider Cards */}
-                        <div className="grid grid-cols-2 gap-4 mb-6">
-                          <div
-                            data-aos="flip-left"
-                            data-aos-delay="800"
-                            className="card bg-base-200">
-                            <div className="card-body p-4">
-                              <div className="flex items-center gap-3">
-                                <Clock className="w-8 h-8 text-accent" />
-                                <div>
-                                  <div className="font-semibold">
-                                    Delivery Time
-                                  </div>
-                                  <div className="text-sm text-base-400">
-                                    {slide.deliveryTime}
-                                  </div>
-                                </div>
-                              </div>
+                        <div className="mt-8 bg-base-200 rounded-2xl p-6 shadow-lg flex items-center justify-between">
+                          <div className="flex items-center gap-4">
+                            <div className="w-16 h-16 rounded-full bg-linear-to-br from-primary to-accent flex-center">
+                              <Users className="w-8 h-8 text-base-content" />
+                            </div>
+                            <div>
+                              <p className="font-bold">
+                                Rider: {slide.riderName}
+                              </p>
+                              <p className="text-sm text-base-content/70">
+                                Verified Rider
+                              </p>
                             </div>
                           </div>
-
-                          <div
-                            data-aos="flip-right"
-                            data-aos-delay="900"
-                            className="card bg-base-200">
-                            <div className="card-body p-4">
-                              <div className="flex items-center gap-3">
-                                <Navigation className="w-8 h-8 text-primary" />
-                                <div>
-                                  <div className="font-semibold">Distance</div>
-                                  <div className="text-sm text-base-400">
-                                    {slide.riderDistance}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Rider Info */}
-                        <div
-                          data-aos="zoom-in-up"
-                          data-aos-delay="1000"
-                          className="card bg-base-200">
-                          <div className="card-body p-4">
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-3">
-                                <div className="avatar">
-                                  <div className="w-12 h-12 rounded-full bg-linear-to-br from-primary to-accent text-primary-content flex items-center justify-center">
-                                    <Users className="w-6 h-6" />
-                                  </div>
-                                </div>
-                                <div>
-                                  <div className="font-semibold">
-                                    Rider Assigned
-                                  </div>
-                                  <div className="text-sm text-base-400">
-                                    {slide.riderName}
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="badge badge-accent gap-1">
-                                <Shield className="w-3 h-3" />
-                                Verified
-                              </div>
-                            </div>
+                          <div className="badge badge-accent badge-lg">
+                            <Shield className="w-4 h-4" /> Verified
                           </div>
                         </div>
                       </div>
@@ -392,18 +271,44 @@ const HeroSection = () => {
 
 const stats = [
   { value: "24/7", label: "Service Available" },
-  { value: "64", label: "Districts Covered" },
-  { value: "10K+", label: "Deliveries" },
-  { value: "98%", label: "Satisfaction" },
+  { value: "64", label: "Districts" },
+  { value: "10K+", label: "Daily Orders" },
+  { value: "98%", label: "On-time" },
 ];
 
 const features = [
   "Real-time Tracking",
-  "Door-to-Door Service",
-  "Secure Delivery",
-  "Digital Proof",
+  "Door-to-Door",
+  "Secure & Insured",
+  "Digital POD",
   "Instant Booking",
   "24/7 Support",
+];
+const productsIcon = [
+  {
+    Icon: Package,
+    label: "Type",
+    // eslint-disable-next-line no-undef
+    value: slide.parcelType,
+  },
+  {
+    Icon: DollarSign,
+    label: "Cost",
+    // eslint-disable-next-line no-undef
+    value: slide.price,
+  },
+  {
+    Icon: Clock,
+    label: "Time",
+    // eslint-disable-next-line no-undef
+    value: slide.deliveryTime,
+  },
+  {
+    Icon: Navigation,
+    label: "Distance",
+    // eslint-disable-next-line no-undef
+    value: slide.riderDistance,
+  },
 ];
 
 export default HeroSection;
