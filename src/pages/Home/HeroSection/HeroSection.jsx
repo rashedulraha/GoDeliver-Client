@@ -23,13 +23,21 @@ import { Autoplay, EffectFade } from "swiper/modules";
 
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAuth from "../../../Hooks/useAuth";
 
 const HeroSection = () => {
   const [activeSlide, setActiveSlide] = useState(0);
+
   const swiperRef = useRef(null);
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
-  const { data: trackingSlides = [] } = useQuery({
+  const {
+    data: trackingSlides = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["trackingSlides"],
     queryFn: async () => {
       const res = await axiosSecure.get("/trackingSlides");
@@ -37,8 +45,32 @@ const HeroSection = () => {
     },
   });
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Error: {error.message}
+      </div>
+    );
+  }
+
+  if (!trackingSlides || trackingSlides.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        No tracking slides available
+      </div>
+    );
+  }
+
   return (
-    <section className="relative overflow-hidden bg-linear-to-br from-primary/5 via-base-100 to-accent/5 min-h-screen flex items-center">
+    <section className="relative overflow-hidden bg-linear-to-br from-primary/5 via-base-100 to-accent/5 py-20">
       {/* Background Blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
@@ -53,9 +85,9 @@ const HeroSection = () => {
         />
       </div>
 
-      <div className="container mx-auto px-4 py-16 relative z-10">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Side */}
+          {/* Left Content */}
           <div data-aos="fade-right" className="space-y-8">
             <div
               data-aos="zoom-in"
@@ -104,8 +136,8 @@ const HeroSection = () => {
               className="flex flex-wrap gap-4">
               <Link
                 to="/dashboard/parcel/add"
-                className="btn btn-primary btn-lg rounded-full px-10">
-                Book Delivery Now{" "}
+                className="btn btn-primary btn-lg rounded-full px-10 group">
+                Book Delivery Now
                 <ArrowRight className="ml-2 group-hover:translate-x-2 transition" />
               </Link>
               <Link
@@ -118,7 +150,7 @@ const HeroSection = () => {
             <div
               data-aos="fade-up"
               data-aos-delay="1200"
-              className="grid grid-cols-2 gap-4">
+              className="grid grid-cols-2 gap-6">
               {features.map((f, i) => (
                 <div
                   key={i}
@@ -132,40 +164,42 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right Side - Swiper (100% Fixed) */}
+          {/* Right Side - Swiper */}
           <div data-aos="fade-left" data-aos-delay="300" className="relative">
-            {/* Controls */}
+            {/* Navigation Buttons */}
             <div className="absolute top-6 right-6 z-50 flex gap-3">
               <button
-                onClick={() => swiperRef.current?.swiper?.slidePrev()}
-                className="w-8 h-8 rounded-full bg-primary flex items-center justify-center  ">
-                <ChevronLeft />
+                onClick={() => swiperRef.current?.slidePrev()}
+                className="w-12 h-12 rounded-full bg-base-100 shadow-xl border border-base-300 flex items-center justify-center hover:scale-110 transition">
+                <ChevronLeft className="w-6 h-6" />
               </button>
               <button
-                onClick={() => swiperRef.current?.swiper?.slideNext()}
-                className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                <ChevronRight />
+                onClick={() => swiperRef.current?.slideNext()}
+                className="w-12 h-12 rounded-full bg-base-100 shadow-xl border border-base-300 flex items-center justify-center hover:scale-110 transition">
+                <ChevronRight className="w-6 h-6" />
               </button>
             </div>
 
+            {/* Dots */}
             <div className="absolute top-6 left-6 z-50 flex gap-2">
               {trackingSlides.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => swiperRef.current?.swiper?.slideToLoop(i)}
-                  className={`transition-all ${
+                  onClick={() => swiperRef.current?.slideToLoop(i)}
+                  className={`transition-all duration-300 ${
                     activeSlide === i
-                      ? "w-10 h-2 bg-primary"
-                      : "w-2 h-2 bg-base-content/40"
-                  } rounded-full`}
+                      ? "w-10 h-2 bg-primary rounded-full"
+                      : "w-2 h-2 bg-base-content/40 rounded-full"
+                  }`}
                 />
               ))}
             </div>
 
-            {/* Swiper */}
+            {/* Swiper Container */}
             <div className="rounded-3xl overflow-hidden shadow-2xl border border-base-300">
               <Swiper
-                ref={swiperRef}
+                // এই লাইনটি সবচেয়ে গুরুত্বপূর্ণ
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
                 loop={true}
                 effect="fade"
                 fadeEffect={{ crossFade: true }}
@@ -175,25 +209,44 @@ const HeroSection = () => {
                 className="overflow-hidden!">
                 {trackingSlides.map((slide) => {
                   const Icon = slide.icon || Truck;
+
+                  const cardItems = [
+                    {
+                      Icon: Package,
+                      label: "Parcel Type",
+                    },
+                    { Icon: DollarSign, label: "Cost", value: slide.price },
+                    {
+                      Icon: Clock,
+                      label: "Delivery Time",
+                    },
+                    {
+                      Icon: Navigation,
+                      label: "Distance",
+                    },
+                  ];
+
                   return (
                     <SwiperSlide key={slide.id}>
-                      <div className="p-8 lg:p-12">
-                        <div className={`rounded-md p-8 text-base-content`}>
-                          <div className="flex justify-between items-start mb-8">
+                      <div className="p-8 lg:p-12 bg-base-100">
+                        {/* Main Card */}
+                        <div
+                          className={`rounded-2xl p-8 bg-linear-to-r ${slide.color} text-base-content shadow-xl`}>
+                          <div className="flex justify-between items-start mb-6">
                             <div>
                               <h3 className="text-3xl font-bold">
                                 {slide.title}
                               </h3>
-                              <p className="text-base-content/80 mt-1">
+                              <p className="mt-2 opacity-90">
                                 Track ID: {slide.trackingId}
                               </p>
                             </div>
-                            <Icon className="w-16 h-16" />
+                            <Icon className="w-16 h-16 opacity-90" />
                           </div>
 
-                          {/* Progress */}
-                          <div className="mt-8">
-                            <div className="flex justify-between text-sm mb-3">
+                          {/* Progress Bar */}
+                          <div className="space-y-4">
+                            <div className="flex justify-between text-sm">
                               <span className="flex items-center gap-2">
                                 <MapPin className="w-4 h-4" /> {slide.from}
                               </span>
@@ -203,15 +256,15 @@ const HeroSection = () => {
                             </div>
                             <div className="h-4 bg-base-content/30 rounded-full overflow-hidden">
                               <div
-                                className="h-full bg-base-content rounded-full relative"
+                                className="h-full bg-base-content rounded-full relative transition-all duration-1000"
                                 style={{ width: `${slide.progress}%` }}>
                                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 bg-base-content rounded-full shadow-lg" />
                               </div>
                             </div>
-                            <div className="flex justify-between mt-3 text-sm">
+                            <div className="flex justify-between text-sm">
                               <span>Picked</span>
                               <span
-                                className={`px-4 py-1 rounded-full ${slide.statusColor}`}>
+                                className={`px-4 py-1 rounded-full ${slide.statusColor} text-base-content`}>
                                 {slide.status}
                               </span>
                               <span>Delivered</span>
@@ -219,9 +272,9 @@ const HeroSection = () => {
                           </div>
                         </div>
 
-                        {/* Cards */}
+                        {/* 4 Info Cards */}
                         <div className="grid grid-cols-2 gap-4 mt-8">
-                          {productsIcon.map((item, i) => (
+                          {cardItems.map((item, i) => (
                             <div
                               key={i}
                               className="bg-base-200 rounded-2xl p-6 text-center shadow-lg">
@@ -230,7 +283,9 @@ const HeroSection = () => {
                                   i < 2 ? "text-primary" : "text-accent"
                                 }`}
                               />
-                              <p className="mt-3 font-semibold">{item.label}</p>
+                              <p className="mt-4 font-semibold text-base-content">
+                                {item.label}
+                              </p>
                               <p className="text-sm text-base-content/70">
                                 {item.value}
                               </p>
@@ -238,21 +293,24 @@ const HeroSection = () => {
                           ))}
                         </div>
 
+                        {/* Rider Card */}
                         <div className="mt-8 bg-base-200 rounded-2xl p-6 shadow-lg flex items-center justify-between">
                           <div className="flex items-center gap-4">
-                            <div className="w-16 h-16 rounded-full bg-linear-to-br from-primary to-accent flex-center">
-                              <Users className="w-8 h-8 text-base-content" />
+                            <div className="w-16 h-16 rounded-full bg-linear-to-br from-primary to-accent flex items-center justify-center">
+                              <figure className="rounded-full overflow-hidden border border-primary">
+                                <img src={user.photoURL} alt="rashedul Islam" />
+                              </figure>
                             </div>
                             <div>
-                              <p className="font-bold">
+                              <p className="font-bold text-base-content">
                                 Rider: {slide.riderName}
                               </p>
                               <p className="text-sm text-base-content/70">
-                                Verified Rider
+                                Verified & Active
                               </p>
                             </div>
                           </div>
-                          <div className="badge badge-accent badge-lg">
+                          <div className="text-base-content p-1 px-2 flex items-center gap-1 bg-accent rounded-sm">
                             <Shield className="w-4 h-4" /> Verified
                           </div>
                         </div>
@@ -273,7 +331,7 @@ const stats = [
   { value: "24/7", label: "Service Available" },
   { value: "64", label: "Districts" },
   { value: "10K+", label: "Daily Orders" },
-  { value: "98%", label: "On-time" },
+  { value: "98%", label: "On-time Delivery" },
 ];
 
 const features = [
@@ -283,32 +341,6 @@ const features = [
   "Digital POD",
   "Instant Booking",
   "24/7 Support",
-];
-const productsIcon = [
-  {
-    Icon: Package,
-    label: "Type",
-    // eslint-disable-next-line no-undef
-    value: slide.parcelType,
-  },
-  {
-    Icon: DollarSign,
-    label: "Cost",
-    // eslint-disable-next-line no-undef
-    value: slide.price,
-  },
-  {
-    Icon: Clock,
-    label: "Time",
-    // eslint-disable-next-line no-undef
-    value: slide.deliveryTime,
-  },
-  {
-    Icon: Navigation,
-    label: "Distance",
-    // eslint-disable-next-line no-undef
-    value: slide.riderDistance,
-  },
 ];
 
 export default HeroSection;
