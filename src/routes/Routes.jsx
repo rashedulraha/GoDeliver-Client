@@ -14,7 +14,6 @@ import Blog from "../pages/Blog/Blog";
 import Contact from "../pages/Contact/Contact";
 import Profile from "../pages/Profile/Profile";
 import SendParcel from "../pages/SendParcel/SendParcel";
-
 import PrivetRoute from "../pages/Shared/PrivetRoute/PrivetRoute";
 import Rider from "../pages/Rider/Rider";
 import Dashboard from "../Layouts/Dashboard/Dashboard";
@@ -32,10 +31,11 @@ import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancel from "../pages/Dashboard/Payment/PaymentCancel";
 import PaymentHistory from "../pages/Dashboard/Payment/PaymentHistory/PaymentHistory";
 import ApproveRider from "../pages/Dashboard/ApproveRider/ApproveRider";
-import UserManagement from "../pages/Dashboard/UserManagement/UserManagement";
 import AdminRoute from "./AdminRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
+import UserManagement from "../pages/Dashboard/UserManagement/UserManagement";
+import AssignRider from "../pages/Dashboard/AssignRider/AssignRider";
 
 const Routes = createBrowserRouter([
   {
@@ -161,6 +161,14 @@ const Routes = createBrowserRouter([
         element: (
           <AdminRoute>
             <UserManagement />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "assign-rider",
+        element: (
+          <AdminRoute>
+            <AssignRider />
           </AdminRoute>
         ),
       },

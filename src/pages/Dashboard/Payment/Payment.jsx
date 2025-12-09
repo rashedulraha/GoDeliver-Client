@@ -2,25 +2,25 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "../../Shared/Loading/LoadingSpinner";
 
 const Payment = () => {
   const { parcelId } = useParams();
+
   const axiosSecure = useAxiosSecure();
 
   const { isLoading, data: parcel = {} } = useQuery({
     queryKey: ["parcel", parcelId],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcel/${parcelId}`);
+      const res = await axiosSecure.get(`/parcels/${parcelId}`);
       return res.data;
     },
   });
 
+  console.log(parcel);
+
   if (isLoading) {
-    return (
-      <div className="w-full h-[60vh] flex items-center justify-center">
-        <span className="loading loading-dots loading-lg"></span>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   const handlePayment = async () => {
@@ -32,7 +32,10 @@ const Payment = () => {
       parcelName: parcel.parcelName,
     };
 
-    const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+    const res = await axiosSecure.post(
+      "/payments/create-checkout-session",
+      paymentInfo
+    );
     window.location.href = res.data.url;
   };
 
@@ -52,14 +55,14 @@ const Payment = () => {
           <h2 className="text-lg font-semibold text-base-content">
             Parcel Name:{" "}
             <span className="text-primary font-bold capitalize">
-              {parcel.parcelName}
+              {parcel?.parcelName}
             </span>
           </h2>
 
           <p className="text-base-content mt-2">
             Total Cost:{" "}
             <span className="text-accent font-bold text-xl">
-              {parcel.cost} BDT
+              {parcel?.cost} BDT
             </span>
           </p>
         </div>

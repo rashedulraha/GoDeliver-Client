@@ -12,16 +12,13 @@ const UserManagement = () => {
   const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const {
-    data: users = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["users"],
+  const { data: users = [], error } = useQuery({
+    queryKey: ["users", searchTerm],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users`);
+      const res = await axiosSecure.get(`/users?searchText=${searchTerm}`);
       return res.data;
     },
+    enabled: searchTerm !== undefined,
   });
 
   const updateUserRole = useMutation({
@@ -73,25 +70,6 @@ const UserManagement = () => {
     });
   };
 
-  // Filter users based on search term
-  const filteredUsers = users.filter(
-    (user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  if (isLoading)
-    return (
-      <Container>
-        <div className="flex flex-col items-center justify-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mb-4"></div>
-          <h2 className="text-center text-lg font-medium text-base-content">
-            Loading users...
-          </h2>
-        </div>
-      </Container>
-    );
-
   if (error)
     return (
       <Container>
@@ -129,9 +107,7 @@ const UserManagement = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              <div className="text-base-content">
-                Total: {filteredUsers.length}
-              </div>
+              <div className="text-base-content">Total: {users.length}</div>
             </div>
           </div>
         </div>
@@ -153,7 +129,7 @@ const UserManagement = () => {
               </thead>
 
               <tbody>
-                {filteredUsers?.map((user, index) => (
+                {users?.map((user, index) => (
                   <tr
                     key={index}
                     className="hover:bg-base-200/50 transition-colors">
@@ -234,7 +210,7 @@ const UserManagement = () => {
           </div>
 
           {/* Empty state */}
-          {filteredUsers.length === 0 && (
+          {users.length === 0 && (
             <div className="text-center py-10">
               <div className="text-5xl mb-4 text-base-content/30">👥</div>
               <h3 className="text-xl font-semibold text-base-content/70 mb-2">

@@ -53,6 +53,7 @@ const PaymentHistory = () => {
                 <th className="text-base-content">Date</th>
                 <th className="text-base-content">Preview</th>
                 <th className="text-base-content">Status</th>
+                <th className="text-base-content">Delivery Status</th>
               </tr>
             </thead>
 
@@ -134,6 +135,7 @@ const PaymentHistory = () => {
                       </span>
                     )}
                   </td>
+                  <td>{payment.deliveryStatus}</td>
                 </tr>
               ))}
 

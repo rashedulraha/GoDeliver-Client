@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaEye, FaUserCheck, FaUserTimes } from "react-icons/fa";
 import { useRef, useState } from "react";
-import Swal from "sweetalert2";
 import Container from "../../Responsive/Container";
 import { toast } from "react-toastify";
 
@@ -134,6 +133,7 @@ const ApproveRider = () => {
                   <th className="text-base-content">DOB</th>
                   <th className="text-base-content">City</th>
                   <th className="text-base-content">Vehicle</th>
+                  <th className="text-base-content">Work Status</th>
                   <th className="text-base-content">Status</th>
                   <th className="text-base-content">Actions</th>
                 </tr>
@@ -175,6 +175,7 @@ const ApproveRider = () => {
                         </td>
                         <td className="text-base-content">{rider.city}</td>
                         <td className="text-base-content">{rider.vehicle}</td>
+                        <td className="text-accent">{rider.workStatus}</td>
                         <td>
                           <span
                             className={`badge badge-lg font-bold ${

@@ -37,11 +37,9 @@ const GoogleLogin = () => {
           createAt,
         };
 
-        axiosSecure.post("/users", userInfo).then((res) => {
-          console.log(res.data);
+        axiosSecure.post("/users", userInfo).then(() => {
+          toast.success("sing in successfully");
         });
-
-        toast.success("sing in successfully");
       })
       .catch(() => {
         toast.error("Network error");

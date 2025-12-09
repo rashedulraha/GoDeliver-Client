@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import { PiPasswordDuotone } from "react-icons/pi";
 import { MdSendAndArchive } from "react-icons/md";
+import { VscPersonAdd } from "react-icons/vsc";
 
 import SidebarLink from "./shared/SidebarLink/SidebarLink";
 import useAuth from "../../Hooks/useAuth";
@@ -127,6 +128,12 @@ const Dashboard = () => {
                   dataTip="User management"
                   span="users management"
                   Icon={Users}
+                />
+                <SidebarLink
+                  to="/dashboard/assign-rider"
+                  dataTip="Assign Rider"
+                  span="Assign Rider"
+                  Icon={VscPersonAdd}
                 />
               </>
             )}

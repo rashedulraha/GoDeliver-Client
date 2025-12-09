@@ -74,7 +74,7 @@ const SendParcel = () => {
       if (result.isConfirmed) {
         axiosSecure.post("/parcels", data).then((res) => {
           if (res.data.insertedId) {
-            navigate("/dashboard/parcel-to-pay");
+            navigate("/dashboard");
             Swal.fire({
               position: "top-end",
               icon: "success",

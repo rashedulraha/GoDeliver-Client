@@ -12,11 +12,12 @@ const PaymentSuccess = () => {
   useEffect(() => {
     if (sessionId) {
       axiosSecure
-        .patch(`/payment-success?session_id=${sessionId}`)
+        .patch(`/payments/payment-success?session_id=${sessionId}`)
         .then((res) => {
+          console.log(res);
+
           setPaymentInfo({
             transactionId: res.data.transactionId,
-            trackingId: res.data.trackingId,
           });
         });
     }
@@ -45,20 +46,10 @@ const PaymentSuccess = () => {
               </div>
             )}
           </p>
-
-          <p className="font-semibold text-base-content mt-4">Tracking ID:</p>
-          <p className="text-accent font-bold break-all">
-            {paymentInfo?.trackingId || (
-              <div className="flex items-center gap-2">
-                <span className="loading loading-spinner loading-sm text-secondary"></span>
-                <p>Please wait...</p>
-              </div>
-            )}
-          </p>
         </div>
 
-        <Link to="/dashboard/my-parcels">
-          <button className="btn bg-primary text-white mt-8 w-full shadow-none border-none hover:bg-primary/90">
+        <Link to="/dashboard">
+          <button className="btn bg-primary text-base-content mt-8 w-full shadow-none border-none hover:bg-primary/90">
             View My Parcels
           </button>
         </Link>
