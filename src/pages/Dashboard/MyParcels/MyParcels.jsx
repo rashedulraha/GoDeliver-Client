@@ -113,7 +113,7 @@ const MyParcels = () => {
                     ) : (
                       <Link
                         to={`/dashboard/payment/${parcel._id}`}
-                        className="btn btn-sm bg-accent text-accent-content border-accent hover:bg-accent-focus transition-all">
+                        className="btn btn-sm bg-accent text-accent-content border-accent hover:bg-accent-focus truncate shadow-none transition-all">
                         Pay Now
                       </Link>
                     )}

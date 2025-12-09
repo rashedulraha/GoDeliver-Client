@@ -35,6 +35,7 @@ import AdminRoute from "./AdminRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import UserManagement from "../pages/Dashboard/UserManagement/UserManagement";
+import AssignRider from "../pages/Dashboard/AssignRider/AssignRider";
 
 const Routes = createBrowserRouter([
   {
@@ -160,6 +161,14 @@ const Routes = createBrowserRouter([
         element: (
           <AdminRoute>
             <UserManagement />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "assign-rider",
+        element: (
+          <AdminRoute>
+            <AssignRider />
           </AdminRoute>
         ),
       },
