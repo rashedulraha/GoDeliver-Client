@@ -4,7 +4,7 @@ import ThemeToggle from "../../Components/Theme/ToggleTheme";
 
 import { GoHome, GoSidebarExpand } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
-import { Bike, HelpCircle, LocateIcon, LogOut, Users } from "lucide-react";
+import { Bike, HelpCircle, LocateIcon, Users } from "lucide-react";
 import { LiaFileInvoiceSolid, LiaStoreSolid } from "react-icons/lia";
 import {
   FaListUl,
