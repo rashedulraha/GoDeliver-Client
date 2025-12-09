@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Standard Delivery",
+    "price": "Starts at BDT 80",
+    "description": "Perfect for sending documents and small parcels within the same city.",
+    "features": [
+      "Within City Delivery",
+      "Real-time Tracking",
+      "24-48 Hour Delivery",
+      "Door-to-Door Pickup",
+      "Email & SMS Notifications"
+    ],
+    "excluded": ["Cash on Delivery", "Parcel Insurance"],
+    "popular": false
+  },
+  {
+    "id": 2,
+    "name": "Nationwide Delivery",
+    "price": "Starts at BDT 150",
+    "description": "Ideal for sending parcels to any district across Bangladesh.",
+    "features": [
+      "Nationwide Coverage (64 Districts)",
+      "Real-time Tracking",
+      "48-72 Hour Delivery",
+      "Cash on Delivery (COD)",
+      "Secure & Insured Transit"
+    ],
+    "excluded": ["API Integration", "Dedicated Support"],
+    "popular": true
+  },
+  {
+    "id": 3,
+    "name": "Business Solutions",
+    "price": "Custom",
+    "description": "Tailored logistics and fulfillment services for businesses of all sizes.",
+    "features": [
+      "API Integration",
+      "Fulfilment & Warehousing",
+      "Dedicated Account Manager",
+      "Advanced Analytics Dashboard",
+      "Custom Pricing & Billing"
+    ],
+    "excluded": [],
+    "popular": false
+  }
+]

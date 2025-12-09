@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, User, Search, ArrowRight } from "lucide-react";
+import useRole from "../../Hooks/useRole";
 
 export default function Blog() {
   const [blogPosts, setBlogPosts] = useState([]);
   const [search, setSearch] = useState("");
+  const { role } = useRole();
+  console.log(role);
 
   useEffect(() => {
     fetch("/blogPosts.json")

@@ -36,26 +36,26 @@ const Footer = () => {
               with speed and reliability.
             </p>
             <div className="flex gap-4 mt-4">
-              <a
-                href=""
+              <Link
+                to={"/"}
                 className="text-base-content/80 hover:text-accent transition-colors">
                 <FaFacebook size={20} />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to={"/"}
                 className="text-base-content/80 hover:text-accent transition-colors">
                 <FaTwitter size={20} />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to={"/"}
                 className="text-base-content/80 hover:text-accent transition-colors">
                 <FaInstagram size={20} />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to={"/"}
                 className="text-base-content/80 hover:text-accent transition-colors">
                 <FaLinkedin size={20} />
-              </a>
+              </Link>
             </div>
           </div>
           {/* Quick Links */}
