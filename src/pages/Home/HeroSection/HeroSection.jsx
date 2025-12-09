@@ -69,7 +69,7 @@ const HeroSection = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left Content */}
           <div data-aos="fade-right" className="space-y-8">
             <div
@@ -95,6 +95,7 @@ const HeroSection = () => {
               delivery across all 64 districts.
             </p>
 
+            {/* Stats */}
             <div
               data-aos="fade-up"
               data-aos-delay="700"
@@ -113,6 +114,7 @@ const HeroSection = () => {
               ))}
             </div>
 
+            {/* Buttons */}
             <div
               data-aos="fade-up"
               data-aos-delay="1000"
@@ -130,6 +132,7 @@ const HeroSection = () => {
               </Link>
             </div>
 
+            {/* Features */}
             <div
               data-aos="fade-up"
               data-aos-delay="1200"
@@ -148,8 +151,11 @@ const HeroSection = () => {
           </div>
 
           {/* Right Side - Swiper */}
-          <div data-aos="fade-left" className="relative">
-            {/* Navigation Buttons */}
+          <div
+            data-aos="fade-left"
+            data-aos-delay="300"
+            className="relative self-start">
+            {/* Navigation */}
             <div className="absolute top-6 right-6 z-50 flex gap-3">
               <button
                 onClick={() => swiperRef.current?.slidePrev()}
@@ -182,38 +188,28 @@ const HeroSection = () => {
             <div className="rounded-3xl overflow-hidden shadow-2xl border border-base-300">
               <Swiper
                 onSwiper={(swiper) => (swiperRef.current = swiper)}
-                loop={true}
+                loop={false}
                 effect="fade"
                 fadeEffect={{ crossFade: true }}
                 autoplay={{ delay: 5000, pauseOnMouseEnter: true }}
                 modules={[Autoplay, EffectFade]}
                 onSlideChange={(s) => setActiveSlide(s.realIndex)}
-                className="overflow-hidden!">
+                className="overflow-hidden">
                 {trackingSlides.map((slide) => {
                   const Icon = slide.icon || Truck;
 
                   const cardItems = [
-                    {
-                      Icon: Package,
-                      label: "Parcel Type",
-                    },
+                    { Icon: Package, label: "Parcel Type" },
                     { Icon: DollarSign, label: "Cost", value: slide.price },
-                    {
-                      Icon: Clock,
-                      label: "Delivery Time",
-                    },
-                    {
-                      Icon: Navigation,
-                      label: "Distance",
-                    },
+                    { Icon: Clock, label: "Delivery Time" },
+                    { Icon: Navigation, label: "Distance" },
                   ];
 
                   return (
                     <SwiperSlide key={slide.id}>
                       <div className="p-8 lg:p-12 bg-base-100">
                         {/* Main Card */}
-                        <div
-                          className={`rounded-2xl p-8 bg-linear-to-r ${slide.color} text-base-content shadow-xl`}>
+                        <div className={`rounded-md p-8 text-base-content l`}>
                           <div className="flex justify-between items-start mb-6">
                             <div>
                               <h3 className="text-3xl font-bold">
@@ -259,7 +255,7 @@ const HeroSection = () => {
                           {cardItems.map((item, i) => (
                             <div
                               key={i}
-                              className="bg-base-200 rounded-2xl p-6 text-center shadow-lg">
+                              className="bg-primary/10 border border-primary rounded-md p-6 text-center shadow-lg">
                               <item.Icon
                                 className={`w-12 h-12 mx-auto ${
                                   i < 2 ? "text-primary" : "text-accent"
@@ -276,11 +272,15 @@ const HeroSection = () => {
                         </div>
 
                         {/* Rider Card */}
-                        <div className="mt-8 bg-base-200 rounded-2xl p-6 shadow-lg flex items-center justify-between">
+                        <div className="mt-8 bg-accent/10 border border-accent rounded-2xl p-6 shadow-lg flex items-center justify-between">
                           <div className="flex items-center gap-4">
                             <div className="w-16 h-16 rounded-full bg-linear-to-br from-primary to-accent flex items-center justify-center">
-                              <figure className="rounded-full overflow-hidden border border-primary">
-                                <img src={user.photoURL} alt="rashedul Islam" />
+                              <figure className="rounded-full overflow-hidden border border-primary w-16 h-16">
+                                <img
+                                  src={user?.photoURL}
+                                  alt="rider"
+                                  className="w-full h-full object-cover"
+                                />
                               </figure>
                             </div>
                             <div>
