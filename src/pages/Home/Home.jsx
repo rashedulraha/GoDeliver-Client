@@ -19,7 +19,7 @@ const Home = () => {
     <div className="bg-base-200 text-base-content">
       <HeroSection />
       <HowItWorks />
-      {/* <OurServices /> */}
+      <OurServices />
       {/* <Marque /> */}
       {/* <Features /> */}
       {/* <FrequentlyAsked /> */}

@@ -1,0 +1,33 @@
+[
+  {
+    "title": "Express & Standard Delivery",
+    "desc": "We deliver parcels within 24-72 hours in major cities. Express delivery available in Dhaka within 4-6 hours.",
+    "icon": "Truck"
+  },
+  {
+    "title": "Nationwide Delivery",
+    "desc": "We deliver parcels nationwide with home delivery in every district, ensuring your products reach customers on time.",
+    "icon": "MapPin",
+    "highlighted": true
+  },
+  {
+    "title": "Fulfilment Solution",
+    "desc": "We offer customized service with inventory management, online order processing, packaging, and after-sales support.",
+    "icon": "Building"
+  },
+  {
+    "title": "Cash on Home Delivery",
+    "desc": "100% cash on delivery anywhere in Bangladesh with guaranteed safety and security for your products.",
+    "icon": "Home"
+  },
+  {
+    "title": "Corporate Logistics",
+    "desc": "Customized corporate services including warehouse and inventory management support for your business needs.",
+    "icon": "Building"
+  },
+  {
+    "title": "Parcel Return",
+    "desc": "Our reverse logistics facility allows end customers to easily return or exchange products with online merchants.",
+    "icon": "ArrowLeft"
+  }
+]
