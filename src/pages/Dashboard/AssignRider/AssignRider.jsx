@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 import LoadingSpinner from "../../Shared/Loading/LoadingSpinner";
+import { toast } from "react-toastify";
 
 const AssignRider = () => {
   const axiosSecure = useAxiosSecure();
@@ -10,7 +11,11 @@ const AssignRider = () => {
   const openModal = useRef();
   const [selectedRider, setSelectedRider] = useState(null);
 
-  const { isLoading, data: parcels = [] } = useQuery({
+  const {
+    isLoading,
+    refetch,
+    data: parcels = [],
+  } = useQuery({
     queryKey: ["parcels", "delivery-pickup"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -36,8 +41,22 @@ const AssignRider = () => {
     openModal.current?.showModal();
   };
 
-  const handleRiderAssign = () => {
-    console.log("assigning");
+  const handleRiderAssign = (rider) => {
+    const riderAssignInfo = {
+      riderId: rider._id,
+      riderEmail: rider.email,
+      riderName: rider.firstName,
+      parcelId: selectedParcel._id,
+    };
+    axiosSecure
+      .patch(`/parcels/${selectedParcel._id}`, riderAssignInfo)
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          refetch();
+          openModal.current?.close();
+          toast.success("rider has assign");
+        }
+      });
   };
 
   if (isLoading)
@@ -134,7 +153,7 @@ const AssignRider = () => {
 
                       {/* Parcel Weight */}
                       <td className="font-semibold text-base-content">
-                        {parcel.weight}{" "}
+                        {parcel.parcelWeight}
                         <span className="text-sm font-normal">kg</span>
                       </td>
 
@@ -183,7 +202,7 @@ const AssignRider = () => {
                         <button
                           onClick={() => handleAssignRider(parcel)}
                           className="btn btn-sm bg-primary/10 text-primary border-primary/30 hover:bg-primary/20">
-                          Assign Rider
+                          Find Rider
                         </button>
                       </td>
                     </tr>
@@ -225,7 +244,7 @@ const AssignRider = () => {
               </div>
               <div>
                 <p className="text-xs text-base-content/60">Weight</p>
-                <p className="font-medium">{selectedParcel?.weight} kg</p>
+                <p className="font-medium">{selectedParcel?.parcelWeight} kg</p>
               </div>
               <div>
                 <p className="text-xs text-base-content/60">Cost</p>
