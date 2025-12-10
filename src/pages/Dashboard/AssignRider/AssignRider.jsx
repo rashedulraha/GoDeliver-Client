@@ -1,207 +1,211 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-
-import LoadingSpinner from "../../Shared/Loading/LoadingSpinner";
+import {
+  Bike,
+  Package,
+  User,
+  Phone,
+  MapPin,
+  DollarSign,
+  Copy,
+} from "lucide-react";
+import Container from "../../Responsive/Container";
 import { toast } from "react-toastify";
 
 const AssignRider = () => {
   const axiosSecure = useAxiosSecure();
   const [selectedParcel, setSelectedParcel] = useState(null);
-  const openModal = useRef();
-  const [selectedRider, setSelectedRider] = useState(null);
+  const modalRef = useRef();
 
   const {
+    data: parcels = [],
     isLoading,
     refetch,
-    data: parcels = [],
   } = useQuery({
-    queryKey: ["parcels", "delivery-pickup"],
+    queryKey: ["parcels", "pending-pickup"],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/parcels?deliveryStatus=pending-pickup`
+        "/parcels?deliveryStatus=pending-pickup"
       );
       return res.data;
     },
   });
 
-  const { data: riders = [] } = useQuery({
-    queryKey: ["rider", selectedParcel?.senderDistrict, "Available"],
-    enabled: !!selectedParcel,
+  const { data: riders = [], isFetching: loadingRiders } = useQuery({
+    queryKey: ["available-riders", selectedParcel?.senderDistrict],
     queryFn: async () => {
       const res = await axiosSecure.get(
         `/rider?status=approve&district=${selectedParcel?.senderDistrict}&workStatus=Available`
       );
       return res.data;
     },
+    enabled: !!selectedParcel,
   });
 
-  const handleAssignRider = (parcel) => {
-    setSelectedParcel(parcel);
-    openModal.current?.showModal();
-  };
-
-  const handleRiderAssign = (rider) => {
-    const riderAssignInfo = {
+  const handleAssignRider = async (rider) => {
+    const assignData = {
       riderId: rider._id,
       riderEmail: rider.email,
-      riderName: rider.firstName,
+      riderName: `${rider.firstName} ${rider.lastName || ""}`.trim(),
       parcelId: selectedParcel._id,
+      deliveryStatus: "picked-up",
     };
-    axiosSecure
-      .patch(`/parcels/${selectedParcel._id}`, riderAssignInfo)
-      .then((res) => {
-        if (res.data.modifiedCount) {
-          refetch();
-          openModal.current?.close();
-          toast.success("rider has assign");
-        }
-      });
+
+    try {
+      const res = await axiosSecure.patch(
+        `/parcels/${selectedParcel._id}`,
+        assignData
+      );
+
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        toast.success(`Rider ${assignData.riderName} assigned successfully!`);
+        modalRef.current?.close();
+        setSelectedParcel(null);
+      }
+    } catch (error) {
+      toast.error("Failed to assign rider", error);
+    }
   };
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <>
-        <LoadingSpinner />
-      </>
+      <Container>
+        <div className="flex flex-col items-center justify-center py-32">
+          <span className="loading loading-spinner loading-lg text-primary"></span>
+          <p className="mt-4 text-base-content/70">
+            Loading pending parcels...
+          </p>
+        </div>
+      </Container>
     );
+  }
 
   return (
-    <div className="py-6">
-      {/* Page Header */}
-      <div className="card bg-base-100 ">
-        <div className="card-body">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h2 className="text-3xl font-bold text-base-content">
-                Assign Rider
-              </h2>
-              <p className="text-base-content/70 mt-1">
-                Assign riders to pending pickup parcels
-              </p>
-            </div>
-            <div className="text-base-content">
-              Total: {parcels?.length} parcels
+    <Container>
+      <section className="py-10 lg:py-16">
+        <div className="flex flex-col md:flex-row items-center justify-between ">
+          {/* Header */}
+          <div className="mb-6 md:mb-12">
+            <h1 className="text-4xl md:text-5xl font-black text-base-content mb-6">
+              Assign <span className="text-primary">Rider</span>
+            </h1>
+            <p className="text-lg text-base-content/70">
+              Assign available riders to parcels waiting for pickup
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-3 bg-primary/10 px-6 py-3 rounded-full border border-primary/30">
+              <Package className="w-6 h-6 text-primary" />
+              <span className="text-2xl font-bold text-primary">
+                {parcels.length}
+              </span>
+              <span className="text-base-content/80">
+                Pending Pickup Parcels
+              </span>
             </div>
           </div>
         </div>
-      </div>
+        {/* Parcels Table */}
+        <div className="bg-base-100 rounded-md border border-base-300 overflow-hidden">
+          <div className="p-6 border-b border-base-300 bg-base-200/50">
+            <h2 className="text-2xl font-bold text-base-content">
+              Parcels Awaiting Rider Assignment
+            </h2>
+          </div>
 
-      {/* Table */}
-      <div className="card bg-base-100 shadow-lg overflow-hidden mt-6">
-        <div className="card-body p-0">
           <div className="overflow-x-auto">
-            <table className="table table-zebra">
-              <thead className="bg-base-200">
-                <tr>
-                  <th className="text-base-content">#</th>
-                  <th className="text-base-content">Transaction ID</th>
-                  <th className="text-base-content">Sender Name</th>
-                  <th className="text-base-content">Parcel Weight</th>
-                  <th className="text-base-content">Pickup District</th>
-                  <th className="text-base-content">Phone Number</th>
-                  <th className="text-base-content">Date</th>
-                  <th className="text-base-content">Cost</th>
-                  <th className="text-base-content">Status</th>
-                  <th className="text-base-content">Action</th>
+            <table className="table">
+              <thead>
+                <tr className="bg-base-200">
+                  <th>#</th>
+                  <th>Tracking ID</th>
+                  <th>Sender</th>
+                  <th>Weight</th>
+                  <th>Pickup Area</th>
+                  <th>Phone</th>
+                  <th>Date</th>
+                  <th>Cost</th>
+                  <th>Status</th>
+                  <th className="text-center">Action</th>
                 </tr>
               </thead>
-
               <tbody>
-                {parcels?.length === 0 ? (
+                {parcels.length === 0 ? (
                   <tr>
-                    <td colSpan="10" className="text-center py-10">
-                      <div className="flex flex-col items-center justify-center space-y-4">
-                        <div className="text-5xl text-base-content/30">📦</div>
-                        <h3 className="text-xl font-semibold text-base-content/70">
-                          No pending parcels
+                    <td colSpan="10" className="text-center py-20">
+                      <div className="flex flex-col items-center gap-6">
+                        <Package className="w-20 h-20 text-base-content/20" />
+                        <h3 className="text-2xl font-bold text-base-content/60">
+                          No pending pickup parcels
                         </h3>
                         <p className="text-base-content/50">
-                          There are no parcels waiting for rider assignment
+                          All parcels have been assigned or are in transit
                         </p>
                       </div>
                     </td>
                   </tr>
                 ) : (
-                  parcels?.map((parcel, index) => (
-                    <tr
-                      key={parcel._id}
-                      className="hover:bg-base-200/50 transition-colors">
-                      <th className="text-base-content">{index + 1}</th>
-
-                      {/* Transaction ID */}
-                      <td className="font-mono text-primary">
-                        <div className="flex items-center">
-                          <span className="truncate max-w-[120px]">
+                  parcels.map((parcel, index) => (
+                    <tr key={parcel._id} className="hover">
+                      <td>{index + 1}</td>
+                      <td className="font-mono">
+                        <div className="flex items-center gap-2">
+                          <code className="text-primary bg-primary/10 px-2 py-1 rounded text-sm">
                             {parcel.trackingId}
-                          </span>
+                          </code>
                           <button
-                            className="ml-1 opacity-0 hover:opacity-100 transition-opacity"
                             onClick={() =>
                               navigator.clipboard.writeText(parcel.trackingId)
                             }
-                            title="Copy to clipboard">
-                            📋
+                            className="text-primary hover:text-primary/70"
+                            title="Copy">
+                            <Copy className="w-4 h-4" />
                           </button>
                         </div>
                       </td>
-
-                      {/* Sender name */}
-                      <td className="font-medium text-base-content">
-                        {parcel.senderName}
-                      </td>
-
-                      {/* Parcel Weight */}
-                      <td className="font-semibold text-base-content">
-                        {parcel.parcelWeight}
-                        <span className="text-sm font-normal">kg</span>
-                      </td>
-
-                      {/* Pickup District */}
-                      <td className="text-base-content">
-                        {parcel.senderDistrict}
-                      </td>
-
-                      {/* Phone Number */}
-                      <td className="text-base-content">
-                        {parcel.senderPhoneNumber}
-                      </td>
-
-                      {/* Date */}
-                      <td className="text-base-content">
-                        {parcel.createAt
-                          ? new Date(parcel.createAt).toLocaleDateString()
-                          : "N/A"}
-                        <div className="text-xs text-base-content/60">
-                          {parcel.createAt
-                            ? new Date(parcel.createAt).toLocaleTimeString([], {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              })
-                            : ""}
+                      <td className="font-medium">{parcel.senderName}</td>
+                      <td>{parcel.parcelWeight} kg</td>
+                      <td>
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4 text-base-content/60" />
+                          {parcel.senderDistrict}
                         </div>
                       </td>
-
-                      {/* Cost */}
-                      <td className="font-semibold text-base-content">
-                        {parcel.cost}{" "}
-                        <span className="text-sm font-normal">
-                          {parcel.currency?.toUpperCase()}
+                      <td>
+                        <div className="flex items-center gap-2">
+                          <Phone className="w-4 h-4 text-base-content/60" />
+                          {parcel.senderPhoneNumber}
+                        </div>
+                      </td>
+                      <td>
+                        {new Date(parcel.createAt).toLocaleDateString()}
+                        <div className="text-xs text-base-content/60">
+                          {new Date(parcel.createAt).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </div>
+                      </td>
+                      <td className="text-lg font-bold text-primary">
+                        ${parcel.cost}
+                      </td>
+                      <td>
+                        <span className="badge badge-warning badge-lg font-medium">
+                          Pending Pickup
                         </span>
                       </td>
-
-                      {/* Status */}
-                      <td>
-                        <span className="badge badge-warning text-warning-content">
-                          {parcel.deliveryStatus}
-                        </span>
-                      </td>
-
-                      {/* Action */}
-                      <td>
+                      <td className="text-center">
                         <button
-                          onClick={() => handleAssignRider(parcel)}
-                          className="btn btn-sm bg-primary/10 text-primary border-primary/30 hover:bg-primary/20">
+                          onClick={() => {
+                            setSelectedParcel(parcel);
+                            modalRef.current?.showModal();
+                          }}
+                          className="btn btn-primary btn-sm rounded-full px-6 shadow-none hover:shadow-lg hover:shadow-primary/20 transition-all">
+                          <Bike className="w-4 h-4" />
                           Find Rider
                         </button>
                       </td>
@@ -212,128 +216,130 @@ const AssignRider = () => {
             </table>
           </div>
         </div>
-      </div>
 
-      {/* Modal */}
-      <dialog ref={openModal} className="modal">
-        <div className="modal-box max-w-4xl bg-base-100 border border-base-300 shadow-xl">
-          <button
-            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-base-content"
-            onClick={() => {
-              openModal.current?.close();
-              setSelectedParcel(null);
-              setSelectedRider(null);
-            }}>
-            ✕
-          </button>
+        {/* Rider Selection Modal */}
+        <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box bg-base-100 border border-base-300 rounded-md shadow-xl max-w-5xl">
+            <form method="dialog">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-3 top-3">
+                Close
+              </button>
+            </form>
 
-          <h3 className="font-bold text-2xl text-center mb-6 text-primary">
-            Available Riders for {selectedParcel?.trackingId}
-          </h3>
+            {selectedParcel && (
+              <>
+                <h3 className="text-3xl font-bold text-center mb-8 text-primary">
+                  Assign Rider for Parcel
+                </h3>
 
-          <div className="mb-4 p-4 bg-base-200 rounded-lg">
-            <p className="text-sm text-base-content/70">Parcel Details</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
-              <div>
-                <p className="text-xs text-base-content/60">Sender</p>
-                <p className="font-medium">{selectedParcel?.senderName}</p>
-              </div>
-              <div>
-                <p className="text-xs text-base-content/60">Pickup District</p>
-                <p className="font-medium">{selectedParcel?.senderDistrict}</p>
-              </div>
-              <div>
-                <p className="text-xs text-base-content/60">Weight</p>
-                <p className="font-medium">{selectedParcel?.parcelWeight} kg</p>
-              </div>
-              <div>
-                <p className="text-xs text-base-content/60">Cost</p>
-                <p className="font-medium">
-                  {selectedParcel?.cost}{" "}
-                  {selectedParcel?.currency?.toUpperCase()}
-                </p>
-              </div>
-            </div>
-          </div>
+                {/* Parcel Summary */}
+                <div className="bg-base-200/50 border border-base-300 rounded-lg p-6 mb-8">
+                  <h4 className="font-semibold text-base-content mb-4 flex items-center gap-2">
+                    <Package className="w-5 h-5" /> Parcel Information
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div>
+                      <p className="text-sm text-base-content/60">
+                        Tracking ID
+                      </p>
+                      <p className="font-bold text-primary">
+                        {selectedParcel.trackingId}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-base-content/60">Sender</p>
+                      <p className="font-bold">{selectedParcel.senderName}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-base-content/60">District</p>
+                      <p className="font-bold flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
+                        {selectedParcel.senderDistrict}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-base-content/60">Amount</p>
+                      <p className="font-bold text-primary flex items-center gap-1">
+                        <DollarSign className="w-4 h-4" />
+                        {selectedParcel.cost}
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-          {riders?.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-10">
-              <div className="text-5xl text-base-content/30 mb-4">🛵</div>
-              <h3 className="text-xl font-semibold text-base-content/70">
-                No available riders
-              </h3>
-              <p className="text-base-content/50">
-                There are no available riders in this district
-              </p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="table table-zebra">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Vehicle</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
+                {/* Available Riders */}
+                <h4 className="text-xl font-bold mb-4 flex items-center gap-3">
+                  <Bike className="w-6 h-6 text-primary" />
+                  Available Riders in {selectedParcel.senderDistrict}
+                </h4>
 
-                <tbody>
-                  {riders?.map((rider, index) => (
-                    <tr
-                      key={rider._id}
-                      className={`${
-                        selectedRider?._id === rider._id ? "bg-primary/10" : ""
-                      }`}>
-                      <th>{index + 1}</th>
-                      <td className="font-medium">
-                        {rider?.firstName} {rider?.lastName}
-                      </td>
-                      <td>{rider.email}</td>
-                      <td>{rider?.phoneNumber}</td>
-                      <td>{rider?.vehicle}</td>
-                      <td>
-                        <button
-                          onClick={() => {
-                            setSelectedRider(rider);
-                            handleRiderAssign(rider);
-                          }}
-                          className={`btn btn-sm ${
-                            selectedRider?._id === rider._id
-                              ? "btn-success text-success-content"
-                              : "bg-primary/10 text-primary border-primary/30 hover:bg-primary/20"
-                          }`}>
-                          {selectedRider?._id === rider._id ? (
-                            <>
-                              <span className="loading loading-spinner loading-xs mr-1"></span>
-                              Assigning...
-                            </>
-                          ) : (
-                            "Assign"
-                          )}
+                {loadingRiders ? (
+                  <div className="text-center py-12">
+                    <span className="loading loading-spinner loading-lg text-primary"></span>
+                  </div>
+                ) : riders.length === 0 ? (
+                  <div className="text-center py-16">
+                    <Bike className="w-20 h-20 text-base-content/20 mx-auto mb-4" />
+                    <p className="text-xl font-semibold text-base-content/60">
+                      No riders available right now
+                    </p>
+                    <p className="text-base-content/50 mt-2">
+                      Try again later or check other districts
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {riders.map((rider) => (
+                      <div
+                        key={rider._id}
+                        className="bg-base-200/50 border border-base-300 rounded-xl p-6 hover:border-primary transition-all cursor-pointer"
+                        onClick={() => handleAssignRider(rider)}>
+                        <div className="flex items-center gap-4 mb-4">
+                          <div className="avatar">
+                            <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                              <img
+                                src={
+                                  rider.photoURL ||
+                                  "https://i.ibb.co.com/0jrg565/avatar.jpg"
+                                }
+                                alt="Rider"
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <h5 className="font-bold text-lg">
+                              {rider.firstName} {rider.lastName || ""}
+                            </h5>
+                            <p className="text-sm text-base-content/70">
+                              {rider.vehicle}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2 text-sm">
+                          <p className="flex items-center gap-2">
+                            <User className="w-4 h-4 text-base-content/60" />
+                            {rider.email}
+                          </p>
+                          <p className="flex items-center gap-2">
+                            <Phone className="w-4 h-4 text-base-content/60" />
+                            {rider.phoneNumber}
+                          </p>
+                        </div>
+
+                        <button className="btn btn-primary w-full mt-5 rounded-full">
+                          Assign This Rider
                         </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-
-        <form
-          method="dialog"
-          className="modal-backdrop"
-          onClick={() => {
-            setSelectedParcel(null);
-            setSelectedRider(null);
-          }}>
-          <button>close</button>
-        </form>
-      </dialog>
-    </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </dialog>
+      </section>
+    </Container>
   );
 };
 
