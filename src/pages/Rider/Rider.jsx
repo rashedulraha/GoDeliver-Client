@@ -20,11 +20,9 @@ const Rider = () => {
   const handleSubmitForm = (data) => {
     const cleanedData = {
       ...data,
-      fastName: data.fastName.trim(),
-      lastName: data.lastName.trim(),
       email: data.email.trim(),
       phoneNumber: data.phoneNumber.trim(),
-      city: data.city.trim(),
+      district: data.district.trim(),
       photoURL: user.photoURL,
     };
 
@@ -74,42 +72,14 @@ const Rider = () => {
                   <div className="form-control w-full">
                     <label className="label">
                       <span className="label-text text-sm sm:text-base">
-                        First Name
+                        Full Name
                       </span>
                     </label>
                     <input
                       type="text"
-                      {...register("fastName", { required: true })}
-                      placeholder="First name"
-                      className="input input-bordered w-full text-sm sm:text-base"
-                    />
-                  </div>
-                  <div className="form-control w-full">
-                    <label className="label">
-                      <span className="label-text text-sm sm:text-base">
-                        Last Name
-                      </span>
-                    </label>
-                    <input
-                      {...register("lastName", { required: true })}
-                      type="text"
-                      placeholder="Last name"
-                      className="input input-bordered w-full text-sm sm:text-base"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  <div className="form-control w-full">
-                    <label className="label">
-                      <span className="label-text text-sm sm:text-base">
-                        Email
-                      </span>
-                    </label>
-                    <input
-                      type="email"
-                      {...register("email", { required: true })}
-                      placeholder="your@email.com"
+                      defaultValue={user?.displayName}
+                      {...register("fullName", { required: true })}
+                      placeholder="Full  name"
                       className="input input-bordered w-full text-sm sm:text-base"
                     />
                   </div>
@@ -123,6 +93,24 @@ const Rider = () => {
                       type="tel"
                       {...register("phoneNumber", { required: true })}
                       placeholder="+880 1XXX XXXXXX"
+                      className="input input-bordered w-full text-sm sm:text-base"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="form-control w-full col-span-2">
+                    <label className="label">
+                      <span className="label-text text-sm sm:text-base">
+                        Email
+                      </span>
+                    </label>
+                    <input
+                      type="email"
+                      {...register("email", { required: true })}
+                      defaultValue={user.email}
+                      readOnly
+                      placeholder="your@email.com"
                       className="input input-bordered w-full text-sm sm:text-base"
                     />
                   </div>
@@ -144,13 +132,13 @@ const Rider = () => {
                   <div className="form-control w-full">
                     <label className="label">
                       <span className="label-text text-sm sm:text-base">
-                        City
+                        District
                       </span>
                     </label>
                     <input
                       type="text"
-                      {...register("city", { required: true })}
-                      placeholder="Your city"
+                      {...register("district", { required: true })}
+                      placeholder="Your district"
                       className="input input-bordered w-full text-sm sm:text-base"
                     />
                   </div>
@@ -203,7 +191,7 @@ const Rider = () => {
                 </div>
 
                 <div className="form-control mt-6 sm:mt-8">
-                  <button className="btn btn-primary w-full text-sm sm:text-base font-semibold">
+                  <button className="btn btn-primary w-full shadow-none text-sm sm:text-base font-semibold">
                     Submit Application
                   </button>
                 </div>

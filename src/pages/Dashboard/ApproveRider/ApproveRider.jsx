@@ -131,7 +131,7 @@ const ApproveRider = () => {
                   <th className="text-base-content">Email</th>
                   <th className="text-base-content">Phone</th>
                   <th className="text-base-content">DOB</th>
-                  <th className="text-base-content">City</th>
+                  <th className="text-base-content">District</th>
                   <th className="text-base-content">Vehicle</th>
                   <th className="text-base-content">Work Status</th>
                   <th className="text-base-content">Status</th>
@@ -143,7 +143,7 @@ const ApproveRider = () => {
                 {riders.length === 0 ? (
                   <tr>
                     <td colSpan="9" className="text-center py-10">
-                      <div className="flex flex-col items-center justify-center space-y-4">
+                      <div className="flex flex-col items-center justify-center space-y-4 mx-auto">
                         <div className="text-5xl text-base-content/30">🛵</div>
                         <h3 className="text-xl font-semibold text-base-content/70">
                           No riders found
@@ -163,8 +163,8 @@ const ApproveRider = () => {
                         key={rider._id}
                         className="hover:bg-base-200/50 transition-colors">
                         <td className="text-base-content">{index + 1}</td>
-                        <td className="font-medium text-base-content">
-                          {rider.firstName} {rider.lastName}
+                        <td className="font-medium text-base-content truncate">
+                          {rider.fullName}
                         </td>
                         <td className="text-base-content">{rider.email}</td>
                         <td className="text-base-content">
@@ -173,9 +173,18 @@ const ApproveRider = () => {
                         <td className="text-base-content">
                           {new Date(rider.dateOfBirth).toLocaleDateString()}
                         </td>
-                        <td className="text-base-content">{rider.city}</td>
+                        <td className="text-base-content">{rider.district}</td>
                         <td className="text-base-content">{rider.vehicle}</td>
-                        <td className="text-accent">{rider.workStatus}</td>
+                        <td
+                          className={`${
+                            rider.workStatus === "reject"
+                              ? "text-error"
+                              : rider.workStatus === "Available"
+                              ? "text-accent"
+                              : "text-accent"
+                          }`}>
+                          {rider.workStatus || "user"}
+                        </td>
                         <td>
                           <span
                             className={`badge badge-lg font-bold ${
@@ -270,13 +279,15 @@ const ApproveRider = () => {
                 <div className="bg-base-200 p-4 rounded-lg">
                   <p className="text-sm text-base-content/70">Full Name</p>
                   <p className="font-bold text-lg text-base-content">
-                    {selectedRider.firstName} {selectedRider.lastName}
+                    {selectedRider.fullName}
                   </p>
                 </div>
 
                 <div className="bg-base-200 p-4 rounded-lg">
                   <p className="text-sm text-base-content/70">Email</p>
-                  <p className="font-bold text-base-content">
+                  <p
+                    className="font-bold text-base-content overflow-hidden"
+                    title={selectedRider.email}>
                     {selectedRider.email}
                   </p>
                 </div>
@@ -296,9 +307,9 @@ const ApproveRider = () => {
                 </div>
 
                 <div className="bg-base-200 p-4 rounded-lg">
-                  <p className="text-sm text-base-content/70">City</p>
+                  <p className="text-sm text-base-content/70">District</p>
                   <p className="font-bold text-base-content">
-                    {selectedRider.city}
+                    {selectedRider.district}
                   </p>
                 </div>
 

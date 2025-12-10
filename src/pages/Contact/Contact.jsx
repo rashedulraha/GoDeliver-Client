@@ -53,7 +53,7 @@ const Contact = () => {
             data-aos="fade-right"
             data-aos-delay="200"
             className="lg:col-span-2">
-            <div className="bg-base-100 rounded-lg p-8 md:p-12 border border-base-300">
+            <div className="bg-base-100 rounded-md p-8 md:p-12 border border-base-300">
               <h2 className="text-2xl font-bold text-base-content mb-6 flex items-center gap-3">
                 <MessageCircle className="w-7 h-7 text-primary" />
                 Send us a Message
@@ -86,9 +86,10 @@ const Contact = () => {
                     <input
                       type="text"
                       placeholder="Rashedul Islam"
-                      className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      className="w-full input input-md rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50  shadow-none "
                       {...register("name", { required: "Name is required" })}
-                    />
+                    />{" "}
+                    shadow-none
                     {errors.name && (
                       <p className="text-error text-sm mt-1">
                         {errors.name.message}
@@ -102,7 +103,7 @@ const Contact = () => {
                     <input
                       type="email"
                       placeholder="rashedul@example.com"
-                      className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      className="w-full input input-md rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-none"
                       {...register("email", {
                         required: "Email is required",
                         pattern: {
@@ -125,7 +126,7 @@ const Contact = () => {
                   <input
                     type="text"
                     placeholder="How can we help?"
-                    className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    className="w-full input input-md rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-none"
                     {...register("subject", {
                       required: "Subject is required",
                     })}
@@ -143,7 +144,7 @@ const Contact = () => {
                   <textarea
                     rows="5"
                     placeholder="Your message here..."
-                    className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+                    className="w-full input input-md rounded-md border border-base-300 bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none shadow-none"
                     {...register("message", {
                       required: "Message is required",
                     })}
@@ -167,7 +168,7 @@ const Contact = () => {
           {/* Contact Information */}
           <div data-aos="fade-left" data-aos-delay="300" className="space-y-8">
             {/* Info Card */}
-            <div className="bg-base-100 rounded-lg p-8 shadow-xl border border-base-300">
+            <div className="bg-base-100 rounded-md p-8 shadow-xl border border-base-300">
               <h3 className="text-2xl font-bold text-base-content mb-6">
                 Contact Information
               </h3>
@@ -212,7 +213,7 @@ const Contact = () => {
             </div>
 
             {/* Social Links */}
-            <div className="bg-accent/10 rounded-lg p-8 text-center border border-accent/30">
+            <div className="bg-accent/10 rounded-md p-8 text-center border border-accent/30">
               <h3 className="text-xl font-bold text-base-content mb-4">
                 Follow Us
               </h3>
