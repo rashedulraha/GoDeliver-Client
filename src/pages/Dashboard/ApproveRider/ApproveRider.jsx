@@ -78,7 +78,7 @@ const ApproveRider = () => {
     <Container>
       <section className="py-10 lg:py-16">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className=" mb-12">
           <h1 className="text-4xl md:text-5xl font-black text-base-content mb-6">
             Rider <span className="text-primary">Approval</span>
           </h1>
@@ -152,7 +152,7 @@ const ApproveRider = () => {
                                 updateRiderStatus(rider, "approve")
                               }
                               disabled={status === "approved"}
-                              className="btn btn-sm btn-success rounded-full"
+                              className="btn btn-sm btn-success shadow-none"
                               title="Approve">
                               <FaUserCheck />
                             </button>
@@ -162,14 +162,14 @@ const ApproveRider = () => {
                               disabled={
                                 status === "reject" || status === "rejected"
                               }
-                              className="btn btn-sm btn-error rounded-full"
+                              className="btn btn-sm btn-error shadow-none "
                               title="Reject">
                               <FaUserTimes />
                             </button>
 
                             <button
                               onClick={() => handleOpenModal(rider._id)}
-                              className="btn btn-sm bg-primary/10 text-primary border border-primary/30 rounded-full hover:bg-primary/20"
+                              className="btn btn-sm bg-primary/10 text-primary border border-primary/30 shadow-none  hover:bg-primary/20"
                               title="View Details">
                               <FaEye />
                             </button>
